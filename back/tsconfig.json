@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "outDir": "bin",
+    "module": "commonjs",
+    "removeComments": false,
+    "watch": true
+  },
+  "include": ["**/*"],
+  "exclude": ["node_modules", "coverage"]
+}
