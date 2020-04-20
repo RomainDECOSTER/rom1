@@ -6,6 +6,7 @@ import IFamilyRessourcesModel from "../common/IFamilyRessourcesModel";
 import IStateModel from "./IStateModel";
 import ISocialMediationModel from "./ISocialMediationModel";
 import IEntityModel from "../IEntityModel";
+import IWorkshopModel from "../IWorkshopModel";
 
 interface IStudentModel extends IEntityModel {
   draft: boolean;
@@ -29,6 +30,7 @@ interface IStudentModel extends IEntityModel {
   schoolComment: string;
   schoolName: string;
   certification_final: string;
+  workshops: [IWorkshopModel];
   workshopsComment: string;
   level: string;
   classRoom: [string];

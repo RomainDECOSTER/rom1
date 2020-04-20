@@ -5,6 +5,7 @@ import IGeneralAvailabilitiesModel from "../common/IGeneralAvailabilitiesModel";
 import IProposedSubectModel from "./IProposedSubectModel";
 import IFamilyRessourcesModel from "../common/IFamilyRessourcesModel";
 import IStateModel from "../student/IStateModel";
+import IWorkshopModel from "../IWorkshopModel";
 class VolunteerModel {
   private _volunteer: IVolunteerModel;
 
@@ -38,5 +39,8 @@ class VolunteerModel {
   }
   get otherIntervention(): string {
     return this._volunteer.otherIntervention;
+  }
+  get workshops(): [IWorkshopModel] {
+    return this._volunteer.workshops;
   }
 }

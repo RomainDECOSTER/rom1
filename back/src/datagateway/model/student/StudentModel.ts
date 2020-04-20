@@ -6,6 +6,8 @@ import IFamilySituationModel from "./IFamilySituationModel";
 import IFamilyRessourcesModel from "../common/IFamilyRessourcesModel";
 import IStateModel from "./IStateModel";
 import ISocialMediationModel from "./ISocialMediationModel";
+import IWorkshopModel from "../IWorkshopModel";
+import { runInThisContext } from "vm";
 
 class StudentModel {
   private _student: IStudentModel;
@@ -76,6 +78,9 @@ class StudentModel {
   }
   get certification_final(): string {
     return this._student.certification_final;
+  }
+  get workshops(): [IWorkshopModel] {
+    return this._student.workshops;
   }
   get workshopsComment(): string {
     return this._student.workshopsComment;
