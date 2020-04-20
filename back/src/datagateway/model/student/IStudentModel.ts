@@ -1,6 +1,6 @@
 import IRegistrationModel from "../common/IRegistrationModel";
 import IGeneralInformationModel from "../common/IGeneralInformationModel";
-import IGeneralAvailabilities from "../common/IGeneralAvailabilitiesModel";
+import IGeneralAvailabilitiesModel from "../common/IGeneralAvailabilitiesModel";
 import IFamilySituationModel from "./IFamilySituationModel";
 import IFamilyRessourcesModel from "../common/IFamilyRessourcesModel";
 import IStateModel from "./IStateModel";
@@ -11,7 +11,7 @@ interface IStudentModel extends IEntityModel {
   draft: boolean;
   registrationInformation: IRegistrationModel;
   generalInformation: IGeneralInformationModel;
-  availabilitiesInformation: [IGeneralAvailabilities];
+  availabilitiesInformation: [IGeneralAvailabilitiesModel];
   type: String;
   familySituation: IFamilySituationModel;
   familyRessources: IFamilyRessourcesModel;

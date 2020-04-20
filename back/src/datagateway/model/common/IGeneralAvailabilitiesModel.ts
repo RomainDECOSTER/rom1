@@ -1,6 +1,6 @@
-interface IGeneralAvailabilities {
+interface IGeneralAvailabilitiesModel {
   day: string;
   hours: [];
 }
 
-export default IGeneralAvailabilities;
+export default IGeneralAvailabilitiesModel;
