@@ -18,9 +18,9 @@ class ServiceBase<T extends IEntityModel> {
     }
   }
 
-  async retrieve() {
+  async retrieve(pageNumber: number = 0, itemNumber: number = 10) {
     try {
-      const results = await this._repository.retrieve({});
+      const results = await this._repository.retrieve({}, pageNumber, itemNumber);
       return {
         data: results,
         totalNum: results.length,

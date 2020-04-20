@@ -7,6 +7,7 @@ const defaultRules: Object = {
   update: ["admin", "team"],
   remove: ["admin", "team"],
   retrieve: ["admin", "team"],
+  findById: ["admin", "team"],
 };
 
 class StudentRoutes extends RoutesBase<IStudentController> {

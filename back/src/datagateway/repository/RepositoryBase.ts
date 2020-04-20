@@ -13,8 +13,12 @@ class RepositoryBase<T extends IEntityModel> implements IRepositoryBase<T> {
     return this._model.create(item);
   }
 
-  retrieve(options: Object): Promise<IEntityModel[]> {
-    return this._model.find(options || {}).exec();
+  retrieve(options: Object, pageNumber: number = 0, itemNumber: number = 10): Promise<IEntityModel[]> {
+    return this._model
+      .find(options || {})
+      .skip(itemNumber * pageNumber - itemNumber)
+      .limit(itemNumber)
+      .exec();
   }
 
   findOne(options: any): Promise<IEntityModel> {

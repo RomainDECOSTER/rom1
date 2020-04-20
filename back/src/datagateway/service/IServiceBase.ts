@@ -4,7 +4,7 @@ interface IServiceBase<T extends IEntityModel> {
   /*
      read operation
  */
-  retrieve(): Promise<any>;
+  retrieve(pageNumber?: number, itemNumber?: number): Promise<any>;
   findById(id: string): Promise<IEntityModel>;
 
   /*
