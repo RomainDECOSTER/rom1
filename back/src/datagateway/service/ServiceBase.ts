@@ -21,9 +21,13 @@ class ServiceBase<T extends IEntityModel> {
   async retrieve(pageNumber: number = 0, itemNumber: number = 10) {
     try {
       const results = await this._repository.retrieve({}, pageNumber, itemNumber);
+      const total = await this._repository.count({});
       return {
         data: results,
-        totalNum: results.length,
+        total,
+        page: pageNumber,
+        items: itemNumber,
+        pages: Math.ceil(total / itemNumber),
       };
     } catch (error) {
       throw new Error("Retrieve service error");

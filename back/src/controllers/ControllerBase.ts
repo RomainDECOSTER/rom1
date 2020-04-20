@@ -84,10 +84,6 @@ class ControllerBase<T extends IEntityModel> {
       const pageNumber: number = parseInt(req.params.page) || 1;
       const itemNumber: number = parseInt(req.params.items) || 10;
       const entities = await this._service.retrieve(pageNumber, itemNumber);
-      entities.page = pageNumber;
-      entities.pages = Math.ceil(entities.totalNum / itemNumber);
-      entities.total = entities.totalNum;
-      delete entities.totalNum;
       this.handleResponse(res, undefined, entities);
     } catch (error) {
       this.handleResponse(res, error);
