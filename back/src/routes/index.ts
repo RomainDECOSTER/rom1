@@ -1,10 +1,12 @@
 import UserRoutes from "./UserRoutes";
 import StudentRoutes from "./StudentRoutes";
+import VolunteerRoutes from "./VolunteerRoutes";
 export = (app) => {
   require("./authentication")(app);
 
   app.use("/api", new UserRoutes().routes);
   app.use("/api", new StudentRoutes().routes);
+  app.use("/api", new VolunteerRoutes().routes);
 
   require("./test")(app);
 
