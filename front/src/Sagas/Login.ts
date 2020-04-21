@@ -3,6 +3,7 @@ import { SubmissionError, isValid, getFormError } from 'redux-form';
 import { LoginFormRoutine } from '../Routines/Login';
 import { LoginRequest } from '../Api/Users/Login';
 import { LoginDetail } from '../Types/User/Login';
+import { push } from 'connected-react-router';
 
 export function* validateLoginFormWatcherSaga() {
   //run validation on every trigger action
@@ -33,10 +34,10 @@ function* sendFormDataToServer(formData: LoginDetail) {
     // trigger request action
     yield put(LoginFormRoutine.request());
     // perform request to '/submit' to send form data
-    console.log('data', formData);
     const response: any = yield LoginRequest(formData);
     // if request successfully finished
     yield put(LoginFormRoutine.success(response.data));
+    yield put(push('/'));
   } catch (error) {
     // if request failed
     yield put(LoginFormRoutine.failure(new SubmissionError({ _error: error.message })));
