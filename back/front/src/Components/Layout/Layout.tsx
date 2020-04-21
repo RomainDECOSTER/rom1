@@ -1,5 +1,6 @@
 import React, { FunctionComponent, ReactNode } from "react";
 import { Header } from "./Header";
+import { Container } from "semantic-ui-react";
 
 interface Props {
   children: ReactNode;
@@ -8,6 +9,6 @@ interface Props {
 export const Layout: FunctionComponent<Props> = (props) => (
   <>
     <Header />
-    {props.children}
+    <Container>{props.children}</Container>
   </>
 );
