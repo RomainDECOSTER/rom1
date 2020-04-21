@@ -1,11 +1,18 @@
 const dotenv = require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 import auth from "../middleware/auth";
 const bodyParser = require("body-parser");
 const db = require("../database/connection");
 
 export = () => {
   let app = express();
+  app.use(cors());
+  app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 
   app.use(bodyParser.json());
   // app.use(expressValidator());

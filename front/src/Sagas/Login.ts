@@ -1,8 +1,8 @@
-import { takeEvery, put, call } from "redux-saga/effects";
-import { SubmissionError, isValid, getFormError } from "redux-form";
-import { LoginFormRoutine } from "../Routines/Login";
-import { LoginRequest } from "../Api/Users/Login";
-import { LoginDetail } from "../Types/User/Login";
+import { takeEvery, put, call } from 'redux-saga/effects';
+import { SubmissionError, isValid, getFormError } from 'redux-form';
+import { LoginFormRoutine } from '../Routines/Login';
+import { LoginRequest } from '../Api/Users/Login';
+import { LoginDetail } from '../Types/User/Login';
 
 export function* validateLoginFormWatcherSaga() {
   //run validation on every trigger action
@@ -33,11 +33,10 @@ function* sendFormDataToServer(formData: LoginDetail) {
     // trigger request action
     yield put(LoginFormRoutine.request());
     // perform request to '/submit' to send form data
-    console.log("data", formData);
-    const response = LoginRequest(formData);
-    console.log(response);
+    console.log('data', formData);
+    const response: any = yield LoginRequest(formData);
     // if request successfully finished
-    yield put(LoginFormRoutine.success(response));
+    yield put(LoginFormRoutine.success(response.data));
   } catch (error) {
     // if request failed
     yield put(LoginFormRoutine.failure(new SubmissionError({ _error: error.message })));
