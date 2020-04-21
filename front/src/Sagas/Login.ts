@@ -1,16 +1,28 @@
 import { takeEvery, put, call } from 'redux-saga/effects';
 import { SubmissionError, isValid, getFormError } from 'redux-form';
-import { LoginFormRoutine } from '../Routines/Login';
+import { LoginFormRoutine, LoginRoutine } from '../Routines/Login';
 import { LoginRequest } from '../Api/Users/Login';
 import { LoginDetail } from '../Types/User/Login';
 import { push } from 'connected-react-router';
+import { BaseActions } from '../Tools/BaseActions';
 
 export function* validateLoginFormWatcherSaga() {
   //run validation on every trigger action
   yield takeEvery(LoginFormRoutine.TRIGGER, validate);
 }
 
-function* validate(action: any) {
+export function* listenLoginRoutine() {
+  yield takeEvery(LoginRoutine.TRIGGER, loginRoutineStarted);
+}
+
+function* loginRoutineStarted(action: BaseActions) {
+  if (action.payload) {
+    yield put(push('/'));
+    yield put(LoginRoutine.success());
+  }
+}
+
+function* validate(action: BaseActions) {
   // redux-form pass form values and component props to submit handler
   // so they passed to trigger action as an action payload
   const { values, props } = action.payload;
@@ -38,6 +50,7 @@ function* sendFormDataToServer(formData: LoginDetail) {
     // if request successfully finished
     yield put(LoginFormRoutine.success(response.data));
     yield put(push('/'));
+    yield put(LoginRoutine.success());
   } catch (error) {
     // if request failed
     yield put(LoginFormRoutine.failure(new SubmissionError({ _error: error.message })));

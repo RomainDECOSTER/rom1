@@ -1,5 +1,5 @@
 import { BaseActions } from '../Tools/BaseActions';
-import { LoginFormRoutine } from '../Routines/Login';
+import { LoginFormRoutine, DisconnectRoutine } from '../Routines/Login';
 import { LoginSuccess } from '../Types/User/Login';
 
 export type LoginState = {
@@ -19,8 +19,9 @@ export const LoginReducer = (state: LoginState = initialState, action: BaseActio
         authentication: action.payload,
         loggedIn: true,
       };
-      console.log(newState);
       return newState;
+    case DisconnectRoutine.TRIGGER:
+      return initialState;
     default:
       return state;
   }
