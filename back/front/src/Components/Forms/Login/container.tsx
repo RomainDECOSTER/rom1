@@ -2,13 +2,12 @@ import React, { FunctionComponent } from "react";
 import { InjectedFormProps } from "redux-form";
 import { connect } from "react-redux";
 import { LoginForm } from "./component";
+import { LoginFormHandler } from "../../../Routines/Login";
 
-interface LoginContainerProps extends Pick<InjectedFormProps, "initialValues"> {
-  submitForm: any;
-}
+interface LoginContainerProps extends Pick<InjectedFormProps, "initialValues"> {}
 
-const LoginContainer: FunctionComponent<LoginContainerProps> = ({ submitForm }, props) => {
-  return <LoginForm onSubmit={submitForm} initialValues={props.initialValues} />;
+const LoginContainer: FunctionComponent<LoginContainerProps> = (props) => {
+  return <LoginForm onSubmit={LoginFormHandler} initialValues={props.initialValues} />;
 };
 
 const mapStateToProps = (state: any) => ({
