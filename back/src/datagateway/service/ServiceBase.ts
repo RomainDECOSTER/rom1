@@ -1,7 +1,7 @@
-import mongoose = require("mongoose");
 import IRepositoryBase from "../repository/IRepositoryBase";
 import IEntityModel from "../model/IEntityModel";
 import Utilities from "../model/Utilities";
+import { CommonError } from "../../tools/errors/CommonError";
 
 class ServiceBase<T extends IEntityModel> {
   private _repository: IRepositoryBase<T>;
@@ -14,7 +14,7 @@ class ServiceBase<T extends IEntityModel> {
     try {
       await this._repository.create(item);
     } catch (error) {
-      throw new Error("Create service error");
+      throw new CommonError("Create entity error", error);
     }
   }
 
@@ -30,7 +30,7 @@ class ServiceBase<T extends IEntityModel> {
         pages: Math.ceil(total / itemNumber),
       };
     } catch (error) {
-      throw new Error("Retrieve service error");
+      throw new CommonError("Retrieve service error", error);
     }
   }
 
@@ -40,10 +40,10 @@ class ServiceBase<T extends IEntityModel> {
       if (!Utilities.isNullorEmpty(entity)) {
         return this._repository.update(id, item);
       } else {
-        throw new Error("Entity not found for id " + id);
+        throw new CommonError("Entity not found for id " + id);
       }
     } catch (error) {
-      throw new Error("Update Service error");
+      throw new CommonError("Update Service error", error);
     }
   }
 
@@ -53,10 +53,10 @@ class ServiceBase<T extends IEntityModel> {
       if (!Utilities.isNullorEmpty(entity)) {
         return this._repository.remove(entityId);
       } else {
-        throw new Error("Entity not found for id " + entityId);
+        throw new CommonError("Entity not found for id " + entityId);
       }
     } catch (error) {
-      throw new Error("Remove service error");
+      throw new CommonError("Remove service error", error);
     }
   }
 
@@ -65,7 +65,7 @@ class ServiceBase<T extends IEntityModel> {
       const entity: IEntityModel = await this._repository.findById(id);
       return entity;
     } catch (error) {
-      throw new Error("FindById service error");
+      throw new CommonError("FindById service error", error);
     }
   }
 }
