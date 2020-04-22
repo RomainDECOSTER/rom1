@@ -3,3 +3,6 @@ bin
 .env
 .yarnclean
 coverage
+.env-local
+.env-dev
+.env-prod

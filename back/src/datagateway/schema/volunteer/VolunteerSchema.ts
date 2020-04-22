@@ -2,7 +2,7 @@ import { Schema, Model } from "mongoose";
 import { RegistrationSchema, GeneralInformationSchema, FamilyRessourcesSchema, GeneralAvailabilitiesSchema } from "../common";
 import ProposedSubectSchema from "./ProposedSubectSchema";
 import StateSchema from "../student/StateSchema";
-import DataAccess = require("../../../database/connection");
+const DataAccess = require("../../../database/connection");
 import IVolunteerModel from "../../model/volunteer/IVolunteerModel";
 
 class VoluteerSchema {
@@ -10,19 +10,19 @@ class VoluteerSchema {
     const schema: Schema = new Schema(
       {
         draft: {
-          type: Boolean,
+          type: Schema.Types.Boolean,
           required: true,
           default: true,
         },
         registrationInformation: { type: RegistrationSchema },
         generalInformation: { type: GeneralInformationSchema },
-        availabilitiesInformation: { type: [GeneralAvailabilitiesSchema] },
-        proposedSubject: { type: [ProposedSubectSchema] },
+        availabilitiesInformation: [{ type: GeneralAvailabilitiesSchema }],
+        proposedSubject: [{ type: ProposedSubectSchema }],
         familyRessources: FamilyRessourcesSchema,
         lifeState: StateSchema,
         workshops: [{ type: Schema.Types.ObjectId, ref: "workshops" }],
-        comment: { type: String },
-        otherIntervention: { type: String },
+        comment: { type: Schema.Types.String },
+        otherIntervention: { type: Schema.Types.String },
       },
       {
         timestamps: true,
@@ -32,6 +32,6 @@ class VoluteerSchema {
   }
 }
 
-const schema: Model<IVolunteerModel> = DataAccess.mongooseConnection.model("Volunteer", VoluteerSchema.getSchema());
+const volunteerSchema: Model<IVolunteerModel> = DataAccess.mongooseConnection.model("Volunteer", VoluteerSchema.getSchema());
 
-export default schema;
+export default volunteerSchema;
