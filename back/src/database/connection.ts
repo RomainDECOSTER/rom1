@@ -1,15 +1,9 @@
 import * as mongosse from "mongoose";
 
 import config from "../config/application";
+import { logging } from "../tools/logger/LoggerManager";
 
-// const lacle_connection = mongosse.createConnection(connectionUri, { useNewUrlParser: true, useUnifiedTopology: true }).catch((err) => {
-//   if (err.message.indexOf("ECONNREFUSED") !== -1) {
-//     console.error("Error: The server was not able to reach MongoDB. Maybe it's not running?");
-//     process.exit(1);
-//   } else {
-//     throw err;
-//   }
-// });
+const logger = logging.getLogger("database.connection");
 
 class DataAccess {
   static mongooseInstance: any;
@@ -27,7 +21,7 @@ class DataAccess {
 
     this.mongooseConnection = mongosse.connection;
     this.mongooseConnection.once("open", () => {
-      console.log("Connection to mongodb.");
+      logger.info("Connection mongodb done");
     });
 
     this.mongooseInstance = mongosse.connect(connectionUri, { useNewUrlParser: true, useUnifiedTopology: true });

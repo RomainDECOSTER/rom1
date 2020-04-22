@@ -4,6 +4,10 @@ import IServiceBase from "../datagateway/service/IServiceBase";
 import IEntityModel from "../datagateway/model/IEntityModel";
 
 import Utilities from "../datagateway/model/Utilities";
+import { CommonError } from "../tools/errors/CommonError";
+
+import { logging } from "../tools/logger/LoggerManager";
+const logger = logging.getLogger("controller.base");
 
 class ControllerBase<T extends IEntityModel> {
   private _service: IServiceBase<T>;
@@ -13,7 +17,7 @@ class ControllerBase<T extends IEntityModel> {
 
   protected handleResponse(res: express.Response, error: any = undefined, result: any = undefined): void {
     if (error !== undefined) {
-      console.log(error);
+      logger.error("Controller base error", error);
       res.statusCode = 400;
       if (error.errors) {
         res.json({ error: error });
@@ -37,7 +41,7 @@ class ControllerBase<T extends IEntityModel> {
   async create(req: express.Request, res: express.Response) {
     try {
       const entity: T = <T>req.body;
-      if (Utilities.isNullorEmpty(entity)) throw new Error("Missing required field");
+      if (Utilities.isNullorEmpty(entity)) throw new CommonError("Missing required field");
       await this._service.create(entity);
       this.handleResponse(res);
     } catch (error) {
@@ -49,7 +53,7 @@ class ControllerBase<T extends IEntityModel> {
     try {
       const entity: T = <T>req.body;
       const entityId: string = req.params.id;
-      if (Utilities.isNullorEmpty(entity)) throw new Error("Missing required field");
+      if (Utilities.isNullorEmpty(entity)) throw new CommonError("Missing required field");
       await this._service.update(entityId, entity);
       this.handleResponse(res);
     } catch (error) {
@@ -60,7 +64,7 @@ class ControllerBase<T extends IEntityModel> {
   async remove(req: express.Request, res: express.Response) {
     try {
       const entityId: string = req.params.id;
-      if (Utilities.isNullorEmpty(entityId)) throw new Error("Missing required field");
+      if (Utilities.isNullorEmpty(entityId)) throw new CommonError("Missing required field");
       await this._service.remove(entityId);
       this.handleResponse(res);
     } catch (error) {
@@ -71,7 +75,7 @@ class ControllerBase<T extends IEntityModel> {
   async findById(req: express.Request, res: express.Response) {
     try {
       const entityId: string = req.params.id;
-      if (Utilities.isNullorEmpty(entityId)) throw new Error("Missing required field");
+      if (Utilities.isNullorEmpty(entityId)) throw new CommonError("Missing required field");
       const entity = await this._service.findById(entityId);
       this.handleResponse(res, undefined, entity);
     } catch (error) {

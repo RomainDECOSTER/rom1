@@ -33,7 +33,7 @@ const paths = {
     "!./dist",
     "!./dist/**",
   ],
-  tsfiles: ["./src/config", "./src/controllers", "./src/datagateway", "./src/routes/*.ts", "./src/database", "./src/middleware", "./test"],
+  tsfiles: ["./src/config", "./src/controllers", "./src/datagateway", "./src/routes/*.ts", "./src/database", "./src/middleware", "./test", "./src/tools"],
 };
 
 const genApidoc = (done) => {
