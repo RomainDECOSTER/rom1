@@ -5,6 +5,7 @@ import { LoginRequest } from '../Api/Users/Login';
 import { LoginDetail } from '../Types/User/Login';
 import { push } from 'connected-react-router';
 import { BaseActions } from '../Tools/BaseActions';
+const jwtDecode = require('jwt-decode');
 
 export function* validateLoginFormWatcherSaga() {
   //run validation on every trigger action
@@ -49,6 +50,8 @@ function* sendFormDataToServer(formData: LoginDetail) {
     const response: any = yield LoginRequest(formData);
     // if request successfully finished
     yield put(LoginFormRoutine.success(response.data));
+    localStorage.setItem('user', JSON.stringify(jwtDecode(response.data.token)));
+    localStorage.setItem('token', JSON.stringify(response.data));
     yield put(push('/'));
     yield put(LoginRoutine.success());
   } catch (error) {

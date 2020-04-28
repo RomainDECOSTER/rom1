@@ -12,5 +12,5 @@ export default {
     JWT_SECRET: process.env.JWT_SECRET || "",
   },
   DEFAULT_TIMEZONE: process.env.DEFAULT_TIMEZONE || "Europe/Paris",
-  PORT: process.env.PORT || 8080,
+  PORT: process.env.PORT || 8081,
 };

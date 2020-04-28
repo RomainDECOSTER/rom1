@@ -48,11 +48,13 @@ class UserSchema {
 
     schema.methods.genToken = function () {
       const username = this.username;
+      const roles = this.roles;
       const expires = moment().utc().add(7, "days").unix();
       const token = jwt.encode(
         {
           exp: expires,
           username,
+          roles,
         },
         process.env.JWT_SECRET
       );
