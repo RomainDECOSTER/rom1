@@ -20,8 +20,7 @@ const HeaderComponent: FunctionComponent<Props> = (props) => {
     props.DisconnectRoutine();
   };
   useEffect(() => {
-    console.log(props.hash);
-    setActive(props.hash.replace('#/', '') === '' ? 'home' : props.hash.replace('#/', ''));
+    setActive(props.hash.replace('/', '') === '' ? 'home' : props.hash.replace('/', ''));
     if (props.loggedIn) {
       let items: JSX.Element[] = [];
       items.push(<Menu.Item key={'adminLink'} content={'Administration'} name={'admin'} active={active === 'admin'} onClick={handleClick} as={Link} to={'admin'} />);
@@ -48,10 +47,9 @@ const HeaderComponent: FunctionComponent<Props> = (props) => {
 };
 
 const mapStateToProps = (state: LacleState) => {
-  console.log(state.router.location);
   return {
     loggedIn: state.user.loggedIn,
-    hash: state.router.location.hash,
+    hash: state.router.location.pathname,
   };
 };
 const mapDispatchToProps = {

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/node": "^12.0.0",
+    "@types/node": "^13.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "axios": "^0.19.2",
@@ -12,6 +12,8 @@
     "moment-timezone": "^0.5.28",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-notification-system": "^0.3.0",
+    "react-notification-system-redux": "^2.0.1",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
@@ -44,12 +46,15 @@
   },
   "devDependencies": {
     "@types/moment-timezone": "^0.5.13",
+    "@types/react-notification-system": "^0.2.39",
+    "@types/react-notification-system-redux": "^1.1.6",
     "@types/react-redux": "^7.1.7",
     "@types/react-router-dom": "^5.1.4",
+    "@types/reapop": "^1.1.5",
     "@types/redux-saga": "^0.10.5",
     "@types/redux-saga-routines": "^3.1.0",
     "redux-devtools-extension": "^2.13.8",
     "tslint": "^6.1.1",
-    "tslint-react": "^4.2.0"
+    "tslint-react": "^5.0.0"
   }
 }

@@ -8,7 +8,7 @@ export function checkAuthorization() {
   // if it exists
   if (storedToken && storedUser) {
     // parse it down into an object
-    const authentication: LoginSuccess = { ...JSON.parse(storedToken), ...JSON.parse(storedUser) };
+    const authentication: LoginSuccess = { ...JSON.parse(storedToken), user: JSON.parse(storedUser) };
 
     // this just all works to compare the total seconds of the created
     // time of the token vs the ttl (time to live) seconds

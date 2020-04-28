@@ -17,7 +17,7 @@ ReactDOM.render(
         <App />
         <Route path="/" exact={true} component={Home} />
         <Route path="/login" exact={true} component={LoginPage} />
-        <ProtectedRoute path="/admin" exact={true} component={() => <p>Admin</p>} />
+        <ProtectedRoute roles={['admin']} path="/admin" exact={true} component={() => <p>Admin</p>} />
       </HashRouter>
     </ConnectedRouter>
   </Provider>,
