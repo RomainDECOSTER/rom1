@@ -21,6 +21,8 @@ export const LoginReducer = (state: LoginState = initialState, action: BaseActio
       };
       return newState;
     case DisconnectRoutine.TRIGGER:
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
       return initialState;
     default:
       return state;

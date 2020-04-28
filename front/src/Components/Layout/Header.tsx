@@ -8,22 +8,31 @@ import { LacleState } from '../../Types/State';
 type Props = {
   loggedIn: boolean | null;
   DisconnectRoutine: Routine;
-  pathname: string;
+  hash: string;
 };
 
 const HeaderComponent: FunctionComponent<Props> = (props) => {
   const [active, setActive] = useState<string>('home');
+  const [authItems, setAuthItem] = useState<JSX.Element[]>([]);
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, data: MenuItemProps) => setActive(String(data.name));
   const disconnect = (e: React.MouseEvent<HTMLAnchorElement>, data: MenuItemProps) => {
     handleClick(e, data);
     props.DisconnectRoutine();
   };
   useEffect(() => {
-    setActive(props.pathname.replace('/', '') === '' ? 'home' : props.pathname.replace('/', ''));
-  }, [props.pathname]);
+    console.log(props.hash);
+    setActive(props.hash.replace('#/', '') === '' ? 'home' : props.hash.replace('#/', ''));
+    if (props.loggedIn) {
+      let items: JSX.Element[] = [];
+      items.push(<Menu.Item key={'adminLink'} content={'Administration'} name={'admin'} active={active === 'admin'} onClick={handleClick} as={Link} to={'admin'} />);
+      setAuthItem(items);
+    } else {
+      setAuthItem([]);
+    }
+  }, [props.hash, props.loggedIn, active]);
   let logItem;
   if (props.loggedIn !== null && !props.loggedIn) {
-    logItem = <Menu.Item position={'right'} content={'Connexion'} name={'login'} active={active === 'login'} onClick={handleClick} as={Link} to={'/login'} />;
+    logItem = <Menu.Item position={'right'} content={'Connexion'} name={'login'} active={active === 'login'} onClick={handleClick} as={Link} to={'login'} />;
   } else {
     logItem = <Menu.Item position={'right'} content={'Deconnexion'} name={'disconnect'} active={active === 'disconnect'} onClick={disconnect} />;
   }
@@ -31,8 +40,7 @@ const HeaderComponent: FunctionComponent<Props> = (props) => {
     <>
       <Menu pointing={true} secondary={true}>
         <Menu.Item content={'Acceuil'} name={'home'} active={active === 'home'} onClick={handleClick} as={Link} to={'/'} />
-        <Menu.Item content={'Administration'} name={'admin'} active={active === 'admin'} onClick={handleClick} as={Link} to={'/admin'} />
-
+        {authItems}
         {logItem}
       </Menu>
     </>
@@ -40,9 +48,10 @@ const HeaderComponent: FunctionComponent<Props> = (props) => {
 };
 
 const mapStateToProps = (state: LacleState) => {
+  console.log(state.router.location);
   return {
     loggedIn: state.user.loggedIn,
-    pathname: state.router.location.pathname,
+    hash: state.router.location.hash,
   };
 };
 const mapDispatchToProps = {

@@ -5,7 +5,7 @@ export type LoginDetail = {
 
 export type LoginSuccess = {
   token: string;
-  exprires: string;
+  exprires: number;
   user: {
     exp: number;
     username: string;

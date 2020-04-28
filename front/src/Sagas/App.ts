@@ -1,6 +1,6 @@
 import { takeEvery, put } from 'redux-saga/effects';
 import { AppRoutine } from '../Routines/App';
-import { LoginFormRoutine } from '../Routines/Login';
+import { LoginFormRoutine, LoginRoutine } from '../Routines/Login';
 
 export function* watchAppStart() {
   yield takeEvery(AppRoutine.TRIGGER, appStarting);
@@ -12,5 +12,6 @@ function* appStarting() {
   if (user !== null && token !== null) {
     const authentication = { ...JSON.parse(token), ...JSON.parse(user) };
     yield put(LoginFormRoutine.success(authentication));
+    yield put(LoginRoutine.success());
   }
 }

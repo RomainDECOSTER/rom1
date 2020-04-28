@@ -4,15 +4,21 @@ import { Provider } from 'react-redux';
 import { App } from './App';
 import * as serviceWorker from './serviceWorker';
 import { store, history } from './store';
-import { Switch } from 'react-router-dom';
+import { HashRouter, Route } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
+import { Home } from './Scenes/Home/Home';
+import { LoginPage } from './Scenes/Login/Login';
+import { ProtectedRoute } from './Components/ProtectedRoute/ProtectedRoutes';
 
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <Switch>
+      <HashRouter>
         <App />
-      </Switch>
+        <Route path="/" exact={true} component={Home} />
+        <Route path="/login" exact={true} component={LoginPage} />
+        <ProtectedRoute path="/admin" exact={true} component={() => <p>Admin</p>} />
+      </HashRouter>
     </ConnectedRouter>
   </Provider>,
   document.getElementById('root'),
