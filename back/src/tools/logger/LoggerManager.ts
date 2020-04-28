@@ -41,8 +41,9 @@ export class LogManager extends EventEmitter {
     this.onLogEntry((logEntry) => {
       let message = logEntry.message;
       let stack = "";
-      if (logEntry.error !== undefined) {
+      if (logEntry.error !== undefined && logEntry.error.getError() !== undefined) {
         message = logEntry.error.message;
+        console.log(logEntry.error);
         stack = `\n${logEntry.error.getError().stack}`;
       }
       const msg = `${new Date().toISOString()} -- [${logEntry.module}] ${logEntry.level.toUpperCase()} ${message} ${stack}`;

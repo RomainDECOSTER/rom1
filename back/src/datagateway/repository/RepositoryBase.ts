@@ -42,7 +42,7 @@ class RepositoryBase<T extends IEntityModel> implements IRepositoryBase<T> {
   }
 
   count(cond?: Object): Promise<number> {
-    return this._model.count(cond || {}).exec();
+    return this._model.countDocuments(cond || {}).exec();
   }
 
   private toObjectId(id: string): mongoose.Types.ObjectId {

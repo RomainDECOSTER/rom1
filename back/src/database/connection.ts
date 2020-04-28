@@ -24,7 +24,7 @@ class DataAccess {
       logger.info("Connection mongodb done");
     });
 
-    this.mongooseInstance = mongosse.connect(connectionUri, { useNewUrlParser: true, useUnifiedTopology: true });
+    this.mongooseInstance = mongosse.connect(connectionUri, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
     return this.mongooseInstance;
   }
 }

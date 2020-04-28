@@ -60,7 +60,7 @@ class UserSchema {
       );
 
       return {
-        token: `JWT ${token}`,
+        token: `bearer ${token}`,
         expires: moment.unix(expires).format(),
       };
     };

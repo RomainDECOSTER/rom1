@@ -16,7 +16,7 @@ class Auth {
   private getStrategy = (): Strategy => {
     const params = {
       secretOrKey: process.env.JWT_SECRET,
-      jwtFromRequest: ExtractJwt.fromAuthHeader(),
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       passReqToCallback: true,
     };
     return new Strategy(params, (req, payload: any, done) => {
