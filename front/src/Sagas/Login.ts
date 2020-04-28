@@ -2,7 +2,7 @@ import { takeEvery, put, call } from 'redux-saga/effects';
 import { SubmissionError, isValid, getFormError } from 'redux-form';
 import { LoginFormRoutine, LoginRoutine } from '../Routines/Login';
 import { LoginRequest } from '../Api/Users/Login';
-import { LoginDetail } from '../Types/User/Login';
+import { LoginDetail, LoginSuccess } from '../Types/User/Login';
 import { push } from 'connected-react-router';
 import { BaseActions } from '../Tools/BaseActions';
 const jwtDecode = require('jwt-decode');
@@ -49,9 +49,10 @@ function* sendFormDataToServer(formData: LoginDetail) {
     // perform request to '/submit' to send form data
     const response: any = yield LoginRequest(formData);
     // if request successfully finished
-    yield put(LoginFormRoutine.success(response.data));
-    localStorage.setItem('user', JSON.stringify(jwtDecode(response.data.token)));
-    localStorage.setItem('token', JSON.stringify(response.data));
+    const authenticaton: LoginSuccess = { ...response.data, user: jwtDecode(response.data.token) };
+    yield put(LoginFormRoutine.success(authenticaton));
+    localStorage.setItem('user', JSON.stringify(authenticaton.user));
+    localStorage.setItem('token', JSON.stringify({ token: authenticaton.token, expires: authenticaton.exprires }));
     yield put(push('/'));
     yield put(LoginRoutine.success());
   } catch (error) {
