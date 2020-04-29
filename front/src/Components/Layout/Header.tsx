@@ -3,12 +3,14 @@ import { Menu, MenuItemProps } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { DisconnectRoutine } from '../../Routines/Login';
+import { UsersListRoutine } from '../../Routines/UsersRoutines';
 import { Routine } from 'redux-saga-routines';
 import { LacleState } from '../../Types/State';
 type Props = {
   loggedIn: boolean | null;
   DisconnectRoutine: Routine;
   hash: string;
+  UsersListRoutine: Routine;
 };
 
 const HeaderComponent: FunctionComponent<Props> = (props) => {
@@ -39,6 +41,7 @@ const HeaderComponent: FunctionComponent<Props> = (props) => {
     <>
       <Menu pointing={true} secondary={true}>
         <Menu.Item content={'Acceuil'} name={'home'} active={active === 'home'} onClick={handleClick} as={Link} to={'/'} />
+        <Menu.Item content={'test'} onClick={() => props.UsersListRoutine({})} />
         {authItems}
         {logItem}
       </Menu>
@@ -54,6 +57,7 @@ const mapStateToProps = (state: LacleState) => {
 };
 const mapDispatchToProps = {
   DisconnectRoutine,
+  UsersListRoutine,
 };
 
 export const Header = connect(mapStateToProps, mapDispatchToProps)(HeaderComponent);

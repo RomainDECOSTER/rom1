@@ -10,6 +10,6 @@ import { routerMiddleware } from 'connected-react-router';
 const sagaMiddleware = createSagaMiddleware();
 export const history = createHashHistory();
 export const store = createStore(rootReducer(history), {}, composeWithDevTools(applyMiddleware(sagaMiddleware), applyMiddleware(routerMiddleware(history))));
-
-sagaMiddleware.run(rootSaga);
+const sagas = rootSaga(store);
+sagaMiddleware.run(sagas);
 sagaMiddleware.run(routinePromiseWatcherSaga);
