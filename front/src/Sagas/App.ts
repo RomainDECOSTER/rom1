@@ -10,7 +10,7 @@ function* appStarting() {
   const user = localStorage.getItem('user');
   const token = localStorage.getItem('token');
   if (user !== null && token !== null) {
-    const authentication = { ...JSON.parse(token), ...JSON.parse(user) };
+    const authentication = { ...JSON.parse(token), user: JSON.parse(user) };
     yield put(LoginFormRoutine.success(authentication));
     yield put(LoginRoutine.success());
   }

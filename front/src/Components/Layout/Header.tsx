@@ -3,14 +3,13 @@ import { Menu, MenuItemProps } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { DisconnectRoutine } from '../../Routines/Login';
-import { UsersListRoutine } from '../../Routines/UsersRoutines';
 import { Routine } from 'redux-saga-routines';
 import { LacleState } from '../../Types/State';
 type Props = {
   loggedIn: boolean | null;
   DisconnectRoutine: Routine;
   hash: string;
-  UsersListRoutine: Routine;
+  userRoles: string[] | undefined;
 };
 
 const HeaderComponent: FunctionComponent<Props> = (props) => {
@@ -25,12 +24,17 @@ const HeaderComponent: FunctionComponent<Props> = (props) => {
     setActive(props.hash.replace('/', '') === '' ? 'home' : props.hash.replace('/', ''));
     if (props.loggedIn) {
       let items: JSX.Element[] = [];
-      items.push(<Menu.Item key={'adminLink'} content={'Administration'} name={'admin'} active={active === 'admin'} onClick={handleClick} as={Link} to={'admin'} />);
+      if (props.userRoles !== undefined && props.userRoles.some((role) => role === 'admin')) {
+        items.push(<Menu.Item key={'adminLink'} content={'Administration'} name={'admin'} active={active === 'admin'} onClick={handleClick} as={Link} to={'admin'} />);
+      }
+      if (props.userRoles !== undefined && props.userRoles.some((role) => role === 'team')) {
+        items.push(<Menu.Item key={'gestionLink'} content={'Gestion'} name={'gestion'} active={active === 'gestion'} onClick={handleClick} />);
+      }
       setAuthItem(items);
     } else {
       setAuthItem([]);
     }
-  }, [props.hash, props.loggedIn, active]);
+  }, [props.hash, props.loggedIn, active, props.userRoles]);
   let logItem;
   if (props.loggedIn !== null && !props.loggedIn) {
     logItem = <Menu.Item position={'right'} content={'Connexion'} name={'login'} active={active === 'login'} onClick={handleClick} as={Link} to={'login'} />;
@@ -41,7 +45,6 @@ const HeaderComponent: FunctionComponent<Props> = (props) => {
     <>
       <Menu pointing={true} secondary={true}>
         <Menu.Item content={'Acceuil'} name={'home'} active={active === 'home'} onClick={handleClick} as={Link} to={'/'} />
-        <Menu.Item content={'test'} onClick={() => props.UsersListRoutine({})} />
         {authItems}
         {logItem}
       </Menu>
@@ -52,12 +55,15 @@ const HeaderComponent: FunctionComponent<Props> = (props) => {
 const mapStateToProps = (state: LacleState) => {
   return {
     loggedIn: state.user.loggedIn,
+    userRoles:
+      state.user !== undefined && state.user.authentication !== undefined && state.user.authentication !== undefined && state.user.authentication.user !== undefined
+        ? state.user.authentication?.user.roles
+        : undefined,
     hash: state.router.location.pathname,
   };
 };
 const mapDispatchToProps = {
   DisconnectRoutine,
-  UsersListRoutine,
 };
 
 export const Header = connect(mapStateToProps, mapDispatchToProps)(HeaderComponent);

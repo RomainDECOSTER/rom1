@@ -15,7 +15,6 @@ export const LoginReducer = (state: LoginState = initialState, action: BaseActio
   switch (action.type) {
     case LoginFormRoutine.SUCCESS:
       const newState = {
-        ...state,
         authentication: action.payload,
         loggedIn: true,
       };
