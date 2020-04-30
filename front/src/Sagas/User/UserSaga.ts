@@ -6,7 +6,7 @@ import { UsersListRoutine } from '../../Routines/UsersRoutines';
 import { State } from '../../Reducers';
 
 export class UserSaga extends EntitySaga<IUserModel, IPageableIUserModel> {
-  constructor(state: State) {
+  constructor() {
     super(new UserApiService('/users'), UsersListRoutine);
   }
 }
