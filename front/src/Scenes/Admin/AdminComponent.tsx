@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import './Admin.css';
 import { Tab } from 'semantic-ui-react';
-import { UsersList } from './Users/UsersListContainer';
+import { UserPanel } from './Users/UsersPanel';
 interface Props {}
 
 const panes = [
@@ -9,7 +9,7 @@ const panes = [
     menuItem: 'Utilisateurs',
     render: () => (
       <Tab.Pane attached={false}>
-        <UsersList />
+        <UserPanel />
       </Tab.Pane>
     ),
   },
