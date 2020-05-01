@@ -9,6 +9,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import { Home } from './Scenes/Home/Home';
 import { LoginPage } from './Scenes/Login/Login';
 import { ProtectedRoute } from './Components/ProtectedRoute/ProtectedRoutes';
+import { Admin } from './Scenes/Admin/AdminComponent';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -17,7 +18,7 @@ ReactDOM.render(
         <App />
         <Route path="/" exact={true} component={Home} />
         <Route path="/login" exact={true} component={LoginPage} />
-        <ProtectedRoute roles={['admin']} path="/admin" exact={true} component={() => <p>Admin</p>} />
+        <ProtectedRoute roles={['admin']} path="/admin" exact={true} component={Admin} />
       </HashRouter>
     </ConnectedRouter>
   </Provider>,

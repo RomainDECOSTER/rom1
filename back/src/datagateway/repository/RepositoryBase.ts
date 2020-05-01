@@ -13,12 +13,16 @@ class RepositoryBase<T extends IEntityModel> implements IRepositoryBase<T> {
     return this._model.create(item);
   }
 
-  retrieve(options: Object, pageNumber: number = 0, itemNumber: number = 10): Promise<IEntityModel[]> {
-    return this._model
+  retrieve(options: Object, pageNumber: number = 1, itemNumber: number = 10, sortKey?: string, sortDir?: string): Promise<IEntityModel[]> {
+    const sortEnum = { asc: 1, desc: -1 };
+    const query = this._model
       .find(options || {})
       .skip(itemNumber * pageNumber - itemNumber)
-      .limit(itemNumber)
-      .exec();
+      .limit(itemNumber);
+    if (sortKey && sortDir) {
+      query.sort([[sortKey, sortEnum[sortDir.toLowerCase()]]]);
+    }
+    return query.exec();
   }
 
   findOne(options: any): Promise<IEntityModel> {

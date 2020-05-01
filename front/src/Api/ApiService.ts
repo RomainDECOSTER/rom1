@@ -4,6 +4,7 @@ import IApiService from './IApiService';
 import { AxiosInstance } from '../Tools/Axios';
 import IPageableIEntityModel from './Datamodel/IPageableIEntityModel';
 import { store } from '../store';
+import UrlAssembler from 'url-assembler';
 
 export class ApiService<T extends IEntityModel, K extends IPageableIEntityModel<T>> implements IApiService<T, K> {
   private _entityBaseName: string;
@@ -15,15 +16,8 @@ export class ApiService<T extends IEntityModel, K extends IPageableIEntityModel<
     return AxiosInstance.get<T>(`${this._entityBaseName}/${id}`, this.getHeaders());
   }
 
-  retrieve(options?: Object | undefined, pageNumber?: number | undefined, itemNumber?: number | undefined): Promise<AxiosResponse<K>> {
-    let url = this._entityBaseName;
-    if (pageNumber !== undefined && itemNumber !== undefined) {
-      url = `${url}?page=${pageNumber}&items=${itemNumber}`;
-    } else if (pageNumber !== undefined && itemNumber === undefined) {
-      url = `${url}?page=${pageNumber}`;
-    } else if (pageNumber === undefined && itemNumber !== undefined) {
-      url = `${url}?items=${itemNumber}`;
-    }
+  retrieve(options?: Object | undefined, pageNumber?: number | undefined, itemNumber?: number | undefined, sortKey?: string | undefined, sortDir?: string | undefined): Promise<AxiosResponse<K>> {
+    const url = UrlAssembler().template(this._entityBaseName).query('page', pageNumber).query('items', itemNumber).query('sortKey', sortKey).query('sortDir', sortDir).toString();
     return AxiosInstance.get<K>(url, this.getHeaders());
   }
 

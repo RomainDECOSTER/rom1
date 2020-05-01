@@ -5,7 +5,7 @@ interface IRepositoryBase<T extends IEntityModel> {
   /*
         read operation
     */
-  retrieve(options?: Object, pageNumber?: number, itemNumber?: number): Promise<IEntityModel[]>;
+  retrieve(options?: Object, pageNumber?: number, itemNumber?: number, sortKey?: string, sortDir?: string): Promise<IEntityModel[]>;
   findOne(options: Object): Promise<IEntityModel>;
   findById(entityId: string): Promise<IEntityModel>;
 

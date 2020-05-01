@@ -27,7 +27,7 @@ export class EntitySaga<T extends IEntityModel, K extends IPageableIEntityModel<
     return function* list(action: BaseActions) {
       try {
         yield put(self._listRoutine.request());
-        const response: AxiosResponse<K> = yield self._axios.retrieve(action.payload.options, action.payload.pageNumber, action.payload.itemNumber);
+        const response: AxiosResponse<K> = yield self._axios.retrieve(action.payload.options, action.payload.pageNumber, action.payload.itemNumber, action.payload.sortKey, action.payload.sortDir);
         yield put(self._listRoutine.success(response.data));
       } catch (error) {
         console.log(error);

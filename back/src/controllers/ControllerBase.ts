@@ -85,9 +85,15 @@ class ControllerBase<T extends IEntityModel> {
 
   async retrieve(req: express.Request, res: express.Response) {
     try {
-      const pageNumber: number = parseInt(req.params.page) || 1;
-      const itemNumber: number = parseInt(req.params.items) || 10;
-      const entities = await this._service.retrieve(pageNumber, itemNumber);
+      const pageNumber: any = !Array.isArray(req.query.page)
+        ? parseInt(req.query.page !== undefined ? req.query.page.toString() : "1")
+        : this.handleResponse(res, new CommonError("Page argument is an array"));
+      const itemNumber: any = !Array.isArray(req.query.itemNumber)
+        ? parseInt(req.query.itemNumber !== undefined ? req.query.itemNumber.toString() : "10")
+        : this.handleResponse(res, new CommonError("Item number argument is an array"));
+      const sortKey: any = req.query.sortKey || null;
+      const sortDir: any = req.query.sortDir || null;
+      const entities = await this._service.retrieve(pageNumber, itemNumber, sortKey, sortDir);
       this.handleResponse(res, undefined, entities);
     } catch (error) {
       this.handleResponse(res, error);
