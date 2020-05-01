@@ -10,15 +10,16 @@ import { Home } from './Scenes/Home/Home';
 import { LoginPage } from './Scenes/Login/Login';
 import { ProtectedRoute } from './Components/ProtectedRoute/ProtectedRoutes';
 import { Admin } from './Scenes/Admin/AdminComponent';
+import { Routes } from './Routes/Routes';
 
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <HashRouter>
         <App />
-        <Route path="/" exact={true} component={Home} />
-        <Route path="/login" exact={true} component={LoginPage} />
-        <ProtectedRoute roles={['admin']} path="/admin" exact={true} component={Admin} />
+        <Route path={Routes.root.path} exact={Routes.root.exact} component={Home} />
+        <Route path={Routes.login.path} exact={Routes.login.exact} component={LoginPage} />
+        <ProtectedRoute roles={Routes.admin.roles} path={Routes.admin.root.path} exact={Routes.admin.root.exact} component={Admin} />
       </HashRouter>
     </ConnectedRouter>
   </Provider>,
