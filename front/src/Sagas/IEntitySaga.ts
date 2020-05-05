@@ -5,4 +5,5 @@ import { BaseActions } from '../Tools/BaseActions';
 export interface IEntitySaga<T extends IEntityModel, K extends IPageableIEntityModel<T>> {
   watchListRoutine(): any;
   getListFromServer(): any;
+  watchCreateRoutine(): any;
 }

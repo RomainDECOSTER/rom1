@@ -9,10 +9,12 @@ import { AxiosResponse } from 'axios';
 
 export class EntitySaga<T extends IEntityModel, K extends IPageableIEntityModel<T>> implements IEntitySaga<T, K> {
   private _listRoutine: Routine;
+  private _createRoutine: Routine;
   private _axios: IApiService<T, K>;
 
-  constructor(axios: IApiService<T, K>, listRoutine: Routine) {
+  constructor(axios: IApiService<T, K>, listRoutine: Routine, createRoutine: Routine) {
     this._listRoutine = listRoutine;
+    this._createRoutine = createRoutine;
     this._axios = axios;
   }
 
@@ -22,6 +24,27 @@ export class EntitySaga<T extends IEntityModel, K extends IPageableIEntityModel<
       yield takeEvery(self._listRoutine.TRIGGER, self.getListFromServer());
     };
   }
+
+  watchCreateRoutine(): any {
+    const self = this;
+    return function* watch() {
+      yield takeEvery(self._createRoutine.TRIGGER, self.createEntity());
+    };
+  }
+
+  createEntity(): any {
+    const self = this;
+    return function* create(action: BaseActions) {
+      try {
+        yield put(self._createRoutine.request());
+        yield self._axios.create(action.payload);
+        yield put(self._createRoutine.success());
+      } catch (error) {
+        yield put(self._createRoutine.failure(new Error('Create saga error')));
+      }
+    };
+  }
+
   getListFromServer(): any {
     const self = this;
     return function* list(action: BaseActions) {

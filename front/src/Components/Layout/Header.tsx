@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { DisconnectRoutine } from '../../Routines/Login';
 import { Routine } from 'redux-saga-routines';
 import { LacleState } from '../../Types/State';
+import { Routes } from '../../Routes/Routes';
 type Props = {
   loggedIn: boolean | null;
   DisconnectRoutine: Routine;
@@ -25,7 +26,7 @@ const HeaderComponent: FunctionComponent<Props> = (props) => {
     if (props.loggedIn) {
       let items: JSX.Element[] = [];
       if (props.userRoles !== undefined && props.userRoles.some((role) => role === 'admin')) {
-        items.push(<Menu.Item key={'adminLink'} content={'Administration'} name={'admin'} active={active === 'admin'} onClick={handleClick} as={Link} to={'admin'} />);
+        items.push(<Menu.Item key={'adminLink'} content={'Administration'} name={'admin'} active={active === 'admin'} onClick={handleClick} as={Link} to={Routes.admin.root.path} />);
       }
       if (props.userRoles !== undefined && props.userRoles.some((role) => role === 'team')) {
         items.push(<Menu.Item key={'gestionLink'} content={'Gestion'} name={'gestion'} active={active === 'gestion'} onClick={handleClick} />);
@@ -37,14 +38,14 @@ const HeaderComponent: FunctionComponent<Props> = (props) => {
   }, [props.hash, props.loggedIn, active, props.userRoles]);
   let logItem;
   if (props.loggedIn !== null && !props.loggedIn) {
-    logItem = <Menu.Item position={'right'} content={'Connexion'} name={'login'} active={active === 'login'} onClick={handleClick} as={Link} to={'login'} />;
+    logItem = <Menu.Item position={'right'} content={'Connexion'} name={'login'} active={active === 'login'} onClick={handleClick} as={Link} to={Routes.login.path} />;
   } else {
     logItem = <Menu.Item position={'right'} content={'Deconnexion'} name={'disconnect'} active={active === 'disconnect'} onClick={disconnect} />;
   }
   return (
     <>
       <Menu pointing={true} secondary={true}>
-        <Menu.Item content={'Acceuil'} name={'home'} active={active === 'home'} onClick={handleClick} as={Link} to={'/'} />
+        <Menu.Item content={'Acceuil'} name={'home'} active={active === 'home'} onClick={handleClick} as={Link} to={Routes.root.path} />
         {authItems}
         {logItem}
       </Menu>

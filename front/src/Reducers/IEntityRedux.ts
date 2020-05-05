@@ -8,6 +8,8 @@ export interface IEntitySate<T extends IEntityModel, K extends IPageableIEntityM
   loading?: boolean;
   successed?: boolean;
   failure?: boolean;
+  creating?: boolean;
+  created?: boolean;
 }
 
 export interface IEntityRedux<T extends IEntityModel, K extends IPageableIEntityModel<T>> {

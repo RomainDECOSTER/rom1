@@ -12,6 +12,12 @@ export const Routes: any = {
       path: '/admin',
       exact: true,
     },
+    user: {
+      create: {
+        path: '/admin/users',
+        exact: true,
+      },
+    },
     roles: ['admin'],
   },
 };

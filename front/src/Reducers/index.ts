@@ -6,6 +6,7 @@ import { History } from 'history';
 import { reducer as notifications } from 'react-notification-system-redux';
 import { UserRedux } from './User/UserRedux';
 import { IUserState } from './User/IUserRedux';
+import { jsonformsReducer } from '@jsonforms/core';
 
 const userRedux = new UserRedux();
 
@@ -15,6 +16,7 @@ export interface State {
   user: LoginState;
   notifications: any;
   users: IUserState;
+  jsonforms: any;
 }
 
 export const rootReducer = (history: History) =>
@@ -24,4 +26,5 @@ export const rootReducer = (history: History) =>
     user: LoginReducer,
     notifications,
     users: userRedux.getReducer,
+    jsonforms: jsonformsReducer(),
   });

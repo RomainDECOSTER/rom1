@@ -18,7 +18,13 @@ export class ApiService<T extends IEntityModel, K extends IPageableIEntityModel<
 
   retrieve(options?: Object | undefined, pageNumber?: number | undefined, itemNumber?: number | undefined, sortKey?: string | undefined, sortDir?: string | undefined): Promise<AxiosResponse<K>> {
     const url = UrlAssembler().template(this._entityBaseName).query('page', pageNumber).query('items', itemNumber).query('sortKey', sortKey).query('sortDir', sortDir).toString();
+    console.log(this.getHeaders());
     return AxiosInstance.get<K>(url, this.getHeaders());
+  }
+
+  create(entity: T): void {
+    const url = this._entityBaseName;
+    AxiosInstance.post(url, { ...entity }, this.getHeaders());
   }
 
   protected getHeaders(): AxiosRequestConfig {
