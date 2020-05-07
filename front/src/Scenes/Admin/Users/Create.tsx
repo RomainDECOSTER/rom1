@@ -3,12 +3,26 @@ import { JsonFormsDispatch } from '@jsonforms/react';
 import { Actions } from '@jsonforms/core';
 import { connect } from 'react-redux';
 import { UserFormConfig } from '../../../FromsConfig/Users/config';
-import { Container, Button } from '@material-ui/core';
+import { Container, Button, Typography, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { extractData } from '@jsonforms/core/lib/reducers/core';
 import { State } from '../../../Reducers';
 import { UserState } from '../../../Reducers/User/UserRedux';
 import { UsersCreateRoutine } from '../../../Routines/UsersRoutines';
 import { Routine } from 'redux-saga-routines';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    title: {
+      textAlign: 'center',
+    },
+    btn: {
+      textAlign: 'center',
+    },
+    btnColor: {
+      color: 'white',
+    },
+  }),
+);
 
 interface Props {
   initForm: any;
@@ -46,13 +60,21 @@ interface PropsContainer {
 }
 
 const CreateContainer: FunctionComponent<PropsContainer> = ({ UsersCreateRoutine, userData }, ...props) => {
+  const classes = useStyles();
   const register = () => {
     UsersCreateRoutine(userData);
   };
   return (
     <>
+      <Typography variant="h2" component="h3" gutterBottom={true} className={classes.title}>
+        Ajouter un nouvel utilisateur
+      </Typography>
       <CreateUserComponent />
-      <Button onClick={register}>Enregistrer</Button>
+      <Typography className={classes.btn}>
+        <Button onClick={register} variant={'contained'} color={'primary'} className={classes.btnColor}>
+          Enregistrer
+        </Button>
+      </Typography>
     </>
   );
 };

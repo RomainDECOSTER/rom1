@@ -4,26 +4,20 @@ import { Provider } from 'react-redux';
 import { App } from './App';
 import * as serviceWorker from './serviceWorker';
 import { store, history } from './store';
-import { HashRouter, Route } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
-import { Home } from './Scenes/Home/Home';
-import { LoginPage } from './Scenes/Login/Login';
-import { ProtectedRoute } from './Components/ProtectedRoute/ProtectedRoutes';
-import { Admin } from './Scenes/Admin/AdminComponent';
-import { Routes } from './Routes/Routes';
-import { CreateUser } from './Scenes/Admin/Users/Create';
 import { JsonFormsReduxContext } from '@jsonforms/react';
+import { ThemeProvider } from '@material-ui/core/styles';
+import { LacleTheme } from './Tools/Theme';
 
 ReactDOM.render(
   <Provider store={store}>
     <JsonFormsReduxContext>
       <ConnectedRouter history={history}>
         <HashRouter>
-          <App />
-          {/* <Route path={Routes.root.path} exact={Routes.root.exact} component={Home} />
-          <Route path={Routes.login.path} exact={Routes.login.exact} component={LoginPage} />
-          <ProtectedRoute roles={Routes.admin.roles} path={Routes.admin.root.path} exact={Routes.admin.root.exact} component={Admin} />
-          <ProtectedRoute roles={Routes.admin.roles} path={Routes.admin.user.create.path} exact={Routes.admin.user.create.exact} component={CreateUser} /> */}
+          <ThemeProvider theme={LacleTheme}>
+            <App />
+          </ThemeProvider>
         </HashRouter>
       </ConnectedRouter>
     </JsonFormsReduxContext>

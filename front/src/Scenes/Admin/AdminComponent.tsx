@@ -1,7 +1,15 @@
 import React, { FunctionComponent } from 'react';
 import './Admin.css';
-import { Tab, Tabs, Box, Typography } from '@material-ui/core';
+import { Tab, Tabs, Box, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { UserPanel } from './Users/UsersPanel';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    tabs: {
+      paddingBottom: theme.spacing(1),
+    },
+  }),
+);
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -32,13 +40,13 @@ const tabs = [<Tab label={'Utilisateurs'} key={'user'} {...a11yProps(0)} />];
 
 export const Admin: FunctionComponent<Props> = (props) => {
   const [value, setValue] = React.useState(0);
-
+  const classes = useStyles();
   const handleChange = (event: any, newValue: number) => {
     setValue(newValue);
   };
   return (
     <div id={'AdminTabs'}>
-      <Tabs value={value} indicatorColor="primary" textColor="primary" onChange={handleChange} aria-label="admin tabs">
+      <Tabs value={value} indicatorColor="primary" textColor="primary" onChange={handleChange} aria-label="admin tabs" className={classes.tabs}>
         {tabs}
       </Tabs>
       <TabPanel value={value} index={0}>

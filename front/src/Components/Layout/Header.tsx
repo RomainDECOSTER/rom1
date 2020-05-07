@@ -18,6 +18,13 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       flexGrow: 1,
     },
+    link: {
+      textDecoration: 'none',
+      color: 'white',
+    },
+    btn: {
+      color: 'white',
+    },
   }),
 );
 
@@ -29,27 +36,29 @@ type Props = {
 };
 
 const HeaderComponent: FunctionComponent<Props> = (props) => {
-  const [active, setActive] = useState<string>('home');
   const [authItems, setAuthItem] = useState<JSX.Element[]>([]);
   const classes = useStyles();
   const disconnect = (e: any) => {
     props.DisconnectRoutine();
   };
   useEffect(() => {
-    setActive(props.hash.replace('/', '') === '' ? 'home' : props.hash.replace('/', ''));
     if (props.loggedIn) {
       let items: JSX.Element[] = [];
       if (props.userRoles !== undefined && props.userRoles.some((role) => role === 'admin')) {
         items.push(
           <Typography variant="h6" className={classes.title} color="inherit">
-            <Link to={Routes.admin.root.path}>Administration</Link>
+            <Link to={Routes.admin.root.path} className={classes.link}>
+              Administration
+            </Link>
           </Typography>,
         );
       }
       if (props.userRoles !== undefined && props.userRoles.some((role) => role === 'team')) {
         items.push(
           <Typography variant="h6" className={classes.title}>
-            <Link to={'/'}>Gestion</Link>
+            <Link to={'/'} className={classes.link}>
+              Gestion
+            </Link>
           </Typography>,
         );
       }
@@ -57,33 +66,37 @@ const HeaderComponent: FunctionComponent<Props> = (props) => {
     } else {
       setAuthItem([]);
     }
-  }, [props.hash, props.loggedIn, active, props.userRoles]);
+  }, [props.hash, props.loggedIn, props.userRoles]);
   let logItem;
   if (props.loggedIn !== null && !props.loggedIn) {
     logItem = (
       <Typography variant="h6" className={classes.title}>
-        <Link to={Routes.login.path}>Login</Link>
+        <Link to={Routes.login.path} className={classes.link}>
+          Login
+        </Link>
       </Typography>
     );
   } else {
     logItem = (
-      <Button color="inherit" onClick={disconnect}>
+      <Button onClick={disconnect} className={classes.btn}>
         Deconnexion
       </Button>
     );
   }
   return (
-    <div className={classes.root}>
-      <AppBar position="relative">
+    <>
+      <AppBar>
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            <Link to={Routes.root.path}>Accueil</Link>
+            <Link to={Routes.root.path} className={classes.link}>
+              Accueil
+            </Link>
           </Typography>
           {authItems}
           {logItem}
         </Toolbar>
       </AppBar>
-    </div>
+    </>
   );
 };
 

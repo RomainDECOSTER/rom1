@@ -10,7 +10,7 @@ export const Layout: FunctionComponent<Props> = (props) => {
   return (
     <div>
       <Header />
-      <Grid container={true} spacing={0} direction="row" alignItems="center" justify="center" style={{ minHeight: '100%', minWidth: '100%' }}>
+      <Grid container={true} spacing={0} direction="row" alignItems="center" justify="center" style={{ minHeight: '100%', minWidth: '100%', marginTop: '5%' }}>
         <Grid item={true} xs={12}>
           {props.children}
         </Grid>
