@@ -3,7 +3,7 @@ import { JsonFormsDispatch } from '@jsonforms/react';
 import { Actions } from '@jsonforms/core';
 import { connect } from 'react-redux';
 import { UserFormConfig } from '../../../FromsConfig/Users/config';
-import { Container, Button } from 'semantic-ui-react';
+import { Container, Button } from '@material-ui/core';
 import { extractData } from '@jsonforms/core/lib/reducers/core';
 import { State } from '../../../Reducers';
 import { UserState } from '../../../Reducers/User/UserRedux';
@@ -52,9 +52,7 @@ const CreateContainer: FunctionComponent<PropsContainer> = ({ UsersCreateRoutine
   return (
     <>
       <CreateUserComponent />
-      <Button onClick={register} primary={true}>
-        Enregistrer
-      </Button>
+      <Button onClick={register}>Enregistrer</Button>
     </>
   );
 };

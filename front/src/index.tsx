@@ -20,10 +20,10 @@ ReactDOM.render(
       <ConnectedRouter history={history}>
         <HashRouter>
           <App />
-          <Route path={Routes.root.path} exact={Routes.root.exact} component={Home} />
+          {/* <Route path={Routes.root.path} exact={Routes.root.exact} component={Home} />
           <Route path={Routes.login.path} exact={Routes.login.exact} component={LoginPage} />
           <ProtectedRoute roles={Routes.admin.roles} path={Routes.admin.root.path} exact={Routes.admin.root.exact} component={Admin} />
-          <ProtectedRoute roles={Routes.admin.roles} path={Routes.admin.user.create.path} exact={Routes.admin.user.create.exact} component={CreateUser} />
+          <ProtectedRoute roles={Routes.admin.roles} path={Routes.admin.user.create.path} exact={Routes.admin.user.create.exact} component={CreateUser} /> */}
         </HashRouter>
       </ConnectedRouter>
     </JsonFormsReduxContext>

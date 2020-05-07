@@ -1,27 +1,31 @@
-import React, { FunctionComponent } from "react";
-import { Field, reduxForm, InjectedFormProps } from "redux-form";
+import React, { FunctionComponent } from 'react';
+import { Field, reduxForm, InjectedFormProps } from 'redux-form';
 
-import { Button, Form } from "semantic-ui-react";
+import { Button, TextField } from '@material-ui/core';
 
-import { SemanticFormField } from "../../../Tools/semantic-ui-form";
-import { required } from "../../../Tools/Validation";
-import { LoginFormHandler } from "../../../Routines/Login";
+import { SemanticFormField } from '../../../Tools/semantic-ui-form';
+import { required } from '../../../Tools/Validation';
+import { LoginFormHandler } from '../../../Routines/Login';
 
 interface FormProps extends InjectedFormProps {}
 
-const LoginFormComponent: FunctionComponent<FormProps> = (props) => (
-  <>
-    <Form name="login" onSubmit={props.handleSubmit(LoginFormHandler)}>
-      <Field name="username" component={SemanticFormField} as={Form.Input} label={`Nom d'utilisateur`} placeholder={`Entrer votre nom d'utilisateur`} validate={required} />
-      <Field name="password" component={SemanticFormField} as={Form.Input} type={"password"} label={"Mot de passe"} placeholder={"Entrer votre mot de passe"} validate={required} />
-      <Button primary={true} loading={props.submitting} disabled={props.pristine || props.submitting}>
-        Valider
-      </Button>
-    </Form>
-  </>
-);
+const LoginFormComponent: FunctionComponent<FormProps> = (props) => {
+  return (
+    <div>
+      <form name="login" onSubmit={props.handleSubmit(LoginFormHandler)}>
+        <Field name="username" key="username" component={SemanticFormField} as={TextField} label={`Nom d'utilisateur`} placeholder={`Entrer votre nom d'utilisateur`} validate={required} />
+        <br />
+        <Field name="password" key="password" component={SemanticFormField} as={TextField} type={'password'} label={'Mot de passe'} placeholder={'Entrer votre mot de passe'} validate={required} />
+        <br />
+        <Button disabled={props.pristine || props.submitting} key="loginValidation" type="submit">
+          Valider
+        </Button>
+      </form>
+    </div>
+  );
+};
 
 export const LoginForm = reduxForm({
-  form: "login",
+  form: 'login',
   enableReinitialize: true,
 })(LoginFormComponent);

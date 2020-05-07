@@ -1,16 +1,20 @@
 import React, { FunctionComponent, ReactNode } from 'react';
 import { Header } from './Header';
-import { Container } from 'semantic-ui-react';
+import { Grid } from '@material-ui/core';
 
 interface Props {
   children: ReactNode;
 }
 
-export const Layout: FunctionComponent<Props> = (props) => (
-  <>
-    <Header />
-    <Container>
-      <div>{props.children}</div>
-    </Container>
-  </>
-);
+export const Layout: FunctionComponent<Props> = (props) => {
+  return (
+    <div>
+      <Header />
+      <Grid container={true} spacing={0} direction="row" alignItems="center" justify="center" style={{ minHeight: '100%', minWidth: '100%' }}>
+        <Grid item={true} xs={12}>
+          {props.children}
+        </Grid>
+      </Grid>
+    </div>
+  );
+};

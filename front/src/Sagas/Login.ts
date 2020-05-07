@@ -1,4 +1,4 @@
-import { takeEvery, put, call } from 'redux-saga/effects';
+import { takeEvery, put, call, select } from 'redux-saga/effects';
 import { SubmissionError, isValid, getFormError } from 'redux-form';
 import { LoginFormRoutine, LoginRoutine } from '../Routines/Login';
 import { LoginRequest } from '../Api/Users/Login';
@@ -17,7 +17,8 @@ export function* listenLoginRoutine() {
 }
 
 function* loginRoutineStarted(action: BaseActions) {
-  if (action.payload) {
+  const state = yield select();
+  if (state.user.loggedIn) {
     yield put(push('/'));
     yield put(LoginRoutine.success());
   }
