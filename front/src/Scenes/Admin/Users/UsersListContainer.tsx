@@ -5,6 +5,8 @@ import { UsersListRoutine } from '../../../Routines/UsersRoutines';
 import { State } from '../../../Reducers';
 import { IUserState } from '../../../Reducers/User/IUserRedux';
 import { DefaultList } from '../../../Components/DefaultList/DefaultListContainer';
+import { Button } from '@material-ui/core';
+import { DefaultActions } from '../../../Components/DefaultActions/DefaultActions';
 
 interface Props {
   users: IUserState;
@@ -30,11 +32,17 @@ const columns = [
     selector: 'roles',
     cell: (row: any) => row.roles.join(' / '),
   },
+  {
+    name: 'Actions',
+    cell: (row: any) => {
+      return <DefaultActions row={row} />;
+    },
+  },
 ];
 
 const title = 'Utilisateurs listing';
 
-const UsersListContainer: FunctionComponent<Props> = ({ users, UsersListRoutine }, props) => {
+const UsersListContainer: FunctionComponent<Props> = ({ users, UsersListRoutine }, ...props) => {
   return <DefaultList columns={columns} data={users} routine={UsersListRoutine} title={title} />;
 };
 
