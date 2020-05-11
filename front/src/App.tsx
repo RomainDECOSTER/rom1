@@ -12,6 +12,7 @@ import { LoginPage } from './Scenes/Login/Login';
 import { ProtectedRoute } from './Components/ProtectedRoute/ProtectedRoutes';
 import { Admin } from './Scenes/Admin/AdminComponent';
 import { CreateUser } from './Scenes/Admin/Users/Create';
+import { ViewUser } from './Scenes/Admin/Users/View';
 
 interface Props {
   AppRoutine: Routine;
@@ -28,6 +29,7 @@ const AppComponent: React.FunctionComponent<Props> = ({ notifications, AppRoutin
         <Route path={Routes.login.path} exact={Routes.login.exact} component={LoginPage} />
         <ProtectedRoute roles={Routes.admin.roles} path={Routes.admin.root.path} exact={Routes.admin.root.exact} component={Admin} />
         <ProtectedRoute roles={Routes.admin.roles} path={Routes.admin.user.create.path} exact={Routes.admin.user.create.exact} component={CreateUser} />
+        <ProtectedRoute roles={Routes.admin.roles} path={Routes.admin.user.view.path} exact={Routes.admin.user.view.exact} component={ViewUser} />
       </Layout>
     </>
   );

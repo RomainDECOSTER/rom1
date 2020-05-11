@@ -17,6 +17,10 @@ export const Routes: any = {
         path: '/admin/users',
         exact: true,
       },
+      view: {
+        path: '/admin/users/:id',
+        exact: true,
+      },
     },
     roles: ['admin'],
   },

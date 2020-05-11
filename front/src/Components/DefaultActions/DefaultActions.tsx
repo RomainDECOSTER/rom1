@@ -38,10 +38,12 @@ export const DefaultActions: FunctionComponent<Props> = ({ row, more }, ...props
   }
   return (
     <>
-      <Button key={`view-${row._id}`} color={'primary'} onClick={() => store.dispatch(UserViewRoutine(row._id))}>
-        <Visibility />
-      </Button>
-      <Link to={Routes.admin.user.create.path}>
+      <Link key={`link-view-${row._id}`} to={Routes.admin.user.view.path.replace(':id', row._id)}>
+        <Button key={`view-${row._id}`} color={'primary'} onClick={() => store.dispatch(UserViewRoutine(row._id))}>
+          <Visibility />
+        </Button>
+      </Link>
+      <Link key={`link-edit-${row._id}`} to={Routes.admin.user.create.path}>
         <Button key={`edit-${row._id}`} color={'primary'} onClick={() => store.dispatch(UserViewRoutine(row._id))}>
           <Edit color={'primary'} />
         </Button>
