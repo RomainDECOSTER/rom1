@@ -6,6 +6,7 @@ import { DisconnectRoutine } from '../../Routines/Login';
 import { Routine } from 'redux-saga-routines';
 import { LacleState } from '../../Types/State';
 import { Routes } from '../../Routes/Routes';
+import { history } from '../../store';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,13 +41,14 @@ const HeaderComponent: FunctionComponent<Props> = (props) => {
   const classes = useStyles();
   const disconnect = (e: any) => {
     props.DisconnectRoutine();
+    history.push('/');
   };
   useEffect(() => {
     if (props.loggedIn) {
       let items: JSX.Element[] = [];
       if (props.userRoles !== undefined && props.userRoles.some((role) => role === 'admin')) {
         items.push(
-          <Typography variant="h6" className={classes.title} color="inherit">
+          <Typography key={'admin'} variant="h6" className={classes.title} color="inherit">
             <Link to={Routes.admin.root.path} className={classes.link}>
               Administration
             </Link>
@@ -55,7 +57,7 @@ const HeaderComponent: FunctionComponent<Props> = (props) => {
       }
       if (props.userRoles !== undefined && props.userRoles.some((role) => role === 'team')) {
         items.push(
-          <Typography variant="h6" className={classes.title}>
+          <Typography key={'gest'} variant="h6" className={classes.title}>
             <Link to={'/'} className={classes.link}>
               Gestion
             </Link>
@@ -66,11 +68,11 @@ const HeaderComponent: FunctionComponent<Props> = (props) => {
     } else {
       setAuthItem([]);
     }
-  }, [props.hash, props.loggedIn, props.userRoles]);
+  }, [props.hash, props.loggedIn, props.userRoles, classes.title, classes.link]);
   let logItem;
   if (props.loggedIn !== null && !props.loggedIn) {
     logItem = (
-      <Typography variant="h6" className={classes.title}>
+      <Typography key={'login'} variant="h6" className={classes.title}>
         <Link to={Routes.login.path} className={classes.link}>
           Login
         </Link>
@@ -78,7 +80,7 @@ const HeaderComponent: FunctionComponent<Props> = (props) => {
     );
   } else {
     logItem = (
-      <Button onClick={disconnect} className={classes.btn}>
+      <Button key={'logout'} onClick={disconnect} className={classes.btn}>
         Deconnexion
       </Button>
     );

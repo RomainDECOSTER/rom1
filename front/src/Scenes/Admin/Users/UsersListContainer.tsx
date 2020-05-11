@@ -5,7 +5,6 @@ import { UsersListRoutine, UserSortRoutine } from '../../../Routines/UsersRoutin
 import { State } from '../../../Reducers';
 import { IUserState } from '../../../Reducers/User/IUserRedux';
 import { DefaultList } from '../../../Components/DefaultList/DefaultListContainer';
-import { Button } from '@material-ui/core';
 import { DefaultActions } from '../../../Components/DefaultActions/DefaultActions';
 
 interface Props {

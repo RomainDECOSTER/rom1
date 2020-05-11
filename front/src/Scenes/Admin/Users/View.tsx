@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { State } from '../../../Reducers';
 import { connect } from 'react-redux';
 import IUserModel from '../../../Api/Datamodel/IUserModel';
-import { Card, Typography, CardHeader, createStyles, makeStyles, Theme, CardContent, CardActions, Button } from '@material-ui/core';
+import { Card, Typography, createStyles, makeStyles, Theme, CardContent } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import { Routes } from '../../../Routes/Routes';
 

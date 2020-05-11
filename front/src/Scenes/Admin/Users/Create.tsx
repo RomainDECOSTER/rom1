@@ -36,7 +36,7 @@ const CreateComponent: FunctionComponent<Props> = ({ initForm, user }, ...props)
       initForm(Actions.init({ user: user }, UserFormConfig.schema, UserFormConfig.ui));
       setInitDone(true);
     }
-  }, [initDone, initForm]);
+  }, [initDone, initForm, user]);
 
   return (
     <>

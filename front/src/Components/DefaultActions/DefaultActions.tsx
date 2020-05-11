@@ -26,7 +26,7 @@ export const DefaultActions: FunctionComponent<Props> = ({ row, more }, ...props
     if (confirm) {
       store.dispatch(UserDeleteRoutine(currentId));
     }
-  }, [confirm]);
+  }, [confirm, currentId]);
 
   let moreElement: JSX.Element = <></>;
   if (more) {
