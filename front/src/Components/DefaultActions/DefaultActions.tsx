@@ -8,14 +8,23 @@ import { Visibility, Edit, Delete } from '@material-ui/icons';
 
 interface Props {
   row: any;
+  more: boolean;
 }
 
-export const DefaultActions: FunctionComponent<Props> = ({ row }, ...props) => {
+export const DefaultActions: FunctionComponent<Props> = ({ row, more }, ...props) => {
   const [currentId, setCurrentId] = useState('');
   const [open, setOpen] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const menuOpen = Boolean(anchorEl);
+  let moreElement: JSX.Element = <></>;
+  if (more) {
+    moreElement = (
+      <IconButton aria-label="more" aria-controls="long-menu" aria-haspopup="true" onClick={(event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget)}>
+        <MoreVertIcon />
+      </IconButton>
+    );
+  }
   return (
     <>
       <Button key={`view-${row._id}`} color={'primary'}>
@@ -34,9 +43,7 @@ export const DefaultActions: FunctionComponent<Props> = ({ row }, ...props) => {
       >
         <Delete />
       </Button>
-      <IconButton aria-label="more" aria-controls="long-menu" aria-haspopup="true" onClick={(event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget)}>
-        <MoreVertIcon />
-      </IconButton>
+      {moreElement}
       <Menu key={`menu-${row._id}`} open={menuOpen} anchorEl={anchorEl} onClose={() => setAnchorEl(null)}>
         <MenuItem>
           <p>In progress</p>

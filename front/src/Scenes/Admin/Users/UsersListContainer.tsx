@@ -35,7 +35,7 @@ const columns = [
   {
     name: 'Actions',
     cell: (row: any) => {
-      return <DefaultActions row={row} />;
+      return <DefaultActions row={row} more={false} />;
     },
   },
 ];
