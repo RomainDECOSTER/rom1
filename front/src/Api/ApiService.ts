@@ -12,6 +12,10 @@ export class ApiService<T extends IEntityModel, K extends IPageableIEntityModel<
   constructor(entityBaseName: string) {
     this._entityBaseName = entityBaseName;
   }
+  delete(id: string): void {
+    AxiosInstance.delete(`${this._entityBaseName}/${id}`, this.getHeaders());
+  }
+
   findBy(id: string): Promise<AxiosResponse<T>> {
     return AxiosInstance.get<T>(`${this._entityBaseName}/${id}`, this.getHeaders());
   }

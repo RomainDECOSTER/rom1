@@ -4,25 +4,42 @@ import { IEntityRedux } from './IEntityRedux';
 import { IEntitySate } from './IEntityRedux';
 import { Routine } from 'redux-saga-routines';
 import { BaseActions } from '../Tools/BaseActions';
+import { history } from '../store';
+import { number } from '../Tools/Validation';
 
 export class EntityRedux<T extends IEntityModel, K extends IPageableIEntityModel<T>> implements IEntityRedux<T, K> {
   private _listRoutine: Routine;
   private _createRoutine: Routine;
-  constructor(listRoutine: Routine, createRoutine: Routine) {
+  private _deleteRoutine: Routine;
+  constructor(listRoutine: Routine, createRoutine: Routine, deleteRoutine: Routine) {
     this._listRoutine = listRoutine;
     this._createRoutine = createRoutine;
+    this._deleteRoutine = deleteRoutine;
     this.getReducer = this.getReducer.bind(this);
   }
   getReducer(state: IEntitySate<T, K> = { loading: false }, action: BaseActions): IEntitySate<T, K> {
     switch (action.type) {
       case this._listRoutine.REQUEST:
-        return { ...state, loading: true, created: false };
+        return { ...state, loading: true, created: false, deleted: false };
       case this._listRoutine.SUCCESS:
         return { ...state, loading: false, list: action.payload, successed: true };
       case this._createRoutine.REQUEST:
         return { ...state, creating: true };
       case this._createRoutine.SUCCESS:
+        history.goBack();
         return { ...state, creating: false, created: true };
+      case this._deleteRoutine.REQUEST:
+        return { ...state, deleteting: true };
+      case this._deleteRoutine.SUCCESS:
+        const newList = state.list;
+        if (newList !== undefined) {
+          newList.entity.total = newList.entity.total - 1;
+          newList.entity.data = newList.entity.data.filter((entity: T) => entity._id !== action.payload) as [T];
+          if (!newList.entity.data.length) {
+            newList.entity.page = newList.entity.page - 1;
+          }
+        }
+        return { ...state, deleteting: false, deleted: true, list: newList };
       default:
         return state;
     }

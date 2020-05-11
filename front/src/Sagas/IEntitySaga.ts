@@ -6,4 +6,6 @@ export interface IEntitySaga<T extends IEntityModel, K extends IPageableIEntityM
   watchListRoutine(): any;
   getListFromServer(): any;
   watchCreateRoutine(): any;
+  watchDeleteRoutine(): any;
+  deleteEntity(): any;
 }

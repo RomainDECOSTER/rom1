@@ -11,8 +11,12 @@ interface Props {
 }
 
 export const DefaultList: FunctionComponent<Props> = ({ data, routine, title, columns }, ...props) => {
-  if (data.list === undefined && data.loading === false) {
-    routine({});
+  if ((data.list === undefined && data.loading === false) || data.created === true) {
+    if (data.list !== undefined) {
+      routine({ pageNumber: data.list.entity.page, itemNumber: data.list.entity.item });
+    } else {
+      routine({});
+    }
   }
 
   const onPageChange = (newPage: number): void => {

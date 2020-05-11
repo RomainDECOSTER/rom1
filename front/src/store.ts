@@ -8,6 +8,7 @@ import { createHashHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router';
 import { materialCells, materialRenderers } from '@jsonforms/material-renderers';
 import { Actions } from '@jsonforms/core';
+import thunk from 'redux-thunk';
 import MultiSelect from './Components/MultipleSelect/MultiSelect';
 import MultiSelectTester from './Components/MultipleSelect/MultiSelectTester';
 
@@ -21,7 +22,7 @@ export const store = createStore(
       renderers: materialRenderers,
     },
   },
-  composeWithDevTools(applyMiddleware(sagaMiddleware), applyMiddleware(routerMiddleware(history))),
+  composeWithDevTools(applyMiddleware(thunk), applyMiddleware(sagaMiddleware), applyMiddleware(routerMiddleware(history))),
 );
 store.dispatch(Actions.registerRenderer(MultiSelectTester, MultiSelect));
 sagaMiddleware.run(rootSaga);

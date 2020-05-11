@@ -6,5 +6,12 @@ import { UserSaga } from './User/UserSaga';
 const usersSaga = new UserSaga();
 
 export const rootSaga = function* root() {
-  yield all([fork(usersSaga.watchListRoutine()), fork(usersSaga.watchCreateRoutine()), fork(watchAppStart), fork(validateLoginFormWatcherSaga), fork(listenLoginRoutine)]);
+  yield all([
+    fork(usersSaga.watchListRoutine()),
+    fork(usersSaga.watchCreateRoutine()),
+    fork(usersSaga.watchDeleteRoutine()),
+    fork(watchAppStart),
+    fork(validateLoginFormWatcherSaga),
+    fork(listenLoginRoutine),
+  ]);
 };

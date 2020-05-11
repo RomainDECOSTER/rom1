@@ -1,10 +1,12 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState, useEffect } from 'react';
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Visibility, Edit, Delete } from '@material-ui/icons';
+import { store } from '../../store';
+import { UserDeleteRoutine } from '../../Routines/UsersRoutines';
 
 interface Props {
   row: any;
@@ -17,6 +19,13 @@ export const DefaultActions: FunctionComponent<Props> = ({ row, more }, ...props
   const [confirm, setConfirm] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const menuOpen = Boolean(anchorEl);
+
+  useEffect(() => {
+    if (confirm) {
+      store.dispatch(UserDeleteRoutine(currentId));
+    }
+  }, [confirm]);
+
   let moreElement: JSX.Element = <></>;
   if (more) {
     moreElement = (

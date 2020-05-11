@@ -24,6 +24,7 @@ export const DefaultListComponent: FunctionComponent<IListProps> = ({ data, titl
       progressPending={data.loading}
       onChangePage={handlePageChange}
       onSort={handleSort}
+      paginationTotalRows={data.list?.entity.total}
     />
   );
 };
