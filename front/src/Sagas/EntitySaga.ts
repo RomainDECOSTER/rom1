@@ -3,9 +3,10 @@ import IPageableIEntityModel from '../Api/Datamodel/IPageableIEntityModel';
 import { IEntitySaga } from './IEntitySaga';
 import { Routine } from 'redux-saga-routines';
 import { BaseActions } from '../Tools/BaseActions';
-import { takeEvery, put } from 'redux-saga/effects';
+import { takeEvery, put, select } from 'redux-saga/effects';
 import IApiService from '../Api/IApiService';
 import { AxiosResponse } from 'axios';
+import { State } from '../Reducers';
 
 export class EntitySaga<T extends IEntityModel, K extends IPageableIEntityModel<T>> implements IEntitySaga<T, K> {
   private _listRoutine: Routine;
@@ -26,7 +27,6 @@ export class EntitySaga<T extends IEntityModel, K extends IPageableIEntityModel<
   updateEntity() {
     const self = this;
     return function* update(action: BaseActions) {
-      console.log('test');
       try {
         yield put(self._updateRoutine.request());
         yield self._axios.update(action.payload);
@@ -107,7 +107,14 @@ export class EntitySaga<T extends IEntityModel, K extends IPageableIEntityModel<
     return function* list(action: BaseActions) {
       try {
         yield put(self._listRoutine.request());
-        const response: AxiosResponse<K> = yield self._axios.retrieve(action.payload.options, action.payload.pageNumber, action.payload.itemNumber, action.payload.sortKey, action.payload.sortDir);
+        const state: State = yield select();
+        const response: AxiosResponse<K> = yield self._axios.retrieve(
+          action.payload.options,
+          action.payload.pageNumber,
+          action.payload.itemNumber,
+          state.users.sortKey,
+          state.users.sortKey !== undefined ? state.users.sortDir : undefined,
+        );
         yield put(self._listRoutine.success(response.data));
       } catch (error) {
         console.log(error);

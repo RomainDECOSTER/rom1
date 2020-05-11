@@ -12,15 +12,17 @@ export class EntityRedux<T extends IEntityModel, K extends IPageableIEntityModel
   private _deleteRoutine: Routine;
   private _viewRoutine: Routine;
   private _updateRoutine: Routine;
-  constructor(listRoutine: Routine, createRoutine: Routine, deleteRoutine: Routine, viewRoutine: Routine, updateRoutine: Routine) {
+  private _sortRoutine: Routine;
+  constructor(listRoutine: Routine, createRoutine: Routine, deleteRoutine: Routine, viewRoutine: Routine, updateRoutine: Routine, sortRoutine: Routine) {
     this._listRoutine = listRoutine;
     this._createRoutine = createRoutine;
     this._deleteRoutine = deleteRoutine;
     this._viewRoutine = viewRoutine;
     this._updateRoutine = updateRoutine;
+    this._sortRoutine = sortRoutine;
     this.getReducer = this.getReducer.bind(this);
   }
-  getReducer(state: IEntitySate<T, K> = { loading: false }, action: BaseActions): IEntitySate<T, K> {
+  getReducer(state: IEntitySate<T, K> = { loading: false, sortDir: 'desc' }, action: BaseActions): IEntitySate<T, K> {
     switch (action.type) {
       case this._listRoutine.REQUEST:
         return { ...state, loading: true, created: false, deleted: false, updated: false };
@@ -50,6 +52,8 @@ export class EntityRedux<T extends IEntityModel, K extends IPageableIEntityModel
       case this._updateRoutine.SUCCESS:
         history.goBack();
         return { ...state, updating: false, updated: true };
+      case this._sortRoutine.TRIGGER:
+        return { ...state, ...action.payload };
       default:
         return state;
     }

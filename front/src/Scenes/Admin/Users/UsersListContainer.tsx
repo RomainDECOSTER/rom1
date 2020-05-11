@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { Routine } from 'redux-saga-routines';
 import { connect } from 'react-redux';
-import { UsersListRoutine } from '../../../Routines/UsersRoutines';
+import { UsersListRoutine, UserSortRoutine } from '../../../Routines/UsersRoutines';
 import { State } from '../../../Reducers';
 import { IUserState } from '../../../Reducers/User/IUserRedux';
 import { DefaultList } from '../../../Components/DefaultList/DefaultListContainer';
@@ -11,6 +11,7 @@ import { DefaultActions } from '../../../Components/DefaultActions/DefaultAction
 interface Props {
   users: IUserState;
   UsersListRoutine: Routine;
+  UserSortRoutine: Routine;
 }
 
 const columns = [
@@ -42,12 +43,12 @@ const columns = [
 
 const title = 'Utilisateurs listing';
 
-const UsersListContainer: FunctionComponent<Props> = ({ users, UsersListRoutine }, ...props) => {
-  return <DefaultList columns={columns} data={users} routine={UsersListRoutine} title={title} />;
+const UsersListContainer: FunctionComponent<Props> = ({ users, UsersListRoutine, UserSortRoutine }, ...props) => {
+  return <DefaultList columns={columns} data={users} routine={UsersListRoutine} sortRoutine={UserSortRoutine} title={title} defaultSortKey={'username'} defaultSortDir={'asc'} />;
 };
 
 const mapStateToProps = (state: State) => ({
   users: state.users,
 });
 
-export const UsersList = connect(mapStateToProps, { UsersListRoutine })(UsersListContainer);
+export const UsersList = connect(mapStateToProps, { UsersListRoutine, UserSortRoutine })(UsersListContainer);
