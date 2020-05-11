@@ -70,6 +70,9 @@ export const UserFormConfig = {
         label: "Role de l'utilisateur",
         scope: '#/properties/user/properties/roles',
         enum: [Roles.ADMIN.value, Roles.TEAM.value, Roles.USER.value],
+        options: {
+          multi_select: true,
+        },
       },
     ],
   },

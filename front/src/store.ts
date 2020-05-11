@@ -7,6 +7,9 @@ import { routinePromiseWatcherSaga } from 'redux-saga-routines';
 import { createHashHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router';
 import { materialCells, materialRenderers } from '@jsonforms/material-renderers';
+import { Actions } from '@jsonforms/core';
+import MultiSelect from './Components/MultipleSelect/MultiSelect';
+import MultiSelectTester from './Components/MultipleSelect/MultiSelectTester';
 
 const sagaMiddleware = createSagaMiddleware();
 export const history = createHashHistory();
@@ -20,5 +23,6 @@ export const store = createStore(
   },
   composeWithDevTools(applyMiddleware(sagaMiddleware), applyMiddleware(routerMiddleware(history))),
 );
+store.dispatch(Actions.registerRenderer(MultiSelectTester, MultiSelect));
 sagaMiddleware.run(rootSaga);
 sagaMiddleware.run(routinePromiseWatcherSaga);
