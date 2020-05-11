@@ -10,8 +10,8 @@ interface IServiceBase<T extends IEntityModel> {
   /*
         write operation
     */
-  create(item: T): void;
-  update(id: string, item: IEntityModel): void;
-  remove(id: string): void;
+  create(item: T): Promise<IEntityModel>;
+  update(id: string, item: IEntityModel): Promise<IEntityModel>;
+  remove(id: string): Promise<void>;
 }
 export default IServiceBase;

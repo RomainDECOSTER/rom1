@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import Select from '@material-ui/core/Select';
 import { withJsonFormsControlProps } from '@jsonforms/react';
 import { MenuItem, InputLabel } from '@material-ui/core';
-const MultiSelect = ({ handleChange, path, ...rest }) => {
+const MultiSelect = ({ handleChange, path, data, ...rest }) => {
   const items = rest.schema.enum.map((name) => (
     <MenuItem key={name} value={name}>
       {name}
     </MenuItem>
   ));
-  const [values, setValues] = useState([]);
+  const [values, setValues] = useState(data !== undefined ? data : []);
   return (
     <div className={'filed'} style={{ marginBottom: 15 + '%' }}>
       <InputLabel>{rest.label}</InputLabel>

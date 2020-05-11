@@ -12,6 +12,9 @@ export class ApiService<T extends IEntityModel, K extends IPageableIEntityModel<
   constructor(entityBaseName: string) {
     this._entityBaseName = entityBaseName;
   }
+  update(doc: T): void {
+    AxiosInstance.put(`${this._entityBaseName}/${doc._id}`, doc, this.getHeaders());
+  }
   delete(id: string): void {
     AxiosInstance.delete(`${this._entityBaseName}/${id}`, this.getHeaders());
   }

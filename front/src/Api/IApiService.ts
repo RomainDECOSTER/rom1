@@ -9,4 +9,5 @@ export default interface IApiService<T extends IEntityModel, K extends IPageable
   findBy(id: string): Promise<AxiosResponse<T>>;
   create(doc: T): void;
   delete(id: string): void;
+  update(doc: T): void;
 }

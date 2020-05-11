@@ -12,7 +12,8 @@ class ServiceBase<T extends IEntityModel> {
 
   async create(item: T) {
     try {
-      await this._repository.create(item);
+      const entity = await this._repository.create(item);
+      return entity;
     } catch (error) {
       throw new CommonError("Create entity error", error);
     }
@@ -38,7 +39,8 @@ class ServiceBase<T extends IEntityModel> {
     try {
       const entity: IEntityModel = await this._repository.findById(id);
       if (!Utilities.isNullorEmpty(entity)) {
-        return this._repository.update(id, item);
+        const entity = await this._repository.update(id, item);
+        return entity;
       } else {
         throw new CommonError("Entity not found for id " + id);
       }
@@ -51,7 +53,8 @@ class ServiceBase<T extends IEntityModel> {
     try {
       const entity: IEntityModel = await this._repository.findById(entityId);
       if (!Utilities.isNullorEmpty(entity)) {
-        return this._repository.remove(entityId);
+        await this._repository.remove(entityId);
+        return;
       } else {
         throw new CommonError("Entity not found for id " + entityId);
       }

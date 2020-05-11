@@ -6,7 +6,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Visibility, Edit, Delete } from '@material-ui/icons';
 import { store } from '../../store';
-import { UserDeleteRoutine } from '../../Routines/UsersRoutines';
+import { UserDeleteRoutine, UserViewRoutine } from '../../Routines/UsersRoutines';
+import { Link } from 'react-router-dom';
+import { Routes } from '../../Routes/Routes';
 
 interface Props {
   row: any;
@@ -36,12 +38,14 @@ export const DefaultActions: FunctionComponent<Props> = ({ row, more }, ...props
   }
   return (
     <>
-      <Button key={`view-${row._id}`} color={'primary'}>
+      <Button key={`view-${row._id}`} color={'primary'} onClick={() => store.dispatch(UserViewRoutine(row._id))}>
         <Visibility />
       </Button>
-      <Button key={`edit-${row._id}`} color={'primary'}>
-        <Edit />
-      </Button>
+      <Link to={Routes.admin.user.create.path}>
+        <Button key={`edit-${row._id}`} color={'primary'} onClick={() => store.dispatch(UserViewRoutine(row._id))}>
+          <Edit color={'primary'} />
+        </Button>
+      </Link>
       <Button
         key={`delete-${row._id}`}
         color={'secondary'}

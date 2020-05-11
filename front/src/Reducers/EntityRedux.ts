@@ -5,22 +5,25 @@ import { IEntitySate } from './IEntityRedux';
 import { Routine } from 'redux-saga-routines';
 import { BaseActions } from '../Tools/BaseActions';
 import { history } from '../store';
-import { number } from '../Tools/Validation';
 
 export class EntityRedux<T extends IEntityModel, K extends IPageableIEntityModel<T>> implements IEntityRedux<T, K> {
   private _listRoutine: Routine;
   private _createRoutine: Routine;
   private _deleteRoutine: Routine;
-  constructor(listRoutine: Routine, createRoutine: Routine, deleteRoutine: Routine) {
+  private _viewRoutine: Routine;
+  private _updateRoutine: Routine;
+  constructor(listRoutine: Routine, createRoutine: Routine, deleteRoutine: Routine, viewRoutine: Routine, updateRoutine: Routine) {
     this._listRoutine = listRoutine;
     this._createRoutine = createRoutine;
     this._deleteRoutine = deleteRoutine;
+    this._viewRoutine = viewRoutine;
+    this._updateRoutine = updateRoutine;
     this.getReducer = this.getReducer.bind(this);
   }
   getReducer(state: IEntitySate<T, K> = { loading: false }, action: BaseActions): IEntitySate<T, K> {
     switch (action.type) {
       case this._listRoutine.REQUEST:
-        return { ...state, loading: true, created: false, deleted: false };
+        return { ...state, loading: true, created: false, deleted: false, updated: false };
       case this._listRoutine.SUCCESS:
         return { ...state, loading: false, list: action.payload, successed: true };
       case this._createRoutine.REQUEST:
@@ -40,6 +43,13 @@ export class EntityRedux<T extends IEntityModel, K extends IPageableIEntityModel
           }
         }
         return { ...state, deleteting: false, deleted: true, list: newList };
+      case this._viewRoutine.SUCCESS:
+        return { ...state, details: state.list?.entity.data.find((entity) => entity._id === action.payload) };
+      case this._updateRoutine.REQUEST:
+        return { ...state, updating: true };
+      case this._updateRoutine.SUCCESS:
+        history.goBack();
+        return { ...state, updating: false, updated: true };
       default:
         return state;
     }

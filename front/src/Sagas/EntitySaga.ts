@@ -3,22 +3,58 @@ import IPageableIEntityModel from '../Api/Datamodel/IPageableIEntityModel';
 import { IEntitySaga } from './IEntitySaga';
 import { Routine } from 'redux-saga-routines';
 import { BaseActions } from '../Tools/BaseActions';
-import { takeEvery, put, select } from 'redux-saga/effects';
+import { takeEvery, put } from 'redux-saga/effects';
 import IApiService from '../Api/IApiService';
 import { AxiosResponse } from 'axios';
-import { State } from '../Reducers';
 
 export class EntitySaga<T extends IEntityModel, K extends IPageableIEntityModel<T>> implements IEntitySaga<T, K> {
   private _listRoutine: Routine;
   private _createRoutine: Routine;
   private _deleteRoutine: Routine;
+  private _viewRoutine: Routine;
+  private _updateRoutine: Routine;
   private _axios: IApiService<T, K>;
 
-  constructor(axios: IApiService<T, K>, listRoutine: Routine, createRoutine: Routine, deleteRoutine: Routine) {
+  constructor(axios: IApiService<T, K>, listRoutine: Routine, createRoutine: Routine, deleteRoutine: Routine, viewRoutine: Routine, updateRoutine: Routine) {
     this._listRoutine = listRoutine;
     this._createRoutine = createRoutine;
     this._deleteRoutine = deleteRoutine;
+    this._viewRoutine = viewRoutine;
+    this._updateRoutine = updateRoutine;
     this._axios = axios;
+  }
+  updateEntity() {
+    const self = this;
+    return function* update(action: BaseActions) {
+      console.log('test');
+      try {
+        yield put(self._updateRoutine.request());
+        yield self._axios.update(action.payload);
+        yield put(self._updateRoutine.success());
+      } catch (error) {
+        console.log(error);
+        yield put(self._updateRoutine.failure(new Error('Update saga error')));
+      }
+    };
+  }
+  watchUpdateEntityRoutine() {
+    const self = this;
+    return function* watch() {
+      yield takeEvery(self._updateRoutine.TRIGGER, self.updateEntity());
+    };
+  }
+  setUserView() {
+    const self = this;
+    return function* view(action: BaseActions) {
+      yield put(self._viewRoutine.success(action.payload)); //payload must be id
+    };
+  }
+
+  watchUserViewRoutine() {
+    const self = this;
+    return function* watch() {
+      yield takeEvery(self._viewRoutine.TRIGGER, self.setUserView());
+    };
   }
   deleteEntity() {
     const self = this;
@@ -60,8 +96,6 @@ export class EntitySaga<T extends IEntityModel, K extends IPageableIEntityModel<
         yield put(self._createRoutine.request());
         yield self._axios.create(action.payload);
         yield put(self._createRoutine.success());
-        // const state: State = yield select();
-        // yield put(self._listRoutine({ pageNumber: state.users.list?.entity.page }));
       } catch (error) {
         yield put(self._createRoutine.failure(new Error('Create saga error')));
       }

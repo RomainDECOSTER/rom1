@@ -7,7 +7,7 @@ import { Container, Button, Typography, createStyles, makeStyles, Theme } from '
 import { extractData } from '@jsonforms/core/lib/reducers/core';
 import { State } from '../../../Reducers';
 import { UserState } from '../../../Reducers/User/UserRedux';
-import { UsersCreateRoutine } from '../../../Routines/UsersRoutines';
+import { UsersCreateRoutine, UserUpdateRoutine } from '../../../Routines/UsersRoutines';
 import { Routine } from 'redux-saga-routines';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -26,13 +26,14 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
   initForm: any;
+  user: UserState;
 }
 
-const CreateComponent: FunctionComponent<Props> = ({ initForm }, ...props) => {
+const CreateComponent: FunctionComponent<Props> = ({ initForm, user }, ...props) => {
   const [initDone, setInitDone] = useState(false);
   useEffect(() => {
     if (!initDone) {
-      initForm();
+      initForm(Actions.init({ user: user }, UserFormConfig.schema, UserFormConfig.ui));
       setInitDone(true);
     }
   }, [initDone, initForm]);
@@ -48,21 +49,33 @@ const CreateComponent: FunctionComponent<Props> = ({ initForm }, ...props) => {
 
 const mapsDispatchToProps = (dispatch: any) => {
   return {
-    initForm: () => dispatch(Actions.init({ user: {} }, UserFormConfig.schema, UserFormConfig.ui)),
+    initForm: (action: any) => dispatch(action),
   };
 };
 
-const CreateUserComponent = connect(null, mapsDispatchToProps)(CreateComponent);
+const mapStateToProps = (state: State) => {
+  return {
+    user: state.users.details !== undefined ? state.users.details : {},
+  };
+};
+
+const CreateUserComponent = connect(mapStateToProps, mapsDispatchToProps)(CreateComponent);
 
 interface PropsContainer {
   UsersCreateRoutine: Routine;
+  UserUpdateRoutine: Routine;
   userData: UserState;
+  hasUserDetail: boolean;
 }
 
-const CreateContainer: FunctionComponent<PropsContainer> = ({ UsersCreateRoutine, userData }, ...props) => {
+const CreateContainer: FunctionComponent<PropsContainer> = ({ UsersCreateRoutine, userData, hasUserDetail, UserUpdateRoutine }, ...props) => {
   const classes = useStyles();
   const register = () => {
-    UsersCreateRoutine(userData);
+    if (hasUserDetail) {
+      UserUpdateRoutine(userData);
+    } else {
+      UsersCreateRoutine(userData);
+    }
   };
   return (
     <>
@@ -82,7 +95,8 @@ const CreateContainer: FunctionComponent<PropsContainer> = ({ UsersCreateRoutine
 const mapsStateToProps = (state: State) => {
   return {
     userData: extractData(state.jsonforms.core).user,
+    hasUserDetail: state.users.details !== undefined,
   };
 };
 
-export const CreateUser = connect(mapsStateToProps, { UsersCreateRoutine })(CreateContainer);
+export const CreateUser = connect(mapsStateToProps, { UsersCreateRoutine, UserUpdateRoutine })(CreateContainer);

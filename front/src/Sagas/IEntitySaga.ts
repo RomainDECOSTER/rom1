@@ -8,4 +8,8 @@ export interface IEntitySaga<T extends IEntityModel, K extends IPageableIEntityM
   watchCreateRoutine(): any;
   watchDeleteRoutine(): any;
   deleteEntity(): any;
+  watchUserViewRoutine(): any;
+  setUserView(): any;
+  updateEntity(): any;
+  watchUpdateEntityRoutine(): any;
 }

@@ -12,6 +12,8 @@ export interface IEntitySate<T extends IEntityModel, K extends IPageableIEntityM
   created?: boolean;
   deleteting?: boolean;
   deleted?: boolean;
+  updating?: boolean;
+  updated?: boolean;
 }
 
 export interface IEntityRedux<T extends IEntityModel, K extends IPageableIEntityModel<T>> {

@@ -7,9 +7,11 @@ const usersSaga = new UserSaga();
 
 export const rootSaga = function* root() {
   yield all([
+    fork(usersSaga.watchUpdateEntityRoutine()),
     fork(usersSaga.watchListRoutine()),
     fork(usersSaga.watchCreateRoutine()),
     fork(usersSaga.watchDeleteRoutine()),
+    fork(usersSaga.watchUserViewRoutine()),
     fork(watchAppStart),
     fork(validateLoginFormWatcherSaga),
     fork(listenLoginRoutine),
