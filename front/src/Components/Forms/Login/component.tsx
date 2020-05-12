@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { Field, reduxForm, InjectedFormProps } from 'redux-form';
 
-import { Button, TextField, Container, FormControl, makeStyles, Theme, createStyles } from '@material-ui/core';
+import { Button, TextField, Container, makeStyles, Theme, createStyles } from '@material-ui/core';
 
 import { SemanticFormField } from '../../../Tools/semantic-ui-form';
 import { required } from '../../../Tools/Validation';
@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme: Theme) =>
     field: {
       width: '100%',
     },
+    btn: {
+      marginTop: theme.spacing(2),
+    },
   }),
 );
 
@@ -21,15 +24,34 @@ const LoginFormComponent: FunctionComponent<FormProps> = (props) => {
   const classes = useStyles();
   return (
     <Container>
-      <FormControl onSubmit={props.handleSubmit(LoginFormHandler)} className={classes.field}>
-        <Field name="username" key="username" component={SemanticFormField} as={TextField} label={`Nom d'utilisateur`} placeholder={`Entrer votre nom d'utilisateur`} validate={required} />
+      <form name={'login'} onSubmit={props.handleSubmit(LoginFormHandler)} className={classes.field}>
+        <Field
+          name="username"
+          key="username"
+          component={SemanticFormField}
+          as={TextField}
+          label={`Nom d'utilisateur`}
+          placeholder={`Entrer votre nom d'utilisateur`}
+          validate={required}
+          className={classes.field}
+        />
         <br />
-        <Field name="password" key="password" component={SemanticFormField} as={TextField} type={'password'} label={'Mot de passe'} placeholder={'Entrer votre mot de passe'} validate={required} />
+        <Field
+          name="password"
+          key="password"
+          component={SemanticFormField}
+          as={TextField}
+          type={'password'}
+          label={'Mot de passe'}
+          placeholder={'Entrer votre mot de passe'}
+          validate={required}
+          className={classes.field}
+        />
         <br />
-        <Button disabled={props.pristine || props.submitting} key="loginValidation" type="submit">
+        <Button className={classes.btn} disabled={props.pristine || props.submitting} key="loginValidation" type="submit" color={'primary'} variant={'outlined'}>
           Valider
         </Button>
-      </FormControl>
+      </form>
     </Container>
   );
 };
