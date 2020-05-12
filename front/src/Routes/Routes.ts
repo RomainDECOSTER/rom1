@@ -22,6 +22,16 @@ export const Routes: any = {
         exact: true,
       },
     },
+    workshops: {
+      create: {
+        path: '/admin/workshops',
+        exact: true,
+      },
+      view: {
+        path: '/admin/workshops/:id',
+        exact: true,
+      },
+    },
     roles: ['admin'],
   },
 };
