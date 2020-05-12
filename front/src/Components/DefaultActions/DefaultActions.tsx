@@ -6,16 +6,18 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Visibility, Edit, Delete } from '@material-ui/icons';
 import { store } from '../../store';
-import { UserDeleteRoutine, UserViewRoutine } from '../../Routines/UsersRoutines';
 import { Link } from 'react-router-dom';
+import { Routine } from 'redux-saga-routines';
 
 interface Props {
   row: any;
   more: boolean;
   path: any;
+  DeleteRoutine: Routine;
+  ViewRoutine: Routine;
 }
 
-export const DefaultActions: FunctionComponent<Props> = ({ row, more, path }, ...props) => {
+export const DefaultActions: FunctionComponent<Props> = ({ row, more, path, DeleteRoutine, ViewRoutine }, ...props) => {
   const [currentId, setCurrentId] = useState('');
   const [open, setOpen] = useState(false);
   const [confirm, setConfirm] = useState(false);
@@ -24,9 +26,9 @@ export const DefaultActions: FunctionComponent<Props> = ({ row, more, path }, ..
 
   useEffect(() => {
     if (confirm) {
-      store.dispatch(UserDeleteRoutine(currentId));
+      store.dispatch(DeleteRoutine(currentId));
     }
-  }, [confirm, currentId]);
+  }, [confirm, currentId, DeleteRoutine]);
 
   let moreElement: JSX.Element = <></>;
   if (more) {
@@ -39,12 +41,12 @@ export const DefaultActions: FunctionComponent<Props> = ({ row, more, path }, ..
   return (
     <>
       <Link key={`link-view-${row._id}`} to={path.view.path.replace(':id', row._id)}>
-        <Button key={`view-${row._id}`} color={'primary'} onClick={() => store.dispatch(UserViewRoutine(row._id))}>
+        <Button key={`view-${row._id}`} color={'primary'} onClick={() => store.dispatch(ViewRoutine(row._id))}>
           <Visibility />
         </Button>
       </Link>
       <Link key={`link-edit-${row._id}`} to={path.create.path}>
-        <Button key={`edit-${row._id}`} color={'primary'} onClick={() => store.dispatch(UserViewRoutine(row._id))}>
+        <Button key={`edit-${row._id}`} color={'primary'} onClick={() => store.dispatch(ViewRoutine(row._id))}>
           <Edit color={'primary'} />
         </Button>
       </Link>

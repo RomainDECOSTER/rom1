@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import './Admin.css';
 import { Tab, Tabs, Box, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { UserPanel } from './Users/UsersPanel';
+import { WorkshopsPanel } from './Workshops/WorkshopsPanel';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,7 +37,7 @@ function a11yProps(index: any) {
 
 interface Props {}
 
-const tabs = [<Tab label={'Utilisateurs'} key={'user'} {...a11yProps(0)} />];
+const tabs = [<Tab label={'Utilisateurs'} key={'user'} {...a11yProps(0)} />, <Tab label={'Atelier'} key={'workshop'} {...a11yProps(1)} />];
 
 export const Admin: FunctionComponent<Props> = (props) => {
   const [value, setValue] = React.useState(0);
@@ -51,6 +52,9 @@ export const Admin: FunctionComponent<Props> = (props) => {
       </Tabs>
       <TabPanel value={value} index={0}>
         <UserPanel />
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <WorkshopsPanel />
       </TabPanel>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { Routine } from 'redux-saga-routines';
 import { connect } from 'react-redux';
-import { UsersListRoutine, UserSortRoutine } from '../../../Routines/UsersRoutines';
+import { UsersListRoutine, UserSortRoutine, UserDeleteRoutine, UserViewRoutine } from '../../../Routines/UsersRoutines';
 import { State } from '../../../Reducers';
 import { IUserState } from '../../../Reducers/User/IUserRedux';
 import { DefaultList } from '../../../Components/DefaultList/DefaultListContainer';
@@ -36,7 +36,7 @@ const columns = [
   {
     name: 'Actions',
     cell: (row: any) => {
-      return <DefaultActions row={row} more={false} path={Routes.admin.user} />;
+      return <DefaultActions row={row} more={false} path={Routes.admin.user} DeleteRoutine={UserDeleteRoutine} ViewRoutine={UserViewRoutine} />;
     },
   },
 ];
