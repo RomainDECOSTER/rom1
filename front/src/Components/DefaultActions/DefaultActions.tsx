@@ -13,9 +13,10 @@ import { Routes } from '../../Routes/Routes';
 interface Props {
   row: any;
   more: boolean;
+  path: any;
 }
 
-export const DefaultActions: FunctionComponent<Props> = ({ row, more }, ...props) => {
+export const DefaultActions: FunctionComponent<Props> = ({ row, more, path }, ...props) => {
   const [currentId, setCurrentId] = useState('');
   const [open, setOpen] = useState(false);
   const [confirm, setConfirm] = useState(false);
@@ -38,12 +39,12 @@ export const DefaultActions: FunctionComponent<Props> = ({ row, more }, ...props
   }
   return (
     <>
-      <Link key={`link-view-${row._id}`} to={Routes.admin.user.view.path.replace(':id', row._id)}>
+      <Link key={`link-view-${row._id}`} to={path.view.path.replace(':id', row._id)}>
         <Button key={`view-${row._id}`} color={'primary'} onClick={() => store.dispatch(UserViewRoutine(row._id))}>
           <Visibility />
         </Button>
       </Link>
-      <Link key={`link-edit-${row._id}`} to={Routes.admin.user.create.path}>
+      <Link key={`link-edit-${row._id}`} to={path.create.path}>
         <Button key={`edit-${row._id}`} color={'primary'} onClick={() => store.dispatch(UserViewRoutine(row._id))}>
           <Edit color={'primary'} />
         </Button>

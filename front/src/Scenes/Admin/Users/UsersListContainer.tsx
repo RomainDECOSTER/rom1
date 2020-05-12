@@ -6,6 +6,7 @@ import { State } from '../../../Reducers';
 import { IUserState } from '../../../Reducers/User/IUserRedux';
 import { DefaultList } from '../../../Components/DefaultList/DefaultListContainer';
 import { DefaultActions } from '../../../Components/DefaultActions/DefaultActions';
+import { Routes } from '../../../Routes/Routes';
 
 interface Props {
   users: IUserState;
@@ -35,7 +36,7 @@ const columns = [
   {
     name: 'Actions',
     cell: (row: any) => {
-      return <DefaultActions row={row} more={false} />;
+      return <DefaultActions row={row} more={false} path={Routes.admin.user} />;
     },
   },
 ];
