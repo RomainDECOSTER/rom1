@@ -3,7 +3,7 @@ import './Admin.css';
 import { Tab, Tabs, Box, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { UserPanel } from './Users/UsersPanel';
 import { WorkshopsPanel } from './Workshops/WorkshopsPanel';
-import { useHistory, useParams, useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

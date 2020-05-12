@@ -81,7 +81,9 @@ const HeaderComponent: FunctionComponent<Props> = (props) => {
   } else {
     logItem = (
       <Button key={'logout'} onClick={disconnect} className={classes.btn}>
-        Deconnexion
+        <Link to={Routes.root.path} className={classes.link}>
+          Déconnexion
+        </Link>
       </Button>
     );
   }

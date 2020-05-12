@@ -14,4 +14,5 @@ function* appStarting() {
     yield put(LoginFormRoutine.success(authentication));
     yield put(LoginRoutine.success());
   }
+  yield put(AppRoutine.success());
 }

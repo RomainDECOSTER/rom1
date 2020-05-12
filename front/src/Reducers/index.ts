@@ -8,6 +8,7 @@ import { UserRedux } from './User/UserRedux';
 import { IUserState } from './User/IUserRedux';
 import { jsonformsReducer } from '@jsonforms/core';
 import { WorkshopsRedux, WorkshopsState } from './Workshops/WorkshopsRedux';
+import { appReducer, AppState } from './App';
 
 const userRedux = new UserRedux();
 const workshopsRedux = new WorkshopsRedux();
@@ -20,6 +21,7 @@ export interface State {
   users: IUserState;
   jsonforms: any;
   workshops: WorkshopsState;
+  app: AppState;
 }
 
 export const rootReducer = (history: History) =>
@@ -31,4 +33,5 @@ export const rootReducer = (history: History) =>
     users: userRedux.getReducer,
     jsonforms: jsonformsReducer(),
     workshops: workshopsRedux.getReducer,
+    app: appReducer,
   });
