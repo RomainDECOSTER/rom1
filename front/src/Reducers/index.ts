@@ -7,8 +7,10 @@ import { reducer as notifications } from 'react-notification-system-redux';
 import { UserRedux } from './User/UserRedux';
 import { IUserState } from './User/IUserRedux';
 import { jsonformsReducer } from '@jsonforms/core';
+import { WorkshopsRedux, WorkshopsState } from './Workshops/WorkshopsRedux';
 
 const userRedux = new UserRedux();
+const workshopsRedux = new WorkshopsRedux();
 
 export interface State {
   router: any;
@@ -17,6 +19,7 @@ export interface State {
   notifications: any;
   users: IUserState;
   jsonforms: any;
+  workshops: WorkshopsState;
 }
 
 export const rootReducer = (history: History) =>
@@ -27,4 +30,5 @@ export const rootReducer = (history: History) =>
     notifications,
     users: userRedux.getReducer,
     jsonforms: jsonformsReducer(),
+    workshops: workshopsRedux.getReducer,
   });

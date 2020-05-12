@@ -8,7 +8,6 @@ import { Visibility, Edit, Delete } from '@material-ui/icons';
 import { store } from '../../store';
 import { UserDeleteRoutine, UserViewRoutine } from '../../Routines/UsersRoutines';
 import { Link } from 'react-router-dom';
-import { Routes } from '../../Routes/Routes';
 
 interface Props {
   row: any;

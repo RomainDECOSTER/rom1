@@ -3,12 +3,13 @@ import IPageableIEntityModel from '../Api/Datamodel/IPageableIEntityModel';
 import { BaseActions } from '../Tools/BaseActions';
 
 export interface IEntitySaga<T extends IEntityModel, K extends IPageableIEntityModel<T>> {
+  runSaga(): any;
   watchListRoutine(): any;
   getListFromServer(): any;
   watchCreateRoutine(): any;
   watchDeleteRoutine(): any;
   deleteEntity(): any;
-  watchUserViewRoutine(): any;
+  watchEntityViewRoutine(): any;
   setUserView(): any;
   updateEntity(): any;
   watchUpdateEntityRoutine(): any;

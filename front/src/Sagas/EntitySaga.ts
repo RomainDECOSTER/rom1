@@ -3,7 +3,7 @@ import IPageableIEntityModel from '../Api/Datamodel/IPageableIEntityModel';
 import { IEntitySaga } from './IEntitySaga';
 import { Routine } from 'redux-saga-routines';
 import { BaseActions } from '../Tools/BaseActions';
-import { takeEvery, put, select } from 'redux-saga/effects';
+import { takeEvery, put, select, all, fork } from 'redux-saga/effects';
 import IApiService from '../Api/IApiService';
 import { AxiosResponse } from 'axios';
 import { State } from '../Reducers';
@@ -23,6 +23,12 @@ export class EntitySaga<T extends IEntityModel, K extends IPageableIEntityModel<
     this._viewRoutine = viewRoutine;
     this._updateRoutine = updateRoutine;
     this._axios = axios;
+  }
+  runSaga() {
+    const self = this;
+    return function* run() {
+      yield all([fork(self.watchCreateRoutine()), fork(self.watchListRoutine()), fork(self.watchUpdateEntityRoutine()), fork(self.watchDeleteRoutine()), fork(self.watchEntityViewRoutine())]);
+    };
   }
   updateEntity() {
     const self = this;
@@ -50,7 +56,7 @@ export class EntitySaga<T extends IEntityModel, K extends IPageableIEntityModel<
     };
   }
 
-  watchUserViewRoutine() {
+  watchEntityViewRoutine() {
     const self = this;
     return function* watch() {
       yield takeEvery(self._viewRoutine.TRIGGER, self.setUserView());
