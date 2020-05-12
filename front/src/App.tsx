@@ -40,7 +40,7 @@ interface Props {
 
 const AppComponent: React.FunctionComponent<Props> = ({ notifications, AppRoutine, user, appStarted, appStarting }, ...props) => {
   const classes = useStyles();
-  if (user.loggedIn === false && appStarted === false) {
+  if (user.loggedIn === false && appStarting === false && appStarted === false) {
     AppRoutine();
   }
   if (appStarting) {
