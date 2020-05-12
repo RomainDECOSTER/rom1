@@ -1,8 +1,9 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import './Admin.css';
 import { Tab, Tabs, Box, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { UserPanel } from './Users/UsersPanel';
 import { WorkshopsPanel } from './Workshops/WorkshopsPanel';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,9 +43,19 @@ const tabs = [<Tab label={'Utilisateurs'} key={'user'} {...a11yProps(0)} />, <Ta
 export const Admin: FunctionComponent<Props> = (props) => {
   const [value, setValue] = React.useState(0);
   const classes = useStyles();
+  const history = useHistory();
+  const location = useLocation();
   const handleChange = (event: any, newValue: number) => {
-    setValue(newValue);
+    history.push('/admin?adminTabs=' + newValue, { adminTabs: newValue });
   };
+  useEffect(() => {
+    const query = new URLSearchParams(location.search);
+    if (query.get('adminTabs') !== null) {
+      setValue(parseInt(query.get('adminTabs') as string));
+    } else {
+      setValue(0);
+    }
+  }, [location]);
   return (
     <div id={'AdminTabs'}>
       <Tabs value={value} indicatorColor="primary" textColor="primary" onChange={handleChange} aria-label="admin tabs" className={classes.tabs}>
