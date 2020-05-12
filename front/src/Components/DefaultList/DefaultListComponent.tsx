@@ -25,6 +25,7 @@ export const DefaultListComponent: FunctionComponent<IListProps> = ({ data, titl
       onChangePage={handlePageChange}
       onSort={handleSort}
       paginationTotalRows={data.list?.entity.total}
+      defaultSortAsc={false}
     />
   );
 };

@@ -15,14 +15,26 @@ export class EntitySaga<T extends IEntityModel, K extends IPageableIEntityModel<
   private _viewRoutine: Routine;
   private _updateRoutine: Routine;
   private _axios: IApiService<T, K>;
-
-  constructor(axios: IApiService<T, K>, listRoutine: Routine, createRoutine: Routine, deleteRoutine: Routine, viewRoutine: Routine, updateRoutine: Routine) {
+  private _getSortKey: Function;
+  private _getSortDir: Function;
+  constructor(
+    getSortKey: Function,
+    getSortDir: Function,
+    axios: IApiService<T, K>,
+    listRoutine: Routine,
+    createRoutine: Routine,
+    deleteRoutine: Routine,
+    viewRoutine: Routine,
+    updateRoutine: Routine,
+  ) {
     this._listRoutine = listRoutine;
     this._createRoutine = createRoutine;
     this._deleteRoutine = deleteRoutine;
     this._viewRoutine = viewRoutine;
     this._updateRoutine = updateRoutine;
     this._axios = axios;
+    this._getSortKey = getSortKey;
+    this._getSortDir = getSortDir;
   }
   runSaga() {
     const self = this;
@@ -118,8 +130,8 @@ export class EntitySaga<T extends IEntityModel, K extends IPageableIEntityModel<
           action.payload.options,
           action.payload.pageNumber,
           action.payload.itemNumber,
-          state.users.sortKey,
-          state.users.sortKey !== undefined ? state.users.sortDir : undefined,
+          self._getSortKey(state),
+          self._getSortKey(state) !== undefined ? self._getSortDir(state) : undefined,
         );
         yield put(self._listRoutine.success(response.data));
       } catch (error) {
