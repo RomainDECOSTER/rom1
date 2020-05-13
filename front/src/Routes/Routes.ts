@@ -34,4 +34,21 @@ export const Routes: any = {
     },
     roles: ['admin'],
   },
+  management: {
+    root: {
+      path: '/management',
+      exact: true,
+    },
+    volunteers: {
+      create: {
+        path: '/management/volunteers/create',
+        exact: true,
+      },
+      view: {
+        path: '/management/volunteers/:id',
+        exact: true,
+      },
+    },
+    roles: ['admin', 'team'],
+  },
 };
