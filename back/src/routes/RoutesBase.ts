@@ -30,6 +30,12 @@ class RoutesBase<T extends IControllerBase> {
       router.put(`${this._prefixe}/:id`, this._controller.update.bind(this._controller));
     }
 
+    if (this._defaultRules.hasOwnProperty("search")) {
+      router.get(`${this._prefixe}/search`, permit(this._defaultRules["search"]), this._controller.search.bind(this._controller));
+    } else {
+      router.get(`${this._prefixe}/search`, this._controller.search.bind(this._controller));
+    }
+
     if (this._defaultRules.hasOwnProperty("findById")) {
       router.get(`${this._prefixe}/:id`, permit(this._defaultRules["findById"]), this._controller.findById.bind(this._controller));
     } else {

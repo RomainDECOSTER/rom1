@@ -8,6 +8,7 @@ const defaultRules: Object = {
   remove: ["admin", "team"],
   retrieve: ["admin", "team"],
   findById: ["admin", "team"],
+  search: ["admin", "team"],
 };
 
 class VolunteerRoutes extends RoutesBase<IVolunteerController> {

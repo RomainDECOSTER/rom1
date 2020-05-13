@@ -8,6 +8,11 @@ class RepositoryBase<T extends IEntityModel> implements IRepositoryBase<T> {
   constructor(schemaModel: mongoose.Model<IEntityModel>) {
     this._model = schemaModel;
   }
+  search(key: string, value: any, pageNumber?: number, itemNumber?: number, sortKey?: string, sortDir?: string): Promise<IEntityModel[]> {
+    const options = {};
+    options[key] = new RegExp(`${value}.*`, "i");
+    return this.retrieve(options, pageNumber, itemNumber, sortKey, sortDir);
+  }
 
   create(item: T): Promise<IEntityModel> {
     return this._model.create(item);

@@ -11,6 +11,7 @@ const defaultRules: Object = {
   remove: "admin",
   findById: ["admin", "team"],
   retrieve: ["admin", "team"],
+  search: ["admin", "team"],
 };
 
 class UserRoutes extends RoutesBase<IUserController> {

@@ -6,6 +6,7 @@ interface IServiceBase<T extends IEntityModel> {
  */
   retrieve(pageNumber?: number, itemNumber?: number, sortKey?: string, sortDir?: string): Promise<any>;
   findById(id: string): Promise<IEntityModel>;
+  search(key: string, value: any, pageNumber?: number, itemNumber?: number, sortKey?: string, sortDir?: string);
 
   /*
         write operation

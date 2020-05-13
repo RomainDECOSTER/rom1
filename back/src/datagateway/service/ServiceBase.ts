@@ -19,6 +19,21 @@ class ServiceBase<T extends IEntityModel> {
     }
   }
 
+  async search(key: string, value: any, pageNumber?: number, itemNumber?: number, sortKey?: string, sortDir?: string) {
+    try {
+      const results = await this._repository.search(key, value, pageNumber, itemNumber, sortKey, sortDir);
+      return {
+        data: results,
+        total: results.length,
+        page: pageNumber,
+        items: itemNumber,
+        pages: Math.ceil(results.length / itemNumber),
+      };
+    } catch (error) {
+      throw new CommonError("Search service error", error);
+    }
+  }
+
   async retrieve(pageNumber: number = 1, itemNumber: number = 10, sortKey: string, sortDir: string) {
     try {
       const results = await this._repository.retrieve({}, pageNumber, itemNumber, sortKey, sortDir);

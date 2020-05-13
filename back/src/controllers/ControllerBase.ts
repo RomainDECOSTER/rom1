@@ -83,6 +83,29 @@ class ControllerBase<T extends IEntityModel> {
     }
   }
 
+  async search(req: express.Request, res: express.Response) {
+    try {
+      if (req.query.key === undefined || req.query.value === undefined) {
+        this.handleResponse(res, new CommonError("Key and value must be defined"));
+      } else {
+        const key: string = String(req.query.key);
+        const value: any = req.query.value;
+        const pageNumber: any = !Array.isArray(req.query.page)
+          ? parseInt(req.query.page !== undefined ? req.query.page.toString() : "1")
+          : this.handleResponse(res, new CommonError("Page argument is an array"));
+        const itemNumber: any = !Array.isArray(req.query.itemNumber)
+          ? parseInt(req.query.itemNumber !== undefined ? req.query.itemNumber.toString() : "10")
+          : this.handleResponse(res, new CommonError("Item number argument is an array"));
+        const sortKey: any = req.query.sortKey || null;
+        const sortDir: any = req.query.sortDir || null;
+        const entities = await this._service.search(key, value, pageNumber, itemNumber, sortKey, sortDir);
+        this.handleResponse(res, undefined, entities);
+      }
+    } catch (error) {
+      this.handleResponse(res, error);
+    }
+  }
+
   async retrieve(req: express.Request, res: express.Response) {
     try {
       const pageNumber: any = !Array.isArray(req.query.page)
