@@ -15,43 +15,31 @@ export class EntitySaga<T extends IEntityModel, K extends IPageableIEntityModel<
   private _viewRoutine: Routine;
   private _updateRoutine: Routine;
   private _axios: IApiService<T, K>;
-  private _getSortKey: Function;
-  private _getSortDir: Function;
+  private _getItem: Function;
   private _searchRoutine: Routine;
-  constructor(
-    getSortKey: Function,
-    getSortDir: Function,
-    axios: IApiService<T, K>,
-    listRoutine: Routine,
-    createRoutine: Routine,
-    deleteRoutine: Routine,
-    viewRoutine: Routine,
-    updateRoutine: Routine,
-    searchRoutine: Routine,
-  ) {
+  constructor(getItem: Function, axios: IApiService<T, K>, listRoutine: Routine, createRoutine: Routine, deleteRoutine: Routine, viewRoutine: Routine, updateRoutine: Routine, searchRoutine: Routine) {
     this._listRoutine = listRoutine;
     this._createRoutine = createRoutine;
     this._deleteRoutine = deleteRoutine;
     this._viewRoutine = viewRoutine;
     this._updateRoutine = updateRoutine;
     this._axios = axios;
-    this._getSortKey = getSortKey;
-    this._getSortDir = getSortDir;
+    this._getItem = getItem;
     this._searchRoutine = searchRoutine;
   }
   searchEntity() {
     const self = this;
     return function* search(action: BaseActions) {
       try {
-        yield put(self._searchRoutine.request({ key: action.payload.key, value: action.payload.value }));
         const state: State = yield select();
+        yield put(self._searchRoutine.request({ key: action.payload.key, value: action.payload.value }));
         const response: AxiosResponse<K> = yield self._axios.search(
           action.payload.key,
           action.payload.value,
           action.payload.pageNumber,
           action.payload.itemNumber,
-          self._getSortKey(state),
-          self._getSortKey(state) !== undefined ? self._getSortDir(state) : undefined,
+          self._getItem(state, 'sortKey'),
+          self._getItem(state, 'sortKey') !== undefined ? self._getItem(state, 'sortDir') : undefined,
         );
         yield put(self._searchRoutine.success(response.data));
       } catch (error) {
@@ -160,16 +148,31 @@ export class EntitySaga<T extends IEntityModel, K extends IPageableIEntityModel<
     const self = this;
     return function* list(action: BaseActions) {
       try {
-        yield put(self._listRoutine.request());
         const state: State = yield select();
-        const response: AxiosResponse<K> = yield self._axios.retrieve(
-          action.payload.options,
-          action.payload.pageNumber,
-          action.payload.itemNumber,
-          self._getSortKey(state),
-          self._getSortKey(state) !== undefined ? self._getSortDir(state) : undefined,
-        );
-        yield put(self._listRoutine.success(response.data));
+        if (self._getItem(state, 'simpleSearchOptionsActive') === true) {
+          const searchKey = self._getItem(state, 'simpleSearchOptionskey');
+          const searchValue = self._getItem(state, 'simpleSearchOptionsValue');
+          yield put(self._searchRoutine.request({ key: searchKey, value: searchValue }));
+          const response: AxiosResponse<K> = yield self._axios.search(
+            searchKey,
+            searchValue,
+            action.payload.pageNumber,
+            action.payload.itemNumber,
+            self._getItem(state, 'sortKey'),
+            self._getItem(state, 'sortKey') !== undefined ? self._getItem(state, 'sortDir') : undefined,
+          );
+          yield put(self._searchRoutine.success(response.data));
+        } else {
+          yield put(self._listRoutine.request());
+          const response: AxiosResponse<K> = yield self._axios.retrieve(
+            action.payload.options,
+            action.payload.pageNumber,
+            action.payload.itemNumber,
+            self._getItem(state, 'sortKey'),
+            self._getItem(state, 'sortKey') !== undefined ? self._getItem(state, 'sortDir') : undefined,
+          );
+          yield put(self._listRoutine.success(response.data));
+        }
       } catch (error) {
         console.log(error);
         yield put(self._listRoutine.failure(new Error('List saga error')));

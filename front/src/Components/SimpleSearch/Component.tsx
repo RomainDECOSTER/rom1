@@ -46,8 +46,8 @@ export const SimpleSearchComponent: FunctionComponent<ComponentProps> = ({ searc
     const value: string = e.currentTarget.value;
     if (value.length >= 3) {
       searchRoutine({ key: keySearch, value: value });
-    } else if (value.length === 0) {
-      listRoutine({});
+    } else {
+      listRoutine({ searchActive: false });
     }
   };
   return (

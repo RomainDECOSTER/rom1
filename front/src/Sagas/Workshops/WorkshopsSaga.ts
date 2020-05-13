@@ -4,12 +4,11 @@ import { IPageableWorkshopsModel } from '../../Api/Datamodel/IPageableWorkshopsM
 import { WorkshopApiService } from '../../Api/Workshops/WorkshopApiService';
 import { WorkshopsListRoutine, WorkshopsCreateRoutine, WorkshopDeleteRoutine, WorkshopViewRoutine, WorkshopUpdateRoutine, WorkshopsSearchRoutine } from '../../Routines/WorkshopsRoutine';
 import { State } from '../../Reducers';
-
+import { path } from 'ramda';
 export class WorkshopsSaga extends EntitySaga<IWorkshopModel, IPageableWorkshopsModel> {
   constructor() {
     super(
-      (state: State) => state.workshops.sortKey,
-      (state: State) => state.workshops.sortDir,
+      (state: State, key: string) => path(key.split('.'), Object(state.workshops)),
       new WorkshopApiService('/workshops'),
       WorkshopsListRoutine,
       WorkshopsCreateRoutine,

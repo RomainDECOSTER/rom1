@@ -16,10 +16,9 @@ export interface IEntitySate<T extends IEntityModel, K extends IPageableIEntityM
   updated?: boolean;
   sortKey?: string;
   sortDir?: string;
-  simpleSearchOptions?: {
-    key: string;
-    value: string;
-  };
+  simpleSearchOptionskey?: string;
+  simpleSearchOptionsValue?: string;
+  simpleSearchOptionsActive?: boolean;
 }
 
 export interface IEntityRedux<T extends IEntityModel, K extends IPageableIEntityModel<T>> {

@@ -27,9 +27,15 @@ export class EntityRedux<T extends IEntityModel, K extends IPageableIEntityModel
   getReducer(state: IEntitySate<T, K> = { loading: false, sortDir: 'desc' }, action: BaseActions): IEntitySate<T, K> {
     switch (action.type) {
       case this._searchRoutine.REQUEST:
-        return { ...state, loading: true, simpleSearchOptions: { ...action.payload } };
+        return { ...state, loading: true, simpleSearchOptionskey: action.payload.key, simpleSearchOptionsValue: action.payload.value, simpleSearchOptionsActive: true };
+      case this._listRoutine.TRIGGER:
+        if (action.payload !== undefined && action.payload.searchActive !== undefined && action.payload.searchActive === false) {
+          return { ...state, simpleSearchOptionsActive: false, simpleSearchOptionsValue: undefined };
+        } else {
+          return state;
+        }
       case this._listRoutine.REQUEST:
-        return { ...state, loading: true, created: false, deleted: false, updated: false };
+        return { ...state, loading: true, created: false, deleted: false, updated: false, simpleSearchOptionsActive: false, simpleSearchOptionsValue: undefined };
       case this._searchRoutine.SUCCESS:
       case this._listRoutine.SUCCESS:
         return { ...state, loading: false, list: action.payload, successed: true };

@@ -17,6 +17,7 @@
     "connected-react-router": "^6.8.0",
     "jwt-decode": "^2.2.0",
     "moment-timezone": "^0.5.28",
+    "ramda": "^0.27.0",
     "react": "^16.13.1",
     "react-data-table-component": "^6.9.0",
     "react-dom": "^16.13.1",
@@ -56,6 +57,7 @@
   },
   "devDependencies": {
     "@types/moment-timezone": "^0.5.13",
+    "@types/ramda": "^0.27.4",
     "@types/react-notification-system": "^0.2.39",
     "@types/react-notification-system-redux": "^1.1.6",
     "@types/react-redux": "^7.1.7",
