@@ -6,12 +6,20 @@ import { Routes } from '../../../Routes/Routes';
 import { store } from '../../../store';
 import { WorkshopViewRoutine } from '../../../Routines/WorkshopsRoutine';
 import { Add } from '@material-ui/icons';
+import { Routine } from 'redux-saga-routines';
+import { connect } from 'react-redux';
+import { WorkshopsListRoutine, WorkshopsSearchRoutine } from '../../../Routines/WorkshopsRoutine';
+import { SimpleSearchComponent } from '../../../Components/SimpleSearch/Component';
 
-interface Props {}
+interface Props {
+  WorkshopsSearchRoutine: Routine;
+  WorkshopsListRoutine: Routine;
+}
 
-export const WorkshopsPanel: FunctionComponent<Props> = (props) => {
+const WorkshopsPanelComponent: FunctionComponent<Props> = ({ WorkshopsListRoutine, WorkshopsSearchRoutine, ...props }) => {
   return (
     <>
+      <SimpleSearchComponent searchRoutine={WorkshopsSearchRoutine} listRoutine={WorkshopsListRoutine} keySearch={'name'} />
       <WorkshopsList />
       <Fab component={Link} to={Routes.admin.workshops.create.path} color={'secondary'} onClick={() => store.dispatch(WorkshopViewRoutine(''))}>
         <Add />
@@ -19,3 +27,5 @@ export const WorkshopsPanel: FunctionComponent<Props> = (props) => {
     </>
   );
 };
+
+export const WorkshopsPanel = connect(null, { WorkshopsListRoutine, WorkshopsSearchRoutine })(WorkshopsPanelComponent);

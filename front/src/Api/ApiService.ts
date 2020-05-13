@@ -23,6 +23,19 @@ export class ApiService<T extends IEntityModel, K extends IPageableIEntityModel<
     return AxiosInstance.get<T>(`${this._entityBaseName}/${id}`, this.getHeaders());
   }
 
+  search(key: string, value: any, pageNumber?: number | undefined, itemNumber?: number | undefined, sortKey?: string | undefined, sortDir?: string | undefined): Promise<AxiosResponse<K>> {
+    const url = UrlAssembler()
+      .template(`${this._entityBaseName}/search`)
+      .query('key', key)
+      .query('value', value)
+      .query('page', pageNumber)
+      .query('items', itemNumber)
+      .query('sortKey', sortKey)
+      .query('sortDir', sortDir)
+      .toString();
+    return AxiosInstance.get<K>(url, this.getHeaders());
+  }
+
   retrieve(options?: Object | undefined, pageNumber?: number | undefined, itemNumber?: number | undefined, sortKey?: string | undefined, sortDir?: string | undefined): Promise<AxiosResponse<K>> {
     const url = UrlAssembler().template(this._entityBaseName).query('page', pageNumber).query('items', itemNumber).query('sortKey', sortKey).query('sortDir', sortDir).toString();
     return AxiosInstance.get<K>(url, this.getHeaders());

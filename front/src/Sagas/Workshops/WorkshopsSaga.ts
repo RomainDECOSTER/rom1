@@ -2,7 +2,7 @@ import { EntitySaga } from '../EntitySaga';
 import IWorkshopModel from '../../Api/Datamodel/IWorkshopModel';
 import { IPageableWorkshopsModel } from '../../Api/Datamodel/IPageableWorkshopsModel';
 import { WorkshopApiService } from '../../Api/Workshops/WorkshopApiService';
-import { WorkshopsListRoutine, WorkshopsCreateRoutine, WorkshopDeleteRoutine, WorkshopViewRoutine, WorkshopUpdateRoutine } from '../../Routines/WorkshopsRoutine';
+import { WorkshopsListRoutine, WorkshopsCreateRoutine, WorkshopDeleteRoutine, WorkshopViewRoutine, WorkshopUpdateRoutine, WorkshopsSearchRoutine } from '../../Routines/WorkshopsRoutine';
 import { State } from '../../Reducers';
 
 export class WorkshopsSaga extends EntitySaga<IWorkshopModel, IPageableWorkshopsModel> {
@@ -16,6 +16,7 @@ export class WorkshopsSaga extends EntitySaga<IWorkshopModel, IPageableWorkshops
       WorkshopDeleteRoutine,
       WorkshopViewRoutine,
       WorkshopUpdateRoutine,
+      WorkshopsSearchRoutine,
     );
   }
 }

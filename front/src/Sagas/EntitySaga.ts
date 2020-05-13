@@ -17,6 +17,7 @@ export class EntitySaga<T extends IEntityModel, K extends IPageableIEntityModel<
   private _axios: IApiService<T, K>;
   private _getSortKey: Function;
   private _getSortDir: Function;
+  private _searchRoutine: Routine;
   constructor(
     getSortKey: Function,
     getSortDir: Function,
@@ -26,6 +27,7 @@ export class EntitySaga<T extends IEntityModel, K extends IPageableIEntityModel<
     deleteRoutine: Routine,
     viewRoutine: Routine,
     updateRoutine: Routine,
+    searchRoutine: Routine,
   ) {
     this._listRoutine = listRoutine;
     this._createRoutine = createRoutine;
@@ -35,11 +37,45 @@ export class EntitySaga<T extends IEntityModel, K extends IPageableIEntityModel<
     this._axios = axios;
     this._getSortKey = getSortKey;
     this._getSortDir = getSortDir;
+    this._searchRoutine = searchRoutine;
+  }
+  searchEntity() {
+    const self = this;
+    return function* search(action: BaseActions) {
+      try {
+        yield put(self._searchRoutine.request({ key: action.payload.key, value: action.payload.value }));
+        const state: State = yield select();
+        const response: AxiosResponse<K> = yield self._axios.search(
+          action.payload.key,
+          action.payload.value,
+          action.payload.pageNumber,
+          action.payload.itemNumber,
+          self._getSortKey(state),
+          self._getSortKey(state) !== undefined ? self._getSortDir(state) : undefined,
+        );
+        yield put(self._searchRoutine.success(response.data));
+      } catch (error) {
+        yield put(self._searchRoutine.failure(error));
+      }
+    };
+  }
+  watchSearchEntity() {
+    const self = this;
+    return function* watch() {
+      yield takeEvery(self._searchRoutine.TRIGGER, self.searchEntity());
+    };
   }
   runSaga() {
     const self = this;
     return function* run() {
-      yield all([fork(self.watchCreateRoutine()), fork(self.watchListRoutine()), fork(self.watchUpdateEntityRoutine()), fork(self.watchDeleteRoutine()), fork(self.watchEntityViewRoutine())]);
+      yield all([
+        fork(self.watchCreateRoutine()),
+        fork(self.watchListRoutine()),
+        fork(self.watchUpdateEntityRoutine()),
+        fork(self.watchDeleteRoutine()),
+        fork(self.watchEntityViewRoutine()),
+        fork(self.watchSearchEntity()),
+      ]);
     };
   }
   updateEntity() {

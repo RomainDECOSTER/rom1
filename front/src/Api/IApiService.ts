@@ -6,6 +6,7 @@ export default interface IApiService<T extends IEntityModel, K extends IPageable
         read operations
      */
   retrieve(options?: Object, pageNumber?: number, itemNumber?: number, sortKey?: string, sortDir?: string): Promise<AxiosResponse<K>>;
+  search(key: string, value: any, pageNumber?: number, itemNumber?: number, sortKey?: string, sortDir?: string): Promise<AxiosResponse<K>>;
   findBy(id: string): Promise<AxiosResponse<T>>;
   create(doc: T): void;
   delete(id: string): void;

@@ -6,3 +6,4 @@ export const WorkshopDeleteRoutine = createRoutine('WORKSHOP_DELETE');
 export const WorkshopViewRoutine = createRoutine('WORKSHOP_VIEW');
 export const WorkshopUpdateRoutine = createRoutine('WORKSHOP_UPDATE');
 export const WorkshopSortRoutine = createRoutine('WORKSHOP_SORT');
+export const WorkshopsSearchRoutine = createRoutine('WORKSHOPS_SEARCH');

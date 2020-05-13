@@ -14,4 +14,6 @@ export interface IEntitySaga<T extends IEntityModel, K extends IPageableIEntityM
   setUserView(): any;
   updateEntity(): any;
   watchUpdateEntityRoutine(): any;
+  searchEntity(): any;
+  watchSearchEntity(): any;
 }
