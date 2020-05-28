@@ -24,8 +24,12 @@ export const UserFormConfig = {
             type: 'string',
           },
           roles: {
-            type: 'string',
-            enum: [Roles.ADMIN.value, Roles.TEAM.value, Roles.USER.value],
+            type: 'array',
+            items: {
+              type: 'string',
+              enum: [Roles.ADMIN.value, Roles.TEAM.value, Roles.USER.value],
+            },
+            uniqueItems: true,
           },
         },
       },
@@ -69,10 +73,6 @@ export const UserFormConfig = {
         type: 'Control',
         label: "Role de l'utilisateur",
         scope: '#/properties/user/properties/roles',
-        enum: [Roles.ADMIN.value, Roles.TEAM.value, Roles.USER.value],
-        options: {
-          multi_select: true,
-        },
       },
     ],
   },

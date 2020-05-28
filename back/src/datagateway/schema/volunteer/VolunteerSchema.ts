@@ -20,7 +20,7 @@ class VoluteerSchema {
         proposedSubject: [{ type: ProposedSubectSchema }],
         familyRessources: FamilyRessourcesSchema,
         lifeState: StateSchema,
-        workshops: [{ type: Schema.Types.ObjectId, ref: "workshops" }],
+        workshops: [{ type: Schema.Types.ObjectId, ref: "Workshop" }],
         comment: { type: Schema.Types.String },
         otherIntervention: { type: Schema.Types.String },
       },

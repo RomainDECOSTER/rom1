@@ -1,11 +1,11 @@
-import IVolunteerModel from "./IVolunteerModel";
-import IRegistrationModel from "../common/IRegistrationModel";
-import IGeneralInformationModel from "../common/IGeneralInformationModel";
-import IGeneralAvailabilitiesModel from "../common/IGeneralAvailabilitiesModel";
-import IProposedSubectModel from "./IProposedSubectModel";
-import IFamilyRessourcesModel from "../common/IFamilyRessourcesModel";
-import IStateModel from "../student/IStateModel";
-import IWorkshopModel from "../IWorkshopModel";
+import IVolunteerModel from './IVolunteerModel';
+import IRegistrationModel from '../common/IRegistrationModel';
+import IGeneralInformationModel from '../common/IGeneralInformationModel';
+import IGeneralAvailabilitiesModel from '../common/IGeneralAvailabilitiesModel';
+import IProposedSubectModel from './IProposedSubectModel';
+import IFamilyRessourcesModel from '../common/IFamilyRessourcesModel';
+import IStateModel from '../student/IStateModel';
+import IWorkshopModel from '../IWorkshopModel';
 class VolunteerModel {
   private _volunteer: IVolunteerModel;
 
@@ -44,3 +44,5 @@ class VolunteerModel {
     return this._volunteer.workshops;
   }
 }
+
+export default VolunteerModel;

@@ -2,9 +2,12 @@ import React, { FunctionComponent } from 'react';
 import { Routine } from 'redux-saga-routines';
 import { VolunteersState } from '../../../Reducers/Volunteers/VoluteersRedux';
 import { DefaultList } from '../../../Components/DefaultList/DefaultListContainer';
-import { VolunteersListRoutine, VolunteerSortRoutine } from '../../../Routines/VolunteersRoutine';
+import { VolunteersListRoutine, VolunteerSortRoutine, VolunteerDeleteRoutine, VolunteerViewRoutine } from '../../../Routines/VolunteersRoutine';
 import { State } from '../../../Reducers';
 import { connect } from 'react-redux';
+import { DefaultActions } from '../../../Components/DefaultActions/DefaultActions';
+import { Routes } from '../../../Routes/Routes';
+import VolunteerModel from '../../../Api/Datamodel/volunteer/VolunteerModel';
 
 interface Props {
   volunteers: VolunteersState;
@@ -29,6 +32,12 @@ const columns = [
   {
     name: 'Email',
     selector: 'generalInformation.email',
+  },
+  {
+    name: 'Actions',
+    cell: (row: VolunteerModel) => {
+      return <DefaultActions row={row} more={false} path={Routes.management.volunteers} DeleteRoutine={VolunteerDeleteRoutine} ViewRoutine={VolunteerViewRoutine} />;
+    },
   },
 ];
 

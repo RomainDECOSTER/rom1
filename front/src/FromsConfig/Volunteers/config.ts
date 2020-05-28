@@ -153,16 +153,10 @@ export const VolunteerFormConfig = {
                   enum: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
                 },
                 hours: {
-                  type: 'object',
-                  properties: {
-                    start_hours: {
-                      type: 'string',
-                      format: 'time',
-                    },
-                    end_hours: {
-                      type: 'string',
-                      format: 'time',
-                    },
+                  type: 'array',
+                  items: {
+                    type: 'string',
+                    format: 'time',
                   },
                 },
               },
@@ -203,6 +197,9 @@ export const VolunteerFormConfig = {
                 },
               },
             },
+          },
+          workshops: {
+            type: 'array',
           },
         },
       },
@@ -407,6 +404,14 @@ export const VolunteerFormConfig = {
                 type: 'Control',
                 label: 'Matières proposées',
                 scope: '#/properties/volunteer/properties/proposedSubject',
+              },
+              {
+                type: 'Control',
+                label: 'Ateliers',
+                scope: '#/properties/volunteer/properties/workshops',
+                options: {
+                  workshops: true,
+                },
               },
             ],
           },

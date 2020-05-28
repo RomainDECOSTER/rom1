@@ -30,9 +30,9 @@ export class EntityRedux<T extends IEntityModel, K extends IPageableIEntityModel
         return { ...state, loading: true, simpleSearchOptionskey: action.payload.key, simpleSearchOptionsValue: action.payload.value, simpleSearchOptionsActive: true };
       case this._listRoutine.TRIGGER:
         if (action.payload !== undefined && action.payload.searchActive !== undefined && action.payload.searchActive === false) {
-          return { ...state, simpleSearchOptionsActive: false, simpleSearchOptionsValue: undefined };
+          return { ...state, simpleSearchOptionsActive: false, simpleSearchOptionsValue: undefined, details: undefined };
         } else {
-          return state;
+          return { ...state, details: undefined };
         }
       case this._listRoutine.REQUEST:
         return { ...state, loading: true, created: false, deleted: false, updated: false, simpleSearchOptionsActive: false, simpleSearchOptionsValue: undefined };

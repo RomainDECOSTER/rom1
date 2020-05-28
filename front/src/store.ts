@@ -11,6 +11,8 @@ import { Actions } from '@jsonforms/core';
 import thunk from 'redux-thunk';
 import MultiSelect from './Components/MultipleSelect/MultiSelect';
 import MultiSelectTester from './Components/MultipleSelect/MultiSelectTester';
+import WorkshopSelectTester from './Components/WorkshopSelect/WorkshopSelectTester';
+import WorkshopSelect from './Components/WorkshopSelect/WorkshopSelect';
 
 const sagaMiddleware = createSagaMiddleware();
 export const history = createHashHistory();
@@ -25,5 +27,6 @@ export const store = createStore(
   composeWithDevTools(applyMiddleware(thunk), applyMiddleware(sagaMiddleware), applyMiddleware(routerMiddleware(history))),
 );
 store.dispatch(Actions.registerRenderer(MultiSelectTester, MultiSelect));
+store.dispatch(Actions.registerRenderer(WorkshopSelectTester, WorkshopSelect));
 sagaMiddleware.run(rootSaga);
 sagaMiddleware.run(routinePromiseWatcherSaga);
