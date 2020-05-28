@@ -18,6 +18,8 @@ import { CreateWorkshop } from './Scenes/Admin/Workshops/Create';
 import { ViewWorkshop } from './Scenes/Admin/Workshops/View';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { Management } from './Scenes/Management/ManagementComponent';
+import { CreateVolunteer } from './Scenes/Management/Volunteers/Create';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -61,6 +63,8 @@ const AppComponent: React.FunctionComponent<Props> = ({ notifications, AppRoutin
           <ProtectedRoute roles={Routes.admin.roles} path={Routes.admin.user.view.path} exact={Routes.admin.user.view.exact} component={ViewUser} />
           <ProtectedRoute roles={Routes.admin.roles} path={Routes.admin.workshops.create.path} exact={Routes.admin.workshops.create.exact} component={CreateWorkshop} />
           <ProtectedRoute roles={Routes.admin.roles} path={Routes.admin.workshops.view.path} exact={Routes.admin.workshops.view.exact} component={ViewWorkshop} />
+          <ProtectedRoute roles={Routes.management.roles} path={Routes.management.root.path} exact={Routes.management.root.exact} component={Management} />
+          <ProtectedRoute roles={Routes.management.roles} path={Routes.management.volunteers.create.path} exact={Routes.management.volunteers.create.exact} component={CreateVolunteer} />
         </Layout>
       </>
     );

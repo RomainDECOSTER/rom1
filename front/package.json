@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@date-io/date-fns": "^2.6.2",
     "@jsonforms/core": "^2.3.2",
     "@jsonforms/material-renderers": "^2.3.2",
     "@jsonforms/react": "^2.3.2",
@@ -15,6 +16,7 @@
     "@types/react-dom": "^16.9.0",
     "axios": "^0.19.2",
     "connected-react-router": "^6.8.0",
+    "date-fns": "^2.14.0",
     "jwt-decode": "^2.2.0",
     "moment-timezone": "^0.5.28",
     "ramda": "^0.27.0",

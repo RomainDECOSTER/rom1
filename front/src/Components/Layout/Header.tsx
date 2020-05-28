@@ -58,7 +58,7 @@ const HeaderComponent: FunctionComponent<Props> = (props) => {
       if (props.userRoles !== undefined && props.userRoles.some((role) => role === 'team')) {
         items.push(
           <Typography key={'gest'} variant="h6" className={classes.title}>
-            <Link to={'/'} className={classes.link}>
+            <Link to={Routes.management.root.path} className={classes.link}>
               Gestion
             </Link>
           </Typography>,
