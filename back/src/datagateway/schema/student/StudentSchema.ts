@@ -24,7 +24,7 @@ class StudentSchema {
         familyRessources: FamilyRessourcesSchema,
         lifeState: StateSchema,
         socialMediation: SocialMediationSchema,
-        workshops: [{ type: Schema.Types.ObjectId, ref: "workshops" }],
+        workshops: [{ type: Schema.Types.ObjectId, ref: "Workshop" }],
         initial_level: { type: String },
         final_level: { type: String },
         certification: { type: String },

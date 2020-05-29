@@ -49,6 +49,16 @@ export const Routes: any = {
         exact: true,
       },
     },
+    students: {
+      create: {
+        path: '/management/students/create',
+        exact: true,
+      },
+      view: {
+        path: '/management/students/:id',
+        exact: true,
+      },
+    },
     roles: ['admin', 'team'],
   },
 };

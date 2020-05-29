@@ -2,6 +2,7 @@ import React, { FunctionComponent, useState, useEffect } from 'react';
 import { Box, Tab, Tabs, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { useHistory, useLocation } from 'react-router-dom';
 import { VolunteersPanel } from './Volunteers/VolunteersPanel';
+import { StudentsPanel } from './Students/StudentsPanel';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,7 +41,7 @@ function a11yProps(index: any) {
 
 interface Props {}
 
-const tabs = [<Tab label={'Bénévoles'} key={'volunteers'} {...a11yProps(0)} />];
+const tabs = [<Tab label={'Bénévoles'} key={'volunteers'} {...a11yProps(0)} />, <Tab label={'Apprenants'} key={'studentes'} {...a11yProps(1)} />];
 
 export const Management: FunctionComponent<Props> = (props) => {
   const classes = useStyles();
@@ -66,6 +67,9 @@ export const Management: FunctionComponent<Props> = (props) => {
       </Tabs>
       <TabPanel value={value} index={0}>
         <VolunteersPanel />
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <StudentsPanel />
       </TabPanel>
     </div>
   );

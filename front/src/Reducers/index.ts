@@ -10,10 +10,12 @@ import { jsonformsReducer } from '@jsonforms/core';
 import { WorkshopsRedux, WorkshopsState } from './Workshops/WorkshopsRedux';
 import { appReducer, AppState } from './App';
 import { VolunteersState, VolunteersRedux } from './Volunteers/VoluteersRedux';
+import { StudentsState, StudentsRedux } from './Students/StudentRedux';
 
 const userRedux = new UserRedux();
 const workshopsRedux = new WorkshopsRedux();
 const voluteersRedux = new VolunteersRedux();
+const studentsRedux = new StudentsRedux();
 export interface State {
   router: any;
   form: FormStateMap;
@@ -24,6 +26,7 @@ export interface State {
   workshops: WorkshopsState;
   app: AppState;
   volunteers: VolunteersState;
+  students: StudentsState;
 }
 
 export const rootReducer = (history: History) =>
@@ -37,4 +40,5 @@ export const rootReducer = (history: History) =>
     workshops: workshopsRedux.getReducer,
     app: appReducer,
     volunteers: voluteersRedux.getReducer,
+    students: studentsRedux.getReducer,
   });
