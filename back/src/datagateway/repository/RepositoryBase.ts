@@ -35,7 +35,6 @@ class RepositoryBase<T extends IEntityModel> implements IRepositoryBase<T> {
   }
 
   update(entityId: string, entity: any): Promise<IEntityModel> {
-    console.log(entity);
     return this._model.updateOne({ _id: entityId }, entity).exec();
   }
 
