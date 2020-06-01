@@ -220,6 +220,78 @@ export const VolunteerFormConfig = {
         elements: [
           {
             type: 'Group',
+            label: 'Information générales',
+            elements: [
+              {
+                type: 'Control',
+                label: 'Nom',
+                scope: '#/properties/volunteer/properties/generalInformation/properties/last_name',
+              },
+              {
+                type: 'Control',
+                label: 'Prénom',
+                scope: '#/properties/volunteer/properties/generalInformation/properties/first_name',
+              },
+              {
+                type: 'Control',
+                label: 'Date de naissance',
+                scope: '#/properties/volunteer/properties/generalInformation/properties/birth_date',
+                options: {},
+              },
+              {
+                type: 'Control',
+                label: 'Numero de téléphone',
+                scope: '#/properties/volunteer/properties/generalInformation/properties/mobile',
+              },
+              {
+                type: 'Control',
+                label: 'Email',
+                scope: '#/properties/volunteer/properties/generalInformation/properties/email',
+              },
+              {
+                type: 'Control',
+                label: 'Sexe',
+                scope: '#/properties/volunteer/properties/generalInformation/properties/sexe',
+              },
+              {
+                type: 'Control',
+                label: 'Numéro de sécurité social',
+                scope: '#/properties/volunteer/properties/familyRessources/properties/healthNumber',
+              },
+              {
+                type: 'Control',
+                label: 'Soucis de santé',
+                scope: '#/properties/volunteer/properties/generalInformation/properties/medical_elements',
+              },
+              {
+                type: 'Control',
+                label: 'Addresse',
+                scope: '#/properties/volunteer/properties/generalInformation/properties/address/properties/address_description',
+              },
+              {
+                type: 'Control',
+                label: 'Ville',
+                scope: '#/properties/volunteer/properties/generalInformation/properties/address/properties/city',
+              },
+              {
+                type: 'Control',
+                label: 'Code postal',
+                scope: '#/properties/volunteer/properties/generalInformation/properties/address/properties/zip_code',
+              },
+              {
+                type: 'Control',
+                label: 'Quartier',
+                scope: '#/properties/volunteer/properties/generalInformation/properties/address/properties/district',
+              },
+              {
+                type: 'Control',
+                label: 'Quartier Prioritaire',
+                scope: '#/properties/volunteer/properties/generalInformation/properties/address/properties/district_priority',
+              },
+            ],
+          },
+          {
+            type: 'Group',
             label: 'Situation',
             elements: [
               {
@@ -403,32 +475,17 @@ export const VolunteerFormConfig = {
             type: 'VerticalLayout',
             elements: [
               {
-                type: 'Control',
-                label: 'Disponibilité',
-                scope: '#/properties/volunteer/properties/availabilitiesInformation',
-              },
-              {
-                type: 'Control',
-                label: 'Matières proposées',
-                scope: '#/properties/volunteer/properties/proposedSubject',
-              },
-              {
-                type: 'Control',
-                label: 'Autre intervention',
-                scope: '#/properties/volunteer/properties/otherIntervention',
-              },
-              {
-                type: 'Control',
-                label: 'Commentaires sur le bénévoles',
-                scope: '#/properties/volunteer/properties/comment',
-              },
-              {
-                type: 'Control',
-                label: 'Ateliers',
-                scope: '#/properties/volunteer/properties/workshops',
-                options: {
-                  workshops: true,
-                },
+                type: 'Group',
+                elements: [
+                  {
+                    type: 'Control',
+                    label: 'Ateliers',
+                    scope: '#/properties/volunteer/properties/workshops',
+                    options: {
+                      workshops: true,
+                    },
+                  },
+                ],
               },
             ],
           },
@@ -488,73 +545,36 @@ export const VolunteerFormConfig = {
           },
           {
             type: 'Group',
-            label: 'Information générales',
             elements: [
               {
                 type: 'Control',
-                label: 'Nom',
-                scope: '#/properties/volunteer/properties/generalInformation/properties/last_name',
+                label: 'Disponibilité',
+                scope: '#/properties/volunteer/properties/availabilitiesInformation',
+              },
+            ],
+          },
+          {
+            type: 'Group',
+            elements: [
+              {
+                type: 'Control',
+                label: 'Matières proposées',
+                scope: '#/properties/volunteer/properties/proposedSubject',
+              },
+            ],
+          },
+          {
+            type: 'Group',
+            elements: [
+              {
+                type: 'Control',
+                label: 'Autre intervention',
+                scope: '#/properties/volunteer/properties/otherIntervention',
               },
               {
                 type: 'Control',
-                label: 'Prénom',
-                scope: '#/properties/volunteer/properties/generalInformation/properties/first_name',
-              },
-              {
-                type: 'Control',
-                label: 'Date de naissance',
-                scope: '#/properties/volunteer/properties/generalInformation/properties/birth_date',
-                options: {},
-              },
-              {
-                type: 'Control',
-                label: 'Numero de téléphone',
-                scope: '#/properties/volunteer/properties/generalInformation/properties/mobile',
-              },
-              {
-                type: 'Control',
-                label: 'Email',
-                scope: '#/properties/volunteer/properties/generalInformation/properties/email',
-              },
-              {
-                type: 'Control',
-                label: 'Sexe',
-                scope: '#/properties/volunteer/properties/generalInformation/properties/sexe',
-              },
-              {
-                type: 'Control',
-                label: 'Numéro de sécurité social',
-                scope: '#/properties/volunteer/properties/familyRessources/properties/healthNumber',
-              },
-              {
-                type: 'Control',
-                label: 'Soucis de santé',
-                scope: '#/properties/volunteer/properties/generalInformation/properties/medical_elements',
-              },
-              {
-                type: 'Control',
-                label: 'Addresse',
-                scope: '#/properties/volunteer/properties/generalInformation/properties/address/properties/address_description',
-              },
-              {
-                type: 'Control',
-                label: 'Ville',
-                scope: '#/properties/volunteer/properties/generalInformation/properties/address/properties/city',
-              },
-              {
-                type: 'Control',
-                label: 'Code postal',
-                scope: '#/properties/volunteer/properties/generalInformation/properties/address/properties/zip_code',
-              },
-              {
-                type: 'Control',
-                label: 'Quartier',
-                scope: '#/properties/volunteer/properties/generalInformation/properties/address/properties/district',
-              },
-              {
-                type: 'Control',
-                label: 'Quartier Prioritaire',
-                scope: '#/properties/volunteer/properties/generalInformation/properties/address/properties/district_priority',
+                label: 'Commentaires sur le bénévoles',
+                scope: '#/properties/volunteer/properties/comment',
               },
             ],
           },
