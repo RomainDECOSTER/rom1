@@ -201,6 +201,13 @@ export const VolunteerFormConfig = {
           workshops: {
             type: 'array',
           },
+          otherIntervention: {
+            type: 'string',
+            enum: ['LACLE', 'DRE', 'ROUBAIX', 'LILLE SUD', 'AUTRE'],
+          },
+          comment: {
+            type: 'string',
+          },
         },
       },
     },
@@ -404,6 +411,16 @@ export const VolunteerFormConfig = {
                 type: 'Control',
                 label: 'Matières proposées',
                 scope: '#/properties/volunteer/properties/proposedSubject',
+              },
+              {
+                type: 'Control',
+                label: 'Autre intervention',
+                scope: '#/properties/volunteer/properties/otherIntervention',
+              },
+              {
+                type: 'Control',
+                label: 'Commentaires sur le bénévoles',
+                scope: '#/properties/volunteer/properties/comment',
               },
               {
                 type: 'Control',
