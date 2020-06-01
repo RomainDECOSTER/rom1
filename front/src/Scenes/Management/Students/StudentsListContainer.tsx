@@ -2,9 +2,12 @@ import React, { FunctionComponent } from 'react';
 import { StudentsState } from '../../../Reducers/Students/StudentRedux';
 import { Routine } from 'redux-saga-routines';
 import { DefaultList } from '../../../Components/DefaultList/DefaultListContainer';
-import { StudentsListRoutine, StudentSortRoutine } from '../../../Routines/StudentRoutine';
+import { StudentsListRoutine, StudentSortRoutine, StudentDeleteRoutine, StudentViewRoutine } from '../../../Routines/StudentRoutine';
 import { State } from '../../../Reducers';
 import { connect } from 'react-redux';
+import { DefaultActions } from '../../../Components/DefaultActions/DefaultActions';
+import { Routes } from '../../../Routes/Routes';
+import StudentModel from '../../../Api/Datamodel/student/StudentModel';
 
 interface Props {
   students: StudentsState;
@@ -29,6 +32,12 @@ const columns = [
   {
     name: 'Email',
     selector: 'generalInformation.email',
+  },
+  {
+    name: 'Actions',
+    cell: (row: StudentModel) => {
+      return <DefaultActions row={row} more={false} path={Routes.management.students} DeleteRoutine={StudentDeleteRoutine} ViewRoutine={StudentViewRoutine} />;
+    },
   },
 ];
 
