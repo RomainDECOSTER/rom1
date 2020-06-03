@@ -2,6 +2,7 @@ import UserRoutes from "./UserRoutes";
 import StudentRoutes from "./StudentRoutes";
 import VolunteerRoutes from "./VolunteerRoutes";
 import WorkshopRoutes from "./WorkshopRoutes";
+import CampaignRoutes from "./CampaignRoutes";
 export = (app) => {
   require("./authentication")(app);
 
@@ -9,6 +10,7 @@ export = (app) => {
   app.use("/api", new StudentRoutes().routes);
   app.use("/api", new VolunteerRoutes().routes);
   app.use("/api", new WorkshopRoutes().routes);
+  app.use("/api", new CampaignRoutes().routes);
 
   require("./test")(app);
 

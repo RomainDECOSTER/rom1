@@ -11,11 +11,14 @@ import { WorkshopsRedux, WorkshopsState } from './Workshops/WorkshopsRedux';
 import { appReducer, AppState } from './App';
 import { VolunteersState, VolunteersRedux } from './Volunteers/VoluteersRedux';
 import { StudentsState, StudentsRedux } from './Students/StudentRedux';
+import { CampaignRedux, CampaignState } from './Campaigns/CampaignRedux';
 
 const userRedux = new UserRedux();
 const workshopsRedux = new WorkshopsRedux();
 const voluteersRedux = new VolunteersRedux();
 const studentsRedux = new StudentsRedux();
+const campaignRedux = new CampaignRedux();
+
 export interface State {
   router: any;
   form: FormStateMap;
@@ -27,6 +30,7 @@ export interface State {
   app: AppState;
   volunteers: VolunteersState;
   students: StudentsState;
+  campaigns: CampaignState;
 }
 
 export const rootReducer = (history: History) =>
@@ -41,4 +45,5 @@ export const rootReducer = (history: History) =>
     app: appReducer,
     volunteers: voluteersRedux.getReducer,
     students: studentsRedux.getReducer,
+    campaigns: campaignRedux.getReducer,
   });

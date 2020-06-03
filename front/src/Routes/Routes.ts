@@ -32,6 +32,16 @@ export const Routes: any = {
         exact: true,
       },
     },
+    campaigns: {
+      create: {
+        path: '/admin/campaigns',
+        exact: true,
+      },
+      view: {
+        path: '/admin/campaigns/:id',
+        exact: true,
+      },
+    },
     roles: ['admin'],
   },
   management: {
