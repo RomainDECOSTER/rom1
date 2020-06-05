@@ -13,6 +13,8 @@ import MultiSelect from './Components/MultipleSelect/MultiSelect';
 import MultiSelectTester from './Components/MultipleSelect/MultiSelectTester';
 import WorkshopSelectTester from './Components/WorkshopSelect/WorkshopSelectTester';
 import WorkshopSelect from './Components/WorkshopSelect/WorkshopSelect';
+import CampaignSelectTester from './Components/CampaignSelect/CampaignSelectTester';
+import CampaignSelect from './Components/CampaignSelect/CampaignSelect';
 
 const sagaMiddleware = createSagaMiddleware();
 export const history = createHashHistory();
@@ -28,5 +30,6 @@ export const store = createStore(
 );
 store.dispatch(Actions.registerRenderer(MultiSelectTester, MultiSelect));
 store.dispatch(Actions.registerRenderer(WorkshopSelectTester, WorkshopSelect));
+store.dispatch(Actions.registerRenderer(CampaignSelectTester, CampaignSelect));
 sagaMiddleware.run(rootSaga);
 sagaMiddleware.run(routinePromiseWatcherSaga);

@@ -366,6 +366,9 @@ export const StudentFromConfig = {
           training: {
             type: 'string',
           },
+          campaign: {
+            type: 'string',
+          },
         },
       },
     },
@@ -805,6 +808,14 @@ export const StudentFromConfig = {
                 type: 'Group',
                 label: "Information d'inscription",
                 elements: [
+                  {
+                    type: 'Control',
+                    label: 'Campagne',
+                    scope: '#/properties/student/properties/campaign',
+                    options: {
+                      campaign: true,
+                    },
+                  },
                   {
                     type: 'HorizontalLayout',
                     elements: [

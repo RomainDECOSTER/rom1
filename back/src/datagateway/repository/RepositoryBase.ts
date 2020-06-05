@@ -27,7 +27,7 @@ class RepositoryBase<T extends IEntityModel> implements IRepositoryBase<T> {
     if (sortKey && sortDir) {
       query.sort([[sortKey, sortEnum[sortDir.toLowerCase()]]]);
     }
-    return query.populate("workshops").exec();
+    return query.populate("workshops campaign").exec();
   }
 
   findOne(options: any): Promise<IEntityModel> {
@@ -47,7 +47,7 @@ class RepositoryBase<T extends IEntityModel> implements IRepositoryBase<T> {
   }
 
   findById(entityId: string): Promise<IEntityModel> {
-    return this._model.findById(entityId).populate("workshops").exec();
+    return this._model.findById(entityId).populate("workshops campaign").exec();
   }
 
   count(cond?: Object): Promise<number> {

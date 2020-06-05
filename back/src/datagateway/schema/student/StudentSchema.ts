@@ -43,6 +43,8 @@ class StudentSchema {
         option1: { type: String },
         option2: { type: String },
         option3: { type: String },
+        campaign: { type: Schema.Types.ObjectId, ref: "Campaign" },
+        campaign_history: { type: Schema.Types.Mixed },
       },
       {
         timestamps: true,

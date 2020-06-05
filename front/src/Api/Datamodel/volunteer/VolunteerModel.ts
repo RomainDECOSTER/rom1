@@ -6,6 +6,7 @@ import IProposedSubectModel from './IProposedSubectModel';
 import IFamilyRessourcesModel from '../common/IFamilyRessourcesModel';
 import IStateModel from '../student/IStateModel';
 import IWorkshopModel from '../IWorkshopModel';
+import ICampaignModel from '../ICampaignModel';
 class VolunteerModel {
   private _volunteer: IVolunteerModel;
 
@@ -42,6 +43,12 @@ class VolunteerModel {
   }
   get workshops(): [IWorkshopModel] {
     return this._volunteer.workshops;
+  }
+  get campaign(): ICampaignModel {
+    return this._volunteer.campaign;
+  }
+  get campaign_history(): [any] {
+    return this._volunteer.campaign_history;
   }
 }
 

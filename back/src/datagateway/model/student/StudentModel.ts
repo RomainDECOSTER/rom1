@@ -8,6 +8,7 @@ import IStateModel from "./IStateModel";
 import ISocialMediationModel from "./ISocialMediationModel";
 import IWorkshopModel from "../IWorkshopModel";
 import { runInThisContext } from "vm";
+import ICampaignModel from "../ICampaignModel";
 
 class StudentModel {
   private _student: IStudentModel;
@@ -99,6 +100,13 @@ class StudentModel {
   }
   get option3(): string {
     return this._student.option3;
+  }
+  get campaign(): ICampaignModel {
+    return this._student.campaign;
+  }
+
+  get campaign_history(): [any] {
+    return this._student.campaign_history;
   }
 }
 

@@ -23,6 +23,8 @@ class VoluteerSchema {
         workshops: [{ type: Schema.Types.ObjectId, ref: "Workshop" }],
         comment: { type: Schema.Types.String },
         otherIntervention: { type: Schema.Types.String },
+        campaign: { type: Schema.Types.ObjectId, ref: "Campaign" },
+        campaign_history: { type: Schema.Types.Mixed },
       },
       {
         timestamps: true,

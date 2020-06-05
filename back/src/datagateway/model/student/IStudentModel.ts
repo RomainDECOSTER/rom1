@@ -7,6 +7,8 @@ import IStateModel from "./IStateModel";
 import ISocialMediationModel from "./ISocialMediationModel";
 import IEntityModel from "../IEntityModel";
 import IWorkshopModel from "../IWorkshopModel";
+import CampaignModel from "../CampaignModel";
+import ICampaignModel from "../ICampaignModel";
 
 interface IStudentModel extends IEntityModel {
   draft: boolean;
@@ -37,6 +39,8 @@ interface IStudentModel extends IEntityModel {
   option1: string;
   option2: string;
   option3: string;
+  campaign: ICampaignModel;
+  campaign_history: [any];
 }
 
 export default IStudentModel;

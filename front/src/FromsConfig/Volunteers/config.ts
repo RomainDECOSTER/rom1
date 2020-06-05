@@ -208,6 +208,9 @@ export const VolunteerFormConfig = {
           comment: {
             type: 'string',
           },
+          campaign: {
+            type: 'string',
+          },
         },
       },
     },
@@ -498,6 +501,14 @@ export const VolunteerFormConfig = {
             type: 'Group',
             label: "Information d'inscription",
             elements: [
+              {
+                type: 'Control',
+                label: 'Campagne',
+                scope: '#/properties/volunteer/properties/campaign',
+                options: {
+                  campaign: true,
+                },
+              },
               {
                 type: 'HorizontalLayout',
                 elements: [
