@@ -21,6 +21,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { Management } from './Scenes/Management/ManagementComponent';
 import { CreateVolunteer } from './Scenes/Management/Volunteers/Create';
 import { CreateStudent } from './Scenes/Management/Students/Create';
+import { CreateCampaign } from './Sagas/Campaigns/Create';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -67,6 +68,7 @@ const AppComponent: React.FunctionComponent<Props> = ({ notifications, AppRoutin
           <ProtectedRoute roles={Routes.management.roles} path={Routes.management.root.path} exact={Routes.management.root.exact} component={Management} />
           <ProtectedRoute roles={Routes.management.roles} path={Routes.management.volunteers.create.path} exact={Routes.management.volunteers.create.exact} component={CreateVolunteer} />
           <ProtectedRoute roles={Routes.management.roles} path={Routes.management.students.create.path} exact={Routes.management.students.create.exact} component={CreateStudent} />
+          <ProtectedRoute roles={Routes.admin.roles} path={Routes.admin.campaigns.create.path} exact={Routes.admin.campaigns.create.exact} component={CreateCampaign} />
         </Layout>
       </>
     );

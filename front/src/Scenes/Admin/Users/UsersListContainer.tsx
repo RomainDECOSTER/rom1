@@ -36,7 +36,7 @@ const columns = [
   {
     name: 'Actions',
     cell: (row: any) => {
-      return <DefaultActions row={row} more={false} path={Routes.admin.user} DeleteRoutine={UserDeleteRoutine} ViewRoutine={UserViewRoutine} />;
+      return <DefaultActions disabledView={false} row={row} more={false} path={Routes.admin.user} DeleteRoutine={UserDeleteRoutine} ViewRoutine={UserViewRoutine} />;
     },
   },
 ];

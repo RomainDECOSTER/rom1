@@ -24,7 +24,7 @@ const columns = [
   {
     name: 'Actions',
     cell: (row: WorkshopModel) => {
-      return <DefaultActions row={row} more={false} path={Routes.admin.workshops} DeleteRoutine={WorkshopDeleteRoutine} ViewRoutine={WorkshopViewRoutine} />;
+      return <DefaultActions disabledView={false} row={row} more={false} path={Routes.admin.workshops} DeleteRoutine={WorkshopDeleteRoutine} ViewRoutine={WorkshopViewRoutine} />;
     },
   },
 ];

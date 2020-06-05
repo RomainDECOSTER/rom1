@@ -4,6 +4,7 @@ import { Tab, Tabs, Box, createStyles, makeStyles, Theme } from '@material-ui/co
 import { UserPanel } from './Users/UsersPanel';
 import { WorkshopsPanel } from './Workshops/WorkshopsPanel';
 import { useHistory, useLocation } from 'react-router-dom';
+import { CampaignPanel } from './Campaigns/CampaignsPanel';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,7 +39,7 @@ function a11yProps(index: any) {
 
 interface Props {}
 
-const tabs = [<Tab label={'Utilisateurs'} key={'user'} {...a11yProps(0)} />, <Tab label={'Atelier'} key={'workshop'} {...a11yProps(1)} />];
+const tabs = [<Tab label={'Utilisateurs'} key={'user'} {...a11yProps(0)} />, <Tab label={'Atelier'} key={'workshop'} {...a11yProps(1)} />, <Tab label={'Campagne'} key={'campaign'} />];
 
 export const Admin: FunctionComponent<Props> = (props) => {
   const [value, setValue] = React.useState(0);
@@ -66,6 +67,9 @@ export const Admin: FunctionComponent<Props> = (props) => {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <WorkshopsPanel />
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        <CampaignPanel />
       </TabPanel>
     </div>
   );

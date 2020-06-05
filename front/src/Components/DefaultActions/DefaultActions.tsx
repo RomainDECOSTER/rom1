@@ -15,9 +15,10 @@ interface Props {
   path: any;
   DeleteRoutine: Routine;
   ViewRoutine: Routine;
+  disabledView: boolean;
 }
 
-export const DefaultActions: FunctionComponent<Props> = ({ row, more, path, DeleteRoutine, ViewRoutine }, ...props) => {
+export const DefaultActions: FunctionComponent<Props> = ({ row, more, path, DeleteRoutine, ViewRoutine, disabledView = false }, ...props) => {
   const [currentId, setCurrentId] = useState('');
   const [open, setOpen] = useState(false);
   const [confirm, setConfirm] = useState(false);
@@ -40,11 +41,15 @@ export const DefaultActions: FunctionComponent<Props> = ({ row, more, path, Dele
   }
   return (
     <>
-      <Link key={`link-view-${row._id}`} to={path.view.path.replace(':id', row._id)}>
-        <Button key={`view-${row._id}`} color={'primary'} onClick={() => store.dispatch(ViewRoutine(row._id))}>
-          <Visibility />
-        </Button>
-      </Link>
+      {disabledView === false ? (
+        <Link key={`link-view-${row._id}`} to={path.view.path.replace(':id', row._id)}>
+          <Button key={`view-${row._id}`} color={'primary'} onClick={() => store.dispatch(ViewRoutine(row._id))}>
+            <Visibility />
+          </Button>
+        </Link>
+      ) : (
+        <></>
+      )}
       <Link key={`link-edit-${row._id}`} to={path.create.path}>
         <Button key={`edit-${row._id}`} color={'primary'} onClick={() => store.dispatch(ViewRoutine(row._id))}>
           <Edit color={'primary'} />
