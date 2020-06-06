@@ -21,7 +21,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { Management } from './Scenes/Management/ManagementComponent';
 import { CreateVolunteer } from './Scenes/Management/Volunteers/Create';
 import { CreateStudent } from './Scenes/Management/Students/Create';
-import { CreateCampaign } from './Sagas/Campaigns/Create';
+import { CreateCampaign } from './Scenes/Admin/Campaigns/Create';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

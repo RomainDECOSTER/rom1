@@ -26,7 +26,6 @@ const CampaignSelectComponent = ({ campaignData, handleChange, path, data, ...pr
   } else {
     value = data;
   }
-  console.log(value);
   return (
     <>
       <Typography component={'h6'} variant={'h6'}>

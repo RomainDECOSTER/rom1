@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from 'react';
-import { CampaignsCreateRoutine, CampaignUpdateRoutine } from '../../Routines/CampaignRoutine';
+import { CampaignsCreateRoutine, CampaignUpdateRoutine } from '../../../Routines/CampaignRoutine';
 import { Routine } from 'redux-saga-routines';
-import { CampaignState } from '../../Reducers/Campaigns/CampaignRedux';
-import { CreateContainer } from '../../Components/FormContainer/FormContainer';
-import { CampaignFormConfig } from '../../FromsConfig/Campaigns/config';
-import { State } from '../../Reducers';
+import { CampaignState } from '../../../Reducers/Campaigns/CampaignRedux';
+import { CreateContainer } from '../../../Components/FormContainer/FormContainer';
+import { CampaignFormConfig } from '../../../FromsConfig/Campaigns/config';
+import { State } from '../../../Reducers';
 import { extractData } from '@jsonforms/core/lib/reducers/core';
 import { connect } from 'react-redux';
 

@@ -4,6 +4,7 @@ import { JsonFormsDispatch } from '@jsonforms/react';
 import { store } from '../../store';
 import { Routine } from 'redux-saga-routines';
 import { makeStyles, Theme, createStyles, Container, Typography, Button } from '@material-ui/core';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 interface ComponentProps {
   entity: any;
@@ -43,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-interface CreateContainerProps {
+interface CreateContainerProps extends RouteComponentProps<any, any, any> {
   entity: any;
   formConfig: any;
   createRoutine: Routine;
@@ -53,10 +54,11 @@ interface CreateContainerProps {
   formTitle: string;
 }
 
-export const CreateContainer: FunctionComponent<CreateContainerProps> = ({ entity, formConfig, createRoutine, updateRoutine, entityFormData, hasEntityDetails, formTitle }, ...props) => {
+const CreateContainerR: FunctionComponent<CreateContainerProps> = ({ entity, formConfig, createRoutine, updateRoutine, entityFormData, hasEntityDetails, formTitle, ...props }) => {
+  const reRegister = props.location.state !== undefined && props.location.state !== null && props.location.state.reRegister !== undefined && props.location.state.reRegister === true;
   const classes = useStyles();
   const register = () => {
-    if (hasEntityDetails) {
+    if (hasEntityDetails && !reRegister) {
       updateRoutine(entityFormData);
     } else {
       createRoutine(entityFormData);
@@ -77,3 +79,5 @@ export const CreateContainer: FunctionComponent<CreateContainerProps> = ({ entit
     </>
   );
 };
+
+export const CreateContainer = withRouter(CreateContainerR);

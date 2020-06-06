@@ -8,6 +8,9 @@ import { connect } from 'react-redux';
 import { DefaultActions } from '../../../Components/DefaultActions/DefaultActions';
 import { Routes } from '../../../Routes/Routes';
 import VolunteerModel from '../../../Api/Datamodel/volunteer/VolunteerModel';
+import { Link } from 'react-router-dom';
+import { Button } from '@material-ui/core';
+import { AddToQueue } from '@material-ui/icons';
 
 interface Props {
   volunteers: VolunteersState;
@@ -35,8 +38,8 @@ const columns = [
   },
   {
     name: 'Actions',
-    cell: (row: VolunteerModel) => {
-      return <DefaultActions disabledView={true} row={row} more={false} path={Routes.management.volunteers} DeleteRoutine={VolunteerDeleteRoutine} ViewRoutine={VolunteerViewRoutine} />;
+    cell: (row: any) => {
+      return <DefaultActions disabledView={true} row={row} more={true} path={Routes.management.volunteers} DeleteRoutine={VolunteerDeleteRoutine} ViewRoutine={VolunteerViewRoutine} />;
     },
   },
 ];

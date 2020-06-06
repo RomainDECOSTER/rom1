@@ -4,7 +4,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { Visibility, Edit, Delete } from '@material-ui/icons';
+import { Visibility, Edit, Delete, AddToQueue } from '@material-ui/icons';
 import { store } from '../../store';
 import { Link } from 'react-router-dom';
 import { Routine } from 'redux-saga-routines';
@@ -18,7 +18,7 @@ interface Props {
   disabledView: boolean;
 }
 
-export const DefaultActions: FunctionComponent<Props> = ({ row, more, path, DeleteRoutine, ViewRoutine, disabledView = false }, ...props) => {
+export const DefaultActions: FunctionComponent<Props> = ({ row, more, path, DeleteRoutine, ViewRoutine, disabledView = false, ...props }) => {
   const [currentId, setCurrentId] = useState('');
   const [open, setOpen] = useState(false);
   const [confirm, setConfirm] = useState(false);
@@ -34,9 +34,11 @@ export const DefaultActions: FunctionComponent<Props> = ({ row, more, path, Dele
   let moreElement: JSX.Element = <></>;
   if (more) {
     moreElement = (
-      <IconButton aria-label="more" aria-controls="long-menu" aria-haspopup="true" onClick={(event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget)}>
-        <MoreVertIcon />
-      </IconButton>
+      <Link key={`link-reregister-${row._id}`} to={{ pathname: path.create.path, state: { reRegister: true } }}>
+        <Button key={`register-${row._id}`} onClick={() => store.dispatch(ViewRoutine(row._id))}>
+          <AddToQueue />
+        </Button>
+      </Link>
     );
   }
   return (
@@ -50,7 +52,7 @@ export const DefaultActions: FunctionComponent<Props> = ({ row, more, path, Dele
       ) : (
         <></>
       )}
-      <Link key={`link-edit-${row._id}`} to={path.create.path}>
+      <Link key={`link-edit-${row._id}`} to={{ pathname: path.create.path, state: { reRegister: false } }}>
         <Button key={`edit-${row._id}`} color={'primary'} onClick={() => store.dispatch(ViewRoutine(row._id))}>
           <Edit color={'primary'} />
         </Button>

@@ -36,7 +36,7 @@ const columns = [
   {
     name: 'Actions',
     cell: (row: StudentModel) => {
-      return <DefaultActions disabledView={true} row={row} more={false} path={Routes.management.students} DeleteRoutine={StudentDeleteRoutine} ViewRoutine={StudentViewRoutine} />;
+      return <DefaultActions disabledView={true} row={row} more={true} path={Routes.management.students} DeleteRoutine={StudentDeleteRoutine} ViewRoutine={StudentViewRoutine} />;
     },
   },
 ];

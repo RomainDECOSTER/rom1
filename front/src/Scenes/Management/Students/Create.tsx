@@ -7,16 +7,21 @@ import { State } from '../../../Reducers';
 import { extractData } from '@jsonforms/core/lib/reducers/core';
 import { connect } from 'react-redux';
 import { StudentsCreateRoutine, StudentUpdateRoutine } from '../../../Routines/StudentRoutine';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
-interface PropsContainer {
+interface PropsContainer extends RouteComponentProps<any, any, any> {
   StudentsCreateRoutine: Routine;
   StudentUpdateRoutine: Routine;
   studentData: StudentsState;
   hasStudentDetail: boolean;
-  student: StudentsState;
+  student: any;
 }
 
 const CreateStudentContainer: FunctionComponent<PropsContainer> = ({ StudentUpdateRoutine, StudentsCreateRoutine, hasStudentDetail, student, studentData, ...props }) => {
+  if (props.location.state !== undefined && props.location.state !== null && props.location.state.reRegister !== undefined && props.location.state.reRegister === true) {
+    delete student._id;
+    delete student.campaign;
+  }
   return (
     <CreateContainer
       createRoutine={StudentsCreateRoutine}
@@ -38,4 +43,4 @@ const mapsStateToProps = (state: State) => {
   };
 };
 
-export const CreateStudent = connect(mapsStateToProps, { StudentsCreateRoutine, StudentUpdateRoutine })(CreateStudentContainer);
+export const CreateStudent = connect(mapsStateToProps, { StudentsCreateRoutine, StudentUpdateRoutine })(withRouter(CreateStudentContainer));

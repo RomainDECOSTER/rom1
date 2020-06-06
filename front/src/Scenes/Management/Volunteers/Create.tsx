@@ -7,16 +7,21 @@ import { connect } from 'react-redux';
 import { extractData } from '@jsonforms/core/lib/reducers/core';
 import { CreateContainer } from '../../../Components/FormContainer/FormContainer';
 import { VolunteersCreateRoutine, VolunteerUpdateRoutine } from '../../../Routines/VolunteersRoutine';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
-interface PropsContainer {
+interface PropsContainer extends RouteComponentProps<any, any, any> {
   VolunteersCreateRoutine: Routine;
   VolunteerUpdateRoutine: Routine;
   volunteerData: VolunteersState;
   hasVolunteerDetail: boolean;
-  volunteer: VolunteersState;
+  volunteer: any;
 }
 
 const CreateVolunteerContainer: FunctionComponent<PropsContainer> = ({ hasVolunteerDetail, VolunteerUpdateRoutine, VolunteersCreateRoutine, volunteerData, volunteer, ...props }) => {
+  if (props.location.state !== undefined && props.location.state !== null && props.location.state.reRegister !== undefined && props.location.state.reRegister === true) {
+    delete volunteer._id;
+    delete volunteer.campaign;
+  }
   return (
     <CreateContainer
       createRoutine={VolunteersCreateRoutine}
@@ -38,4 +43,4 @@ const mapsStateToProps = (state: State) => {
   };
 };
 
-export const CreateVolunteer = connect(mapsStateToProps, { VolunteersCreateRoutine, VolunteerUpdateRoutine })(CreateVolunteerContainer);
+export const CreateVolunteer = connect(mapsStateToProps, { VolunteersCreateRoutine, VolunteerUpdateRoutine })(withRouter(CreateVolunteerContainer));
