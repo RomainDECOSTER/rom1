@@ -24,7 +24,7 @@ class VoluteerSchema {
         comment: { type: Schema.Types.String },
         otherIntervention: { type: Schema.Types.String },
         campaign: { type: Schema.Types.ObjectId, ref: "Campaign" },
-        campaign_history: { type: Schema.Types.Mixed },
+        campaign_history: [{ type: Schema.Types.Mixed, default: [] }],
       },
       {
         timestamps: true,

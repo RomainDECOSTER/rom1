@@ -9,6 +9,8 @@ import IWorkshopModel from "../IWorkshopModel";
 import ICampaignModel from "../ICampaignModel";
 
 interface IVolunteerModel extends IEntityModel {
+  self: any;
+  [x: string]: any;
   draft: boolean;
   registrationInformation: IRegistrationModel;
   generalInformation: IGeneralInformationModel;
@@ -20,7 +22,7 @@ interface IVolunteerModel extends IEntityModel {
   otherIntervention: string;
   workshops: [IWorkshopModel];
   campaign: ICampaignModel;
-  campaign_history: [any];
+  campaign_history: any[];
 }
 
 export default IVolunteerModel;

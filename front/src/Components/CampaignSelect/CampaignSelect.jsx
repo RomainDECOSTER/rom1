@@ -7,6 +7,7 @@ import { Select, MenuItem, Typography } from '@material-ui/core';
 import { CampaignsListRoutine } from '../../Routines/CampaignRoutine';
 
 const CampaignSelectComponent = ({ campaignData, handleChange, path, data, ...props }) => {
+  console.log(data, campaignData, props);
   const menuItems = [];
   campaignData.forEach((campaign) => {
     menuItems.push(
@@ -19,12 +20,19 @@ const CampaignSelectComponent = ({ campaignData, handleChange, path, data, ...pr
     const options = event.target.value;
     handleChange(path, options);
   };
+  let value = undefined;
+  if (data !== undefined && typeof data === 'object') {
+    value = data._id;
+  } else {
+    value = data;
+  }
+  console.log(value);
   return (
     <>
       <Typography component={'h6'} variant={'h6'}>
         Campagne
       </Typography>
-      <Select id={'campaignSelect'} value={data || ''} style={{ width: '100%' }} onChange={onChange}>
+      <Select id={'campaignSelect'} value={value || ''} style={{ width: '100%' }} onChange={onChange} disabled={data !== undefined && typeof data === 'object'}>
         {menuItems}
       </Select>
     </>

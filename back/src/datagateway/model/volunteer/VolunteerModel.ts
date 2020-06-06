@@ -49,7 +49,7 @@ class VolunteerModel {
     return this._volunteer.campaign;
   }
 
-  get campaign_history(): [any] {
+  get campaign_history(): any[] {
     return this._volunteer.campaign_history;
   }
 }
