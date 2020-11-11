@@ -18,7 +18,7 @@ interface Props {
 const VolunteersPanelComponent: FunctionComponent<Props> = ({ VolunteersSearchRoutine, VolunteersListRoutine, ...props }) => {
   return (
     <>
-      <SimpleSearchComponent searchRoutine={VolunteersSearchRoutine} listRoutine={VolunteersListRoutine} keySearch={'last_name'} />
+      <SimpleSearchComponent hasCampaign={true} searchRoutine={VolunteersSearchRoutine} listRoutine={VolunteersListRoutine} keySearch={'generalInformation.last_name'} />
       <VolunteersList />
       <Fab component={Link} to={Routes.management.volunteers.create.path} color={'secondary'} onClick={() => store.dispatch(VolunteerViewRoutine(''))}>
         <Add />

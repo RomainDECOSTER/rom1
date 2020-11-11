@@ -33,14 +33,17 @@ export class EntitySaga<T extends IEntityModel, K extends IPageableIEntityModel<
       try {
         const state: State = yield select();
         yield put(self._searchRoutine.request({ key: action.payload.key, value: action.payload.value }));
-        const response: AxiosResponse<K> = yield self._axios.search(
-          action.payload.key,
-          action.payload.value,
-          action.payload.pageNumber,
-          action.payload.itemNumber,
-          self._getItem(state, 'sortKey'),
-          self._getItem(state, 'sortKey') !== undefined ? self._getItem(state, 'sortDir') : undefined,
-        );
+        const options: any = {};
+        if (action.payload.campaignId !== undefined) {
+          options.campaignId = action.payload.campaignId;
+        }
+        options.page = action.payload.pageNumber;
+        options.items = action.payload.itemNumber;
+        options.sortKey = self._getItem(state, 'sortKey');
+        options.sortDir = self._getItem(state, 'sortKey') !== undefined ? self._getItem(state, 'sortDir') : undefined;
+        options.key = action.payload.key;
+        options.value = action.payload.value;
+        const response: AxiosResponse<K> = yield self._axios.search(options);
         yield put(self._searchRoutine.success(response.data));
       } catch (error) {
         yield put(self._searchRoutine.failure(error));
@@ -74,7 +77,6 @@ export class EntitySaga<T extends IEntityModel, K extends IPageableIEntityModel<
         yield self._axios.update(action.payload);
         yield put(self._updateRoutine.success());
       } catch (error) {
-        console.log(error);
         yield put(self._updateRoutine.failure(new Error('Update saga error')));
       }
     };
@@ -149,32 +151,28 @@ export class EntitySaga<T extends IEntityModel, K extends IPageableIEntityModel<
     return function* list(action: BaseActions) {
       try {
         const state: State = yield select();
+        const options: any = {};
+        if (action.payload.campaignId !== undefined) {
+          options.campaignId = action.payload.campaignId;
+        }
+        options.page = action.payload.pageNumber;
+        options.items = action.payload.itemNumber;
+        options.sortKey = self._getItem(state, 'sortKey');
+        options.sortDir = self._getItem(state, 'sortKey') !== undefined ? self._getItem(state, 'sortDir') : undefined;
         if (self._getItem(state, 'simpleSearchOptionsActive') === true) {
           const searchKey = self._getItem(state, 'simpleSearchOptionskey');
           const searchValue = self._getItem(state, 'simpleSearchOptionsValue');
+          options.key = searchKey;
+          options.value = searchValue;
           yield put(self._searchRoutine.request({ key: searchKey, value: searchValue }));
-          const response: AxiosResponse<K> = yield self._axios.search(
-            searchKey,
-            searchValue,
-            action.payload.pageNumber,
-            action.payload.itemNumber,
-            self._getItem(state, 'sortKey'),
-            self._getItem(state, 'sortKey') !== undefined ? self._getItem(state, 'sortDir') : undefined,
-          );
+          const response: AxiosResponse<K> = yield self._axios.search(options);
           yield put(self._searchRoutine.success(response.data));
         } else {
           yield put(self._listRoutine.request());
-          const response: AxiosResponse<K> = yield self._axios.retrieve(
-            action.payload.options,
-            action.payload.pageNumber,
-            action.payload.itemNumber,
-            self._getItem(state, 'sortKey'),
-            self._getItem(state, 'sortKey') !== undefined ? self._getItem(state, 'sortDir') : undefined,
-          );
+          const response: AxiosResponse<K> = yield self._axios.retrieve(options);
           yield put(self._listRoutine.success(response.data));
         }
       } catch (error) {
-        console.log(error);
         yield put(self._listRoutine.failure(new Error('List saga error')));
       }
     };

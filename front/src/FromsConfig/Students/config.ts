@@ -29,7 +29,22 @@ export const StudentFromConfig = {
               },
               know_lacle: {
                 type: 'string',
-                enum: ['', 'BAO (pour bouche à oreille)', 'établissement scolaire', 'mairie', 'référent RSA', 'internet', 'AS', 'DRE', 'éducateur', 'CCAS', 'Pôle emplo', 'Cimade', 'Autres'],
+                enum: [
+                  '',
+                  'BAO (pour bouche à oreille)',
+                  'établissement scolaire',
+                  'mairie',
+                  'référent RSA',
+                  'internet',
+                  'AS',
+                  'DRE',
+                  'éducateur',
+                  'CCAS',
+                  'Pôle emplo',
+                  'Cimade',
+                  'Autres',
+                  'Partenaire',
+                ],
               },
               other_known: {
                 type: 'string',
@@ -90,7 +105,7 @@ export const StudentFromConfig = {
                   },
                   district: {
                     type: 'string',
-                    enum: ['Bois Blancs', 'Centre', 'Fives', 'Hellemmes', 'Lille Sud', 'Lomme', 'Moulins', 'Saint Maurice-Pellevoisin', 'Vauban Esquermes', 'Vieux Lille', 'Wazemmes', 'Autre'],
+                    enum: ['Bois Blancs', 'Centre', 'Fives', 'Hellemmes', 'Lille Sud', 'Lomme', 'Moulins', 'Saint Maurice-Pellevoisin', 'Vauban Esquermes', 'Vieux Lille', 'Wazemmes', 'Autres'],
                   },
                   city: {
                     type: 'string',
@@ -112,7 +127,7 @@ export const StudentFromConfig = {
               properties: {
                 day: {
                   type: 'string',
-                  enum: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+                  enum: ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'],
                 },
                 hours: {
                   type: 'array',
@@ -289,15 +304,19 @@ export const StudentFromConfig = {
           },
           initial_level: {
             type: 'string',
+            enum: ['A1.1', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'RAN', 'ET1', 'ET2', 'ET3'],
           },
           final_level: {
             type: 'string',
+            enum: ['', 'A1.1', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'RAN', 'ET1', 'ET2', 'ET3'],
           },
           certification: {
             type: 'string',
+            enum: ['', 'TCF', 'DILF', 'DELF', 'CFG', 'A1', 'A2', 'B1', 'B2'],
           },
           certification_final: {
             type: 'string',
+            enum: ['', 'TCF', 'DILF', 'DELF', 'CFG', 'A1', 'A2', 'B1', 'B2'],
           },
           school_path: {
             type: 'string',
@@ -307,6 +326,7 @@ export const StudentFromConfig = {
           },
           MIFE: {
             type: 'string',
+            enum: ['V bis', 'V', 'VI', 'VI bis', 'VII', 'VII bis', 'I', 'II', 'III', 'IV'],
           },
           levelComment: {
             type: 'string',
@@ -317,7 +337,7 @@ export const StudentFromConfig = {
           comment: {
             type: 'string',
           },
-          school_name: {
+          schoolName: {
             type: 'string',
           },
           workshopsComment: {
@@ -329,12 +349,69 @@ export const StudentFromConfig = {
           },
           option1: {
             type: 'string',
+            enum: [
+              'Arts',
+              'Écologie, agronomie et territoires',
+              'Histoire géographie, géopolitique et sciences politiques',
+              'Humanités, littérature et philosophie',
+              'Langues et littératures étrangères',
+              'Mathématiques',
+              'Numérique et sciences informatiques',
+              'SVT (sciences de la vie et de la terre)',
+              'Sciences de l’ingénieur',
+              'Sciences économiques et sociales',
+              'Physique chimie',
+              'LCA (langues et culture de l’antiquité)',
+              'EPS (éducation physique et sportive)',
+              'LV3 (langue vivante 3)',
+              'Mathématiques expertes (en terminale)',
+              'Mathématiques complémentaires en terminale)',
+              'Droit et grands enjeux dans le monde contemporain (en terminale)',
+            ],
           },
           option2: {
             type: 'string',
+            enum: [
+              'Arts',
+              'Écologie, agronomie et territoires',
+              'Histoire géographie, géopolitique et sciences politiques',
+              'Humanités, littérature et philosophie',
+              'Langues et littératures étrangères',
+              'Mathématiques',
+              'Numérique et sciences informatiques',
+              'SVT (sciences de la vie et de la terre)',
+              'Sciences de l’ingénieur',
+              'Sciences économiques et sociales',
+              'Physique chimie',
+              'LCA (langues et culture de l’antiquité)',
+              'EPS (éducation physique et sportive)',
+              'LV3 (langue vivante 3)',
+              'Mathématiques expertes (en terminale)',
+              'Mathématiques complémentaires en terminale)',
+              'Droit et grands enjeux dans le monde contemporain (en terminale)',
+            ],
           },
           option3: {
             type: 'string',
+            enum: [
+              'Arts',
+              'Écologie, agronomie et territoires',
+              'Histoire géographie, géopolitique et sciences politiques',
+              'Humanités, littérature et philosophie',
+              'Langues et littératures étrangères',
+              'Mathématiques',
+              'Numérique et sciences informatiques',
+              'SVT (sciences de la vie et de la terre)',
+              'Sciences de l’ingénieur',
+              'Sciences économiques et sociales',
+              'Physique chimie',
+              'LCA (langues et culture de l’antiquité)',
+              'EPS (éducation physique et sportive)',
+              'LV3 (langue vivante 3)',
+              'Mathématiques expertes (en terminale)',
+              'Mathématiques complémentaires en terminale)',
+              'Droit et grands enjeux dans le monde contemporain (en terminale)',
+            ],
           },
           workshops: {
             type: 'array',
@@ -347,21 +424,24 @@ export const StudentFromConfig = {
             },
           },
           courses_as: {
-            type: 'string',
-            enum: [
-              'Français',
-              'Français Langue de Scolarisation',
-              'Mathématiques',
-              'Anglais',
-              'SVT',
-              'Sciences Physiques',
-              'Philosophie',
-              'S.E.S',
-              'lecture-écriture-calcul',
-              'Allemand',
-              'Espagnol',
-              'Histoire géographie',
-            ],
+            type: 'array',
+            items: {
+              type: 'string',
+              enum: [
+                'Français',
+                'Français Langue de Scolarisation',
+                'Mathématiques',
+                'Anglais',
+                'SVT',
+                'Sciences Physiques',
+                'Philosophie',
+                'S.E.S',
+                'lecture-écriture-calcul',
+                'Allemand',
+                'Espagnol',
+                'Histoire géographie',
+              ],
+            },
           },
           training: {
             type: 'string',
@@ -788,7 +868,7 @@ export const StudentFromConfig = {
                       {
                         type: 'Control',
                         label: "Nom de l'établissement",
-                        scope: '#/properties/student/properties/school_name',
+                        scope: '#/properties/student/properties/schoolName',
                       },
                       {
                         type: 'Control',

@@ -135,6 +135,9 @@ const HeaderComponent: FunctionComponent<Props> = (props) => {
         <div className={(classes.search, classes.title)}>
           <div className={classes.searchIcon}>Campagne</div>
           <Select className={classes.inputInput} label="Campagne" value={props.campaignSelected} onChange={campaignChange}>
+            <MenuItem value={''} key="none">
+              Aucune
+            </MenuItem>
             {props.campaigns.map((c) => {
               return (
                 <MenuItem value={c._id} key={c._id}>

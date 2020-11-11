@@ -21,6 +21,9 @@ const CreateStudentContainer: FunctionComponent<PropsContainer> = ({ StudentUpda
   if (props.location.state !== undefined && props.location.state !== null && props.location.state.reRegister !== undefined && props.location.state.reRegister === true) {
     delete student._id;
     delete student.campaign;
+    student.initial_level = student.final_level;
+    delete student.final_level;
+    delete student.registrationInformation.date;
   }
   return (
     <CreateContainer

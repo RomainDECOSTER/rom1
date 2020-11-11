@@ -18,7 +18,7 @@ interface Props {
 const StudentsPanelComponent: FunctionComponent<Props> = ({ StudentsListRoutine, StudentsSearchRoutine }) => {
   return (
     <>
-      <SimpleSearchComponent searchRoutine={StudentsSearchRoutine} listRoutine={StudentsListRoutine} keySearch={'last_name'} />
+      <SimpleSearchComponent hasCampaign={true} searchRoutine={StudentsSearchRoutine} listRoutine={StudentsListRoutine} keySearch={'generalInformation.last_name'} />
       <StudentsList />
       <Fab component={Link} to={Routes.management.students.create.path} color={'secondary'} onClick={() => store.dispatch(StudentViewRoutine(''))}>
         <Add />

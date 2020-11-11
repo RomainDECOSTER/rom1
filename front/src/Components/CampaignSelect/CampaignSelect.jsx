@@ -7,7 +7,6 @@ import { Select, MenuItem, Typography } from '@material-ui/core';
 import { CampaignsListRoutine } from '../../Routines/CampaignRoutine';
 
 const CampaignSelectComponent = ({ campaignData, handleChange, path, data, ...props }) => {
-  console.log(data, campaignData, props);
   const menuItems = [];
   campaignData.forEach((campaign) => {
     menuItems.push(

@@ -4,9 +4,10 @@ interface IServiceBase<T extends IEntityModel> {
   /*
      read operation
  */
-  retrieve(pageNumber?: number, itemNumber?: number, sortKey?: string, sortDir?: string): Promise<any>;
+  // add options
+  retrieve(pageNumber?: number, itemNumber?: number, sortKey?: string, sortDir?: string, campaignId?: any): Promise<any>;
   findById(id: string): Promise<IEntityModel>;
-  search(key: string, value: any, pageNumber?: number, itemNumber?: number, sortKey?: string, sortDir?: string);
+  search(key: string, value: any, pageNumber?: number, itemNumber?: number, sortKey?: string, sortDir?: string, campaignId?: any);
 
   /*
         write operation

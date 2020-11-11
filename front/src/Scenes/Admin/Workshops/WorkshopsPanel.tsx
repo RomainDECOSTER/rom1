@@ -19,7 +19,7 @@ interface Props {
 const WorkshopsPanelComponent: FunctionComponent<Props> = ({ WorkshopsListRoutine, WorkshopsSearchRoutine, ...props }) => {
   return (
     <>
-      <SimpleSearchComponent searchRoutine={WorkshopsSearchRoutine} listRoutine={WorkshopsListRoutine} keySearch={'name'} />
+      <SimpleSearchComponent hasCampaign={false} searchRoutine={WorkshopsSearchRoutine} listRoutine={WorkshopsListRoutine} keySearch={'name'} />
       <WorkshopsList />
       <Fab component={Link} to={Routes.admin.workshops.create.path} color={'secondary'} onClick={() => store.dispatch(WorkshopViewRoutine(''))}>
         <Add />

@@ -98,7 +98,8 @@ class ControllerBase<T extends IEntityModel> {
           : this.handleResponse(res, new CommonError("Item number argument is an array"));
         const sortKey: any = req.query.sortKey || null;
         const sortDir: any = req.query.sortDir || null;
-        const entities = await this._service.search(key, value, pageNumber, itemNumber, sortKey, sortDir);
+        const campaignId: any = req.query.campaignId || undefined;
+        const entities = await this._service.search(key, value, pageNumber, itemNumber, sortKey, sortDir, campaignId);
         this.handleResponse(res, undefined, entities);
       }
     } catch (error) {
@@ -107,6 +108,7 @@ class ControllerBase<T extends IEntityModel> {
   }
 
   async retrieve(req: express.Request, res: express.Response) {
+    //get new query param
     try {
       const pageNumber: any = !Array.isArray(req.query.page)
         ? parseInt(req.query.page !== undefined ? req.query.page.toString() : "1")
@@ -116,7 +118,8 @@ class ControllerBase<T extends IEntityModel> {
         : this.handleResponse(res, new CommonError("Item number argument is an array"));
       const sortKey: any = req.query.sortKey || null;
       const sortDir: any = req.query.sortDir || null;
-      const entities = await this._service.retrieve(pageNumber, itemNumber, sortKey, sortDir);
+      const campaignId: any = req.query.campaignId || undefined;
+      const entities = await this._service.retrieve(pageNumber, itemNumber, sortKey, sortDir, campaignId);
       this.handleResponse(res, undefined, entities);
     } catch (error) {
       this.handleResponse(res, error);

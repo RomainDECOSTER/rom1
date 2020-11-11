@@ -65,6 +65,8 @@ export class EntityRedux<T extends IEntityModel, K extends IPageableIEntityModel
         return { ...state, updating: false, updated: true };
       case this._sortRoutine.TRIGGER:
         return { ...state, ...action.payload };
+      case '@@router/LOCATION_CHANGE':
+        return { ...state, simpleSearchOptionsActive: undefined };
       default:
         return state;
     }

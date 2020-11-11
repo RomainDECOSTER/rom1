@@ -32,6 +32,10 @@ const columns = [
   {
     name: 'Email',
     selector: 'generalInformation.email',
+    cell: (row: StudentModel) => {
+      const hrefLink = `mailto:${row.generalInformation.email}`;
+      return <a href={hrefLink}>{row.generalInformation.email}</a>;
+    },
   },
   {
     name: 'Actions',
@@ -46,6 +50,7 @@ const title = 'Apprenants listing';
 const StudentsContainer: FunctionComponent<Props> = ({ students, StudentsListRoutine, StudentSortRoutine, ...props }) => {
   return (
     <DefaultList
+      hasCampaign={true}
       columns={columns}
       data={students}
       routine={StudentsListRoutine}

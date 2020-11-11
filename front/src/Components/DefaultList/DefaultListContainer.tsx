@@ -1,7 +1,9 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { IEntitySate } from '../../Reducers/IEntityRedux';
 import { Routine } from 'redux-saga-routines';
 import { DefaultListComponent } from './DefaultListComponent';
+import { State } from '../../Reducers';
+import { connect } from 'react-redux';
 
 interface Props {
   data: IEntitySate<any, any>;
@@ -11,20 +13,32 @@ interface Props {
   title: string;
   defaultSortKey: string;
   defaultSortDir: string;
+  hasCampaign: boolean;
+  campaignId: string;
 }
 
-export const DefaultList: FunctionComponent<Props> = ({ data, routine, title, columns, sortRoutine, defaultSortKey, defaultSortDir }, ...props) => {
-  if ((data.list === undefined && data.loading === false) || data.created === true || data.updated === true) {
+const DefaultListContainer: FunctionComponent<Props> = ({ data, routine, title, columns, sortRoutine, defaultSortKey, defaultSortDir, hasCampaign, campaignId, ...props }) => {
+  useEffect(() => {
+    let options: any = {};
+    if (hasCampaign && campaignId !== undefined && campaignId !== '') {
+      options.campaignId = campaignId;
+    }
     if (data.list !== undefined) {
-      routine({ pageNumber: data.list.entity.page, itemNumber: data.list.entity.item });
+      options = { ...options, pageNumber: data.list.entity.page, itemNumber: data.list.entity.item };
+      routine(options);
     } else {
       sortRoutine({ sortKey: defaultSortKey, sortDir: defaultSortDir });
-      routine({});
+      routine(options);
     }
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [campaignId, data.created, data.updated, data.deleted]);
 
   const onPageChange = (newPage: number): void => {
-    routine({ pageNumber: newPage });
+    let options: any = {};
+    if (hasCampaign && campaignId !== undefined && campaignId !== '') {
+      options.campaignId = campaignId;
+    }
+    routine({ ...options, pageNumber: newPage });
   };
 
   const onSort = (column: any, direction: string): void => {
@@ -34,3 +48,11 @@ export const DefaultList: FunctionComponent<Props> = ({ data, routine, title, co
 
   return <DefaultListComponent data={data} handlePageChange={onPageChange} handleSort={onSort} title={title} columns={columns} />;
 };
+
+const mapsStateToProps = (state: State) => {
+  return {
+    campaignId: state.app.campaignSelected,
+  };
+};
+
+export const DefaultList = connect(mapsStateToProps)(DefaultListContainer);

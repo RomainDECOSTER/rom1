@@ -36,7 +36,18 @@ const columns = [
 const title = 'Campagnes listing';
 
 const CampaignsContainer: FunctionComponent<Props> = ({ campaigns, CampaignSortRoutine, CampaignsListRoutine }) => {
-  return <DefaultList columns={columns} data={campaigns} routine={CampaignsListRoutine} sortRoutine={CampaignSortRoutine} title={title} defaultSortKey={'description'} defaultSortDir={'desc'} />;
+  return (
+    <DefaultList
+      hasCampaign={false}
+      columns={columns}
+      data={campaigns}
+      routine={CampaignsListRoutine}
+      sortRoutine={CampaignSortRoutine}
+      title={title}
+      defaultSortKey={'description'}
+      defaultSortDir={'desc'}
+    />
+  );
 };
 
 const mapsStateToProps = (state: State) => {

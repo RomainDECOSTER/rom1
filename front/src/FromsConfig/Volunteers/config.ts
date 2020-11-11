@@ -25,7 +25,22 @@ export const VolunteerFormConfig = {
               },
               know_lacle: {
                 type: 'string',
-                enum: ['', 'BAO (pour bouche à oreille)', 'établissement scolaire', 'mairie', 'référent RSA', 'internet', 'AS', 'DRE', 'éducateur', 'CCAS', 'Pôle emplo', 'Cimade', 'Autres'],
+                enum: [
+                  '',
+                  'BAO (pour bouche à oreille)',
+                  'établissement scolaire',
+                  'mairie',
+                  'référent RSA',
+                  'internet',
+                  'AS',
+                  'DRE',
+                  'éducateur',
+                  'CCAS',
+                  'Pôle emplo',
+                  'Cimade',
+                  'Autres',
+                  'Partenaire',
+                ],
               },
               other_known: {
                 type: 'string',
@@ -150,7 +165,7 @@ export const VolunteerFormConfig = {
               properties: {
                 day: {
                   type: 'string',
-                  enum: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+                  enum: ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'],
                 },
                 hours: {
                   type: 'array',
@@ -185,6 +200,7 @@ export const VolunteerFormConfig = {
                     'Allemand',
                     'Espagnol',
                     'Histoire Géographie',
+                    'Histoire',
                   ],
                 },
                 type: {
@@ -203,7 +219,7 @@ export const VolunteerFormConfig = {
           },
           otherIntervention: {
             type: 'string',
-            enum: ['LACLE', 'DRE', 'ROUBAIX', 'LILLE SUD', 'AUTRE'],
+            enum: ['', 'LACLE', 'DRE', 'ROUBAIX', 'LILLE SUD', 'AUTRE'],
           },
           comment: {
             type: 'string',

@@ -44,7 +44,7 @@ const columns = [
 const title = 'Utilisateurs listing';
 
 const UsersListContainer: FunctionComponent<Props> = ({ users, UsersListRoutine, UserSortRoutine }, ...props) => {
-  return <DefaultList columns={columns} data={users} routine={UsersListRoutine} sortRoutine={UserSortRoutine} title={title} defaultSortKey={'username'} defaultSortDir={'asc'} />;
+  return <DefaultList hasCampaign={false} columns={columns} data={users} routine={UsersListRoutine} sortRoutine={UserSortRoutine} title={title} defaultSortKey={'username'} defaultSortDir={'asc'} />;
 };
 
 const mapStateToProps = (state: State) => ({

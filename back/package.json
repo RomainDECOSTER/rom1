@@ -10,7 +10,8 @@
     "pretest": "gulp",
     "test": "istanbul cover node_modules/mocha/bin/_mocha",
     "prestart": "gulp start",
-    "start": "nodemon bin/server.js"
+    "start": "nodemon bin/server.js",
+    "build": "gulp build"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -24,6 +25,8 @@
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.28",
     "mongoose": "^5.9.7",
+    "nps": "^5.9.12",
+    "nps-utils": "^1.7.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "underscore": "^1.10.2",

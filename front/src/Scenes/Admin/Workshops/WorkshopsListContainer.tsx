@@ -32,7 +32,9 @@ const columns = [
 const title = 'Atelier listing';
 
 const WorkshopsContainer: FunctionComponent<Props> = ({ workshops, WorkshopsListRoutine, WorkshopSortRoutine }, ...props) => {
-  return <DefaultList columns={columns} data={workshops} routine={WorkshopsListRoutine} sortRoutine={WorkshopSortRoutine} title={title} defaultSortKey={'name'} defaultSortDir={'asc'} />;
+  return (
+    <DefaultList hasCampaign={false} columns={columns} data={workshops} routine={WorkshopsListRoutine} sortRoutine={WorkshopSortRoutine} title={title} defaultSortKey={'name'} defaultSortDir={'asc'} />
+  );
 };
 
 const mapStateToProps = (state: State) => {

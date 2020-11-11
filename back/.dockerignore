@@ -1,0 +1,17 @@
+src/
+test/
+node_modules/
+.env
+.env-*
+.env.blank
+.git/
+.gitignore
+.prettierrc
+.yarnclean
+Dockerfile
+.dockerignore
+gulpfile.js
+server.ts
+tsconfig.json
+tslint.json
+yarn.lock

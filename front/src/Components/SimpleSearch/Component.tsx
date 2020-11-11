@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Routine } from 'redux-saga-routines';
 import { Search } from '@material-ui/icons';
 import { InputBase, Grid, Theme, makeStyles, createStyles, fade } from '@material-ui/core';
+import { store } from '../../store';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,16 +39,26 @@ interface ComponentProps {
   searchRoutine: Routine;
   listRoutine: Routine;
   keySearch: string;
+  hasCampaign: boolean;
 }
 
-export const SimpleSearchComponent: FunctionComponent<ComponentProps> = ({ searchRoutine, listRoutine, keySearch, ...props }) => {
+export const SimpleSearchComponent: FunctionComponent<ComponentProps> = ({ searchRoutine, listRoutine, keySearch, hasCampaign, ...props }) => {
   const classes = useStyles();
   const handleChange = (e: any) => {
     const value: string = e.currentTarget.value;
+    const campaignId: any = store.getState().app.campaignSelected;
     if (value.length >= 3) {
-      searchRoutine({ key: keySearch, value: value });
+      const options: any = { key: keySearch, value: value };
+      if (hasCampaign && campaignId !== undefined && campaignId !== '') {
+        options.campaignId = campaignId;
+      }
+      searchRoutine(options);
     } else {
-      listRoutine({ searchActive: false });
+      const options: any = { searchActive: false };
+      if (hasCampaign && campaignId !== undefined && campaignId !== '') {
+        options.campaignId = store.getState().app.campaignSelected;
+      }
+      listRoutine(options);
     }
   };
   return (

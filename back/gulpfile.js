@@ -9,6 +9,7 @@ const paths = {
   tocopy: [
     "./**",
     "!.git/**",
+    "./.gitignore",
     "!./bin",
     "!./bin/**",
     "!./**/*.ts",
@@ -32,15 +33,20 @@ const paths = {
     "!./node_modules/**",
     "!./dist",
     "!./dist/**",
+    "!./.env*",
+    "!./.prettierrc",
+    "!./.yarnclean",
+    "!./Dockerfile",
+    "!./.dockerignore",
   ],
-  tsfiles: ["./src/config", "./src/controllers", "./src/datagateway", "./src/routes/*.ts", "./src/database", "./src/middleware", "./test", "./src/tools"],
+  tsfiles: ["./server.ts", "./src/config", "./src/controllers", "./src/datagateway", "./src/routes/*.ts", "./src/database", "./src/middleware", "./test", "./src/tools"],
 };
 
 const genApidoc = (done) => {
   apidoc(
     {
       src: "./src/routes",
-      dest: "../docs/apidoc",
+      dest: "./docs/apidoc",
     },
     done
   );
@@ -80,3 +86,4 @@ gulp.task("nodemon-transpile", transpile);
 
 exports.default = gulp.series(copy, transpile);
 exports.start = gulp.series(copy, transpile, run);
+exports.build = gulp.series(copy, transpile);

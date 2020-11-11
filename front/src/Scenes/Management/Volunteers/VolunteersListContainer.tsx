@@ -7,10 +7,6 @@ import { State } from '../../../Reducers';
 import { connect } from 'react-redux';
 import { DefaultActions } from '../../../Components/DefaultActions/DefaultActions';
 import { Routes } from '../../../Routes/Routes';
-import VolunteerModel from '../../../Api/Datamodel/volunteer/VolunteerModel';
-import { Link } from 'react-router-dom';
-import { Button } from '@material-ui/core';
-import { AddToQueue } from '@material-ui/icons';
 
 interface Props {
   volunteers: VolunteersState;
@@ -49,6 +45,7 @@ const title = 'Bénévole Listing';
 const VolunteersContainer: FunctionComponent<Props> = ({ volunteers, VolunteersListRoutine, VolunteerSortRoutine, ...props }) => {
   return (
     <DefaultList
+      hasCampaign={true}
       columns={columns}
       data={volunteers}
       routine={VolunteersListRoutine}

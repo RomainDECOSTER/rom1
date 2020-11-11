@@ -11,8 +11,6 @@ interface IRepositoryBase<T extends IEntityModel> {
 
   count(cond?: Object): Promise<number>;
 
-  search(key: string, value: any, pageNumber?: number, itemNumber?: number, sortKey?: string, sortDir?: string): Promise<IEntityModel[]>;
-
   /*
         write operation
     */

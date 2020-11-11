@@ -18,7 +18,7 @@ interface Props {
 const CampaignsPanelComponent: FunctionComponent<Props> = ({ CampaignsSearchRoutine, CampaignsListRoutine }) => {
   return (
     <>
-      <SimpleSearchComponent searchRoutine={CampaignsSearchRoutine} listRoutine={CampaignsListRoutine} keySearch={'description'} />
+      <SimpleSearchComponent hasCampaign={false} searchRoutine={CampaignsSearchRoutine} listRoutine={CampaignsListRoutine} keySearch={'description'} />
       <CampaignsList />
       <Fab component={Link} to={Routes.admin.campaigns.create.path} color={'secondary'} onClick={() => store.dispatch(CampaignViewRoutine(''))}>
         <Add />

@@ -41,7 +41,7 @@ function a11yProps(index: any) {
 
 interface Props {}
 
-const tabs = [<Tab label={'Bénévoles'} key={'volunteers'} {...a11yProps(0)} />, <Tab label={'Apprenants'} key={'studentes'} {...a11yProps(1)} />];
+const tabs = [<Tab label={'Apprenants'} key={'students'} {...a11yProps(0)} />, <Tab label={'Bénévoles'} key={'volunteers'} {...a11yProps(1)} />];
 
 export const Management: FunctionComponent<Props> = (props) => {
   const classes = useStyles();
@@ -66,10 +66,10 @@ export const Management: FunctionComponent<Props> = (props) => {
         {tabs}
       </Tabs>
       <TabPanel value={value} index={0}>
-        <VolunteersPanel />
+        <StudentsPanel />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <StudentsPanel />
+        <VolunteersPanel />
       </TabPanel>
     </div>
   );

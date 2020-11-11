@@ -10,6 +10,8 @@ class ServiceBase<T extends IEntityModel> {
     this._repository = repository;
   }
 
+  // add options and send it to repository (add to repo for search)
+
   async create(item: T) {
     try {
       const entity = await this._repository.create(item);
@@ -19,9 +21,14 @@ class ServiceBase<T extends IEntityModel> {
     }
   }
 
-  async search(key: string, value: any, pageNumber?: number, itemNumber?: number, sortKey?: string, sortDir?: string) {
+  async search(key: string, value: any, pageNumber?: number, itemNumber?: number, sortKey?: string, sortDir?: string, campaignId?: any) {
     try {
-      const results = await this._repository.search(key, value, pageNumber, itemNumber, sortKey, sortDir);
+      const options: any = {};
+      options[key] = new RegExp(`${value}.*`, "i");
+      if (campaignId !== undefined) {
+        options.campaign = campaignId;
+      }
+      const results = await this._repository.retrieve(options, pageNumber, itemNumber, sortKey, sortDir);
       return {
         data: results,
         total: results.length,
@@ -34,10 +41,14 @@ class ServiceBase<T extends IEntityModel> {
     }
   }
 
-  async retrieve(pageNumber: number = 1, itemNumber: number = 10, sortKey: string, sortDir: string) {
+  async retrieve(pageNumber: number = 1, itemNumber: number = 10, sortKey: string, sortDir: string, campaignId?: any) {
     try {
-      const results = await this._repository.retrieve({}, pageNumber, itemNumber, sortKey, sortDir);
-      const total = await this._repository.count({});
+      const options: any = {};
+      if (campaignId !== undefined) {
+        options.campaign = campaignId;
+      }
+      const results = await this._repository.retrieve(options, pageNumber, itemNumber, sortKey, sortDir);
+      const total = await this._repository.count(options);
       return {
         data: results,
         total,

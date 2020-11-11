@@ -18,7 +18,7 @@ interface Props {
 const UserPanelComponent: FunctionComponent<Props> = ({ UsersSearchRoutine, UsersListRoutine, ...props }) => {
   return (
     <>
-      <SimpleSearchComponent searchRoutine={UsersSearchRoutine} listRoutine={UsersListRoutine} keySearch={'username'} />
+      <SimpleSearchComponent hasCampaign={false} searchRoutine={UsersSearchRoutine} listRoutine={UsersListRoutine} keySearch={'username'} />
       <UsersList />
       <Fab component={Link} to={Routes.admin.user.create.path} color={'secondary'} onClick={() => store.dispatch(UserViewRoutine(''))}>
         <Add />

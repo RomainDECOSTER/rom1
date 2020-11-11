@@ -21,6 +21,7 @@ const CreateVolunteerContainer: FunctionComponent<PropsContainer> = ({ hasVolunt
   if (props.location.state !== undefined && props.location.state !== null && props.location.state.reRegister !== undefined && props.location.state.reRegister === true) {
     delete volunteer._id;
     delete volunteer.campaign;
+    delete volunteer.registrationInformation.date;
   }
   return (
     <CreateContainer
